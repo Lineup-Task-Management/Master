@@ -14,6 +14,7 @@ export class TaskListComponent implements OnInit {
   tasks: Task[];
   taskTitle:string;
   idForTask: number;
+  panelOpenState: boolean;
 
 
   constructor(){
@@ -31,12 +32,14 @@ export class TaskListComponent implements OnInit {
         'title':"This is task number 1",
         'completed':false,
         'editing':false,
+        'description': "description for task 1"
       },
       {
         'id':2,
         'title':"This is task number 2",
         'completed':false,
         'editing':false,
+        'description': "description for task 2"
       },
     ];
   }

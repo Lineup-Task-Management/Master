@@ -5,17 +5,38 @@
 
 <br>
 <div  *ngFor="let task of tasks">
-  <mat-list>
-    <div>
-      <div class="mat-display-1">{{task.title}}</div>
-        <mat-card-actions>
-          <button mat-button color="primary">Complete Task</button>
-          <button mat-button color="primary">Delete Task</button>
-        </mat-card-actions>
-      <mat-divider></mat-divider>
 
-    </div>
-  </mat-list>
+
+  <mat-card >
+  <mat-accordion >
+
+
+
+
+
+    <mat-expansion-panel (opened)="panelOpenState = true"
+                         (closed)="panelOpenState = false">
+      <mat-expansion-panel-header>
+        <mat-panel-title align="center"  >
+         <h1>
+           {{task.title}}
+         </h1>
+        </mat-panel-title>
+        <mat-panel-description align="right">
+          Click to see description
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <div align="center">
+        <p>{{task.description}}</p>
+      </div>
+      <mat-card-action class="mat-action-row">
+        <button mat-raised-button color="primary">Complete Task</button>
+        <button mat-raised-button color="primary">Delete Task</button>
+      </mat-card-action>
+
+    </mat-expansion-panel>
+  </mat-accordion>
+  </mat-card>
 </div>
 
 
