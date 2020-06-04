@@ -2,10 +2,19 @@
 
 <h1>Demo task app</h1>
 
+
 <br>
-<div *ngFor="let task of tasks">
+<div class="mat-display-1" *ngFor="let task of tasks">
 
+  <mat-card color="blue" ><div><button mat-raised-button>{{task.title}}</button></div>
 
-  <div>{{task.title}}</div>
-
+  </mat-card>
 </div>
+
+
+
+
+
+
+
+
