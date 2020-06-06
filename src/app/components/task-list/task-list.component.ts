@@ -6,7 +6,7 @@ import { Task } from '../../interfaces/task'
 
 
 @Component({
-  selector: 'app-todo-list',
+  selector: 'app-task-list',
   templateUrl: './task-list.component.html',
   styleUrls: ['./task-list.component.scss']
 })
