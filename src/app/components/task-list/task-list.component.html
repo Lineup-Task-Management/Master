@@ -32,7 +32,7 @@
       </div>
       <mat-card-actions class="mat-action-row">
         <button mat-raised-button color="primary">Complete Task</button>
-        <button mat-raised-button color="primary">Delete Task</button>
+        <button mat-raised-button color="primary" (click)= "deleteTask(task.id)">Delete Task</button>
       </mat-card-actions>
 
     </mat-expansion-panel>

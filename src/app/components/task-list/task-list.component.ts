@@ -44,6 +44,9 @@ export class TaskListComponent implements OnInit {
     ];
   }
 
+  deleteTask(id: number):void {
+    this.tasks = this.tasks.filter(tasks => tasks.id != id);
+  }
 
   addTaskItem(): void  {
     if (this.taskTitle.trim().length === 0){
