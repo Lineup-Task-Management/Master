@@ -45,4 +45,21 @@ export class TaskListComponent implements OnInit {
   }
 
 
+  addTaskItem(): void  {
+    if (this.taskTitle.trim().length === 0){
+      return;
+    }
+    this.tasks.push({
+      id: this.idForTask,
+      title: this.taskTitle,
+      completed: false,
+      editing: false,
+      description: ""
+    })
+
+    this.taskTitle = '';
+    this.idForTask++;
+  }
+
+
 }
