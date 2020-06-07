@@ -1,8 +1,8 @@
 
 <mat-card >
-<h1 align ="center" style="font-family:verdana">line-up task management application</h1>
+<h1 align ="center" style="font-family:verdana">Lineup Task Management Application</h1>
 </mat-card>
-<input type= "text" class="task-input" placeholder = "Enter a New Task" [(ngModel)]="taskTitle" (keyup.enter) ="addTaskItem()">
+<input type= "text" class="task-input" placeholder = "Create New Task" [(ngModel)]="taskTitle" (keyup.enter) ="addTaskItem()">
 
 <br>
 <div  *ngFor="let task of tasks; let idx=index">
