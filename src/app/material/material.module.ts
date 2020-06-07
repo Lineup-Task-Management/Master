@@ -5,6 +5,9 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatListModule} from '@angular/material/list';
 import {MatExpansionModule} from '@angular/material/expansion';
+import {FormsModule} from '@angular/forms';
+import {MatSelectModule} from '@angular/material/select';
+import {MatInputModule} from '@angular/material/input';
 
 
 
@@ -15,6 +18,9 @@ const MaterialComponents = [
   MatDividerModule,
   MatExpansionModule,
   MatListModule,
+  MatSelectModule,
+  MatInputModule,
+  FormsModule
 
 ]
 

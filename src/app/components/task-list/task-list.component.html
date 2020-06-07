@@ -1,11 +1,11 @@
 
-
-<h1>Demo task app</h1>
-
+<mat-card >
+<h1 align ="center" style="font-family:verdana">line-up task management application</h1>
+</mat-card>
 <input type= "text" class="task-input" placeholder = "Enter a New Task" [(ngModel)]="taskTitle" (keyup.enter) ="addTaskItem()">
 
 <br>
-<div  *ngFor="let task of tasks">
+<div  *ngFor="let task of tasks; let idx=index">
 
 
   <mat-card >
@@ -15,18 +15,20 @@
                          (closed)="panelOpenState = false">
       <mat-expansion-panel-header>
         <mat-panel-title align="center"  >
-         <h1>
-           {{task.title}}
-         </h1>
+
+          <h1> {{idx +1}}. {{task.title}} </h1>
+
         </mat-panel-title>
         <mat-panel-description align="right">
           Click to see description
         </mat-panel-description>
       </mat-expansion-panel-header>
       <div align="center">
-        <p>{{task.description}}</p>
+        <p>{{task.description}} </p>
+
       </div>
       <mat-card-actions class="mat-action-row">
+        <button mat-raised-button color="primary"(click)="edit(task.id)">Edit Task</button>
         <button mat-raised-button color="primary">Complete Task</button>
         <button mat-raised-button color="primary" (click)= "deleteTask(task.id)">Delete Task</button>
       </mat-card-actions>
