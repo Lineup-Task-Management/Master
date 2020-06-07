@@ -2,6 +2,7 @@
 
 <h1>Demo task app</h1>
 
+<input type= "text" class="task-input" placeholder = "Enter a New Task" [(ngModel)]="taskTitle" (keyup.enter) ="addTaskItem()">
 
 <br>
 <div  *ngFor="let task of tasks">
@@ -25,10 +26,10 @@
       <div align="center">
         <p>{{task.description}}</p>
       </div>
-      <mat-card-action class="mat-action-row">
+      <mat-card-actions class="mat-action-row">
         <button mat-raised-button color="primary">Complete Task</button>
-        <button mat-raised-button color="primary">Delete Task</button>
-      </mat-card-action>
+        <button mat-raised-button color="primary" (click)= "deleteTask(task.id)">Delete Task</button>
+      </mat-card-actions>
 
     </mat-expansion-panel>
   </mat-accordion>

@@ -6,7 +6,7 @@ import { Task } from '../../interfaces/task'
 
 
 @Component({
-  selector: 'app-todo-list',
+  selector: 'app-task-list',
   templateUrl: './task-list.component.html',
   styleUrls: ['./task-list.component.scss']
 })
@@ -42,6 +42,26 @@ export class TaskListComponent implements OnInit {
         'description': "description for task 2"
       },
     ];
+  }
+
+  deleteTask(id: number):void {
+    this.tasks = this.tasks.filter(tasks => tasks.id != id);
+  }
+
+  addTaskItem(): void  {
+    if (this.taskTitle.trim().length === 0){
+      return;
+    }
+    this.tasks.push({
+      id: this.idForTask,
+      title: this.taskTitle,
+      completed: false,
+      editing: false,
+      description: ""
+    })
+
+    this.taskTitle = '';
+    this.idForTask++;
   }
 
 
