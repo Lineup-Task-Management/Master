@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Task } from '../../interfaces/task'
+import { Task } from '../../interfaces/task';
+import {TaskLineService} from '../../task-line.service';
 
 
 
@@ -44,7 +45,7 @@ export class TaskListComponent implements OnInit {
     ];
   }
 
-  deleteTask(id: number):void {
+  deleteTask(id: number){
     this.tasks = this.tasks.filter(tasks => tasks.id != id);
   }
 
@@ -63,6 +64,19 @@ export class TaskListComponent implements OnInit {
     this.taskTitle = '';
     this.idForTask++;
   }
+
+  edit(id:number) {
+
+    let title =this.tasks[id-1].title;
+    let result = prompt("Edit Task Title", title);
+    if (result !== null && result !== "") {
+      this.tasks[id-1].title = result;
+    }
+    
+  }
+
+ 
+  
 
 
 }
