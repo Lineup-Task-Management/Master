@@ -1,14 +1,21 @@
 import { Component, OnInit } from '@angular/core';
-import { Task } from '../../interfaces/task'
+import { Task } from '../../interfaces/task';
+import {TaskLineService} from '../../task-line.service';
+
+
+
+
+
 @Component({
-  selector: 'app-todo-list',
+  selector: 'app-task-list',
   templateUrl: './task-list.component.html',
-  styleUrls: ['./task-list.component.css']
+  styleUrls: ['./task-list.component.scss']
 })
 export class TaskListComponent implements OnInit {
   tasks: Task[];
   taskTitle:string;
   idForTask: number;
+  panelOpenState: boolean;
 
 
   constructor(){
@@ -26,18 +33,18 @@ export class TaskListComponent implements OnInit {
         'title':"This is task number 1",
         'completed':false,
         'editing':false,
+        'description': "description for task 1"
       },
       {
         'id':2,
         'title':"This is task number 2",
         'completed':false,
         'editing':false,
+        'description': "description for task 2"
       },
     ];
   }
 
-<<<<<<< Updated upstream
-=======
   deleteTask(id: number){
     this.tasks = this.tasks.filter(tasks => tasks.id != id);
   }
@@ -72,16 +79,8 @@ export class TaskListComponent implements OnInit {
 
   }
 
-  complete(id: number,completed:boolean){
-    let taskCompletion = this.tasks[id-1].completed;
-
-    this.tasks[id-1].completed = true;
-  }
-  
 
 
 
-
->>>>>>> Stashed changes
 
 }
