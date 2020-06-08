@@ -30,17 +30,17 @@ export class TaskListComponent implements OnInit {
     this.tasks = [
       {
         'id':1,
-        'title':"This is task number 1",
+        'title':"This is Task #1",
         'completed':false,
         'editing':false,
-        'description': "description for task 1"
+        'description': "Description for Task #1"
       },
       {
         'id':2,
-        'title':"This is task number 2",
+        'title':"This is Task #2",
         'completed':false,
         'editing':false,
-        'description': "description for task 2"
+        'description': "Description for Task #2"
       },
     ];
   }
