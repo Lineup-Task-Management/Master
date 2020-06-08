@@ -56,6 +56,8 @@ export class TaskListComponent implements OnInit {
     let result = prompt("Task Title", title);
     let result1 = prompt("task description", description);
     if (result1 !== null && result1 !== "") {
+       result1 = " "
+    }
 
 
       if (result !== null && result !== "") {
@@ -69,7 +71,7 @@ export class TaskListComponent implements OnInit {
         })
         this.idForTask++;
       }
-    }
+
     }
 
 
@@ -93,8 +95,8 @@ export class TaskListComponent implements OnInit {
     if (promptComplete !=null){
       this.tasks[id-1].completed = true;
     }
-    
-   
+
+
   }
 
 
