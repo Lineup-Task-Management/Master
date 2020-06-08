@@ -1,11 +1,15 @@
+<!DOCTYPE html>
 <mat-toolbar color="primary">
     <mat-toolbar-row>
         <span class="toolbar">Lineup Task Management Application</span>
     </mat-toolbar-row>
 </mat-toolbar>
 
+<div style="text-align: center;">
 
-<input type="text" class="task-input" placeholder="Create New Task" [(ngModel)]="taskTitle" (keyup.enter)="addTaskItem()">
+    <input type="text" class="task-input" placeholder="Create New Task" [(ngModel)]="taskTitle" (keyup.enter)="addTaskItem()">
+
+</div>
 
 <br>
 <div *ngFor="let task of tasks; let idx=index">
