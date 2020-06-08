@@ -21,7 +21,6 @@
 
 
 
-
 <br>
 <div *ngFor="let task of tasks; let idx=index">
 
@@ -42,7 +41,7 @@
                 </mat-expansion-panel-header>
                 <div align="center">
                     <p>{{task.description}} </p>
-
+                   <p>Task Completion Status: {{task.completed}}</p>
                 </div>
                 <mat-card-actions class="mat-action-row">
                     <button mat-raised-button color="primary" (click)="edit(task.id)">Edit Task</button>
