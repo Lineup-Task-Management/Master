@@ -30,7 +30,7 @@
       </div>
       <mat-card-actions class="mat-action-row">
         <button mat-raised-button color="primary"(click)="edit(task.id)">Edit Task</button>
-        <button mat-raised-button color="primary">Complete Task</button>
+        <button mat-raised-button color="primary"(click)="complete(task.id,task.completed)">Complete Task</button>
         <button mat-raised-button color="primary" (click)= "deleteTask(task.id)">Delete Task</button>
       </mat-card-actions>
 
