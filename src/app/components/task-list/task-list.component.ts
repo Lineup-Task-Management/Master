@@ -79,6 +79,12 @@ export class TaskListComponent implements OnInit {
 
   }
 
+  complete(id: number,completed:boolean){
+    let taskCompletion = this.tasks[id-1].completed;
+
+    this.tasks[id-1].completed = true;
+  }
+
 
 
 
