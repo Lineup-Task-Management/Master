@@ -79,6 +79,16 @@ export class TaskListComponent implements OnInit {
 
   }
 
+  complete(id: number,completed:boolean){
+    let taskCompletion = this.tasks[id-1].completed;
+    let promptComplete = confirm("Are you sure you wish to complete?");
+    if (promptComplete !=null){
+      this.tasks[id-1].completed = true;
+    }
+    
+   
+  }
+
 
 
 
