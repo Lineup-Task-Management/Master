@@ -4,12 +4,23 @@
         <span class="toolbar">Lineup Task Management Application</span>
     </mat-toolbar-row>
 </mat-toolbar>
+<br>
 
-<div style="text-align: center;">
-
-    <input type="text" class="task-input" placeholder="Create New Task" [(ngModel)]="taskTitle" (keyup.enter)="addTaskItem()">
+<div align="center">
+  <button mat-fab color="primary" aria-label="New Task" (click)=" addTaskItem()" matTooltip="Add new Task" >
+    <mat-icon>add</mat-icon>
+  </button>
 
 </div>
+<mat-button-toggle-group name="fontStyle" aria-label="Font Style">
+  <mat-button-toggle value="bold">Priority</mat-button-toggle>
+  <mat-button-toggle value="italic">Completed</mat-button-toggle>
+  <mat-button-toggle value="underline">All</mat-button-toggle>
+</mat-button-toggle-group>
+
+
+
+
 
 <br>
 <div *ngFor="let task of tasks; let idx=index">
@@ -38,6 +49,10 @@
                     <button mat-raised-button color="primary">Complete Task</button>
                     <button mat-raised-button color="primary" (click)="deleteTask(task.id)">Delete Task</button>
                 </mat-card-actions>
+              <mat-card-actions>
+                <mat-progress-bar mode="determinate" value="40" matTooltip="Time Remaining"></mat-progress-bar>
+              </mat-card-actions>
+
 
             </mat-expansion-panel>
         </mat-accordion>

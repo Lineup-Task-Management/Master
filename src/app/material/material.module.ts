@@ -9,6 +9,12 @@ import {FormsModule} from '@angular/forms';
 import {MatSelectModule} from '@angular/material/select';
 import {MatInputModule} from '@angular/material/input';
 
+import { MatMenuModule } from '@angular/material/menu';
+import { MatDialogModule } from '@angular/material/dialog';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatIconModule} from "@angular/material/icon";
+import {MatTooltipModule} from "@angular/material/tooltip";
+import {MatProgressBarModule} from "@angular/material/progress-bar";
 
 
 const MaterialComponents = [
@@ -20,8 +26,13 @@ const MaterialComponents = [
   MatListModule,
   MatSelectModule,
   MatInputModule,
-  FormsModule
-
+  FormsModule,
+  MatProgressBarModule,
+  MatTooltipModule,
+  MatIconModule,
+  MatToolbarModule,
+  MatDialogModule,
+  MatMenuModule
 ]
 
 

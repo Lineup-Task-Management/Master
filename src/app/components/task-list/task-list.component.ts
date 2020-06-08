@@ -50,20 +50,28 @@ export class TaskListComponent implements OnInit {
   }
 
   addTaskItem(): void  {
-    if (this.taskTitle.trim().length === 0){
-      return;
-    }
-    this.tasks.push({
-      id: this.idForTask,
-      title: this.taskTitle,
-      completed: false,
-      editing: false,
-      description: ""
-    })
+    let id = this.idForTask
+    let title = ""
+    let description = ''
+    let result = prompt("Task Title", title);
+    let result1 = prompt("task description", description);
+    if (result1 !== null && result1 !== "") {
 
-    this.taskTitle = '';
-    this.idForTask++;
-  }
+
+      if (result !== null && result !== "") {
+
+        this.tasks.push({
+          id: id,
+          title: result,
+          completed: false,
+          editing: false,
+          description: result1
+        })
+        this.idForTask++;
+      }
+    }
+    }
+
 
   edit(id:number) {
 
