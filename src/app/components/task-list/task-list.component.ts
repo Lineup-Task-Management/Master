@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Task } from '../../interfaces/task';
 
 
-
+//test
 
 
 
@@ -55,7 +55,7 @@ export class TaskListComponent implements OnInit {
     let description = ''
     let result = prompt("Task Title", title);
     let result1 = prompt("Task Description", description);
-    
+
 
 
     if (result !== null && result !== "") {
