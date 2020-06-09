@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Task } from '../../interfaces/task';
-import {TaskLineService} from '../../task-line.service';
+
 
 
 
@@ -55,19 +55,17 @@ export class TaskListComponent implements OnInit {
     let description = ''
     let result = prompt("Task Title", title);
     let result1 = prompt("Task Description", description);
-    if (result1 !== null && result1 !== "") {
-       result1 = " "
-    }
+    
 
 
-      if (result !== null && result !== "") {
+    if (result !== null && result !== "") {
 
         this.tasks.push({
           id: id,
           title: result,
           completed: false,
           editing: false,
-          description: result1
+          description: result1,
         })
         this.idForTask++;
       }
