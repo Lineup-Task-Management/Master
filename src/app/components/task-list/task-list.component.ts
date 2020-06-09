@@ -54,7 +54,7 @@ export class TaskListComponent implements OnInit {
     let title = ""
     let description = ''
     let result = prompt("Task Title", title);
-    let result1 = prompt("task description", description);
+    let result1 = prompt("Task Description", description);
     if (result1 !== null && result1 !== "") {
        result1 = " "
     }
@@ -79,7 +79,7 @@ export class TaskListComponent implements OnInit {
 
     let title =this.tasks[id-1].title;
     let result = prompt("Edit Task Title", title);
-    let result1 = prompt("edit task description", this.tasks[id-1].description);
+    let result1 = prompt("Edit Task Description", this.tasks[id-1].description);
     if (result1 !== null && result1 !== "") {
       this.tasks[id - 1].description = result1;
     }
