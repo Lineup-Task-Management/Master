@@ -16,6 +16,12 @@ import {MatIconModule} from "@angular/material/icon";
 import {MatTooltipModule} from "@angular/material/tooltip";
 import {MatProgressBarModule} from "@angular/material/progress-bar";
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
+import {MatCheckboxModule} from '@angular/material/checkbox';
+
+
+
+
+
 
 const MaterialComponents = [
   MatCardModule,
@@ -33,7 +39,8 @@ const MaterialComponents = [
   MatToolbarModule,
   MatDialogModule,
   MatMenuModule,
-  MatSlideToggleModule
+  MatSlideToggleModule,
+  MatCheckboxModule
 ]
 
 

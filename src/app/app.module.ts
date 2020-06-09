@@ -18,7 +18,7 @@ import {LightDarkComponent} from "./components/light-dark/light-dark.component";
   declarations: [
     AppComponent,
     TaskListComponent,
-    LightDarkComponent,
+
     LightDarkComponent
   ],
   imports: [

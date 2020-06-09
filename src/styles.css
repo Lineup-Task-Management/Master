@@ -3,12 +3,15 @@
 
 /*@import '@angular/material/prebuilt-themes/purple-green.css'; */
 
-html,
-body {
-    height: 100%;
-}
 
-body {
+
+html
+body{
+
+
+
+
     margin: 0;
     font-family: Roboto, "Helvetica Neue", sans-serif;
 }
+

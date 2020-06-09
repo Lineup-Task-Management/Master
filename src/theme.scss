@@ -1,13 +1,13 @@
 @import '~@angular/material/theming';
 @include mat-core();
 
-$light-primary: mat-palette($mat-light-theme-background);
+$light-primary: mat-palette($mat-cyan);
 $light-accent: mat-palette($mat-light-blue);
 $light-theme: mat-light-theme($light-primary,$light-accent);
 
-@include angualur-material-theme($light-theme);
+@include angular-material-theme($light-theme);
 
-$alt-primary: mat-palette($mat-dark-theme-background);
+$alt-primary: mat-palette($mat-deep-purple);
 $alt-accent: mat-palette($mat-blue-gray);
 
 $alt-theme: mat-dark-theme($alt-primary,$alt-accent);
@@ -15,5 +15,10 @@ $alt-theme: mat-dark-theme($alt-primary,$alt-accent);
 
 
 .alternative{
+  background: #060a11;
+ body{
+   background: #060a11;
+ }
+  height: 100%;
   @include angular-material-theme($alt-theme)
 }
