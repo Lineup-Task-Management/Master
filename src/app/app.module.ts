@@ -7,12 +7,16 @@ import { TaskListComponent } from './components/task-list/task-list.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import {MaterialModule} from "./material/material.module";
+import { LightModeComponent } from './light-mode/light-mode.component';
+import { DarkLightModeComponent } from './dark-light-mode/dark-light-mode.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    TaskListComponent
+    TaskListComponent,
+    LightModeComponent,
+    DarkLightModeComponent
   ],
   imports: [
 

@@ -1,28 +1,25 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TaskListComponent } from './task-list.component';
+import { LightModeComponent } from './light-mode.component';
 
-describe('TodoListComponent', () => {
-  let component: TaskListComponent;
-  let fixture: ComponentFixture<TaskListComponent>;
+describe('LightModeComponent', () => {
+  let component: LightModeComponent;
+  let fixture: ComponentFixture<LightModeComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TaskListComponent ]
+      declarations: [ LightModeComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TaskListComponent);
+    fixture = TestBed.createComponent(LightModeComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
-
-        
-    
   });
 });
