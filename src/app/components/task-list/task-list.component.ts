@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Task } from '../../interfaces/task';
 
 
-//test
-
 
 
 @Component({
