@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Task } from '../../interfaces/task';
-import {TaskLineService} from '../../task-line.service';
-
 
 
 
@@ -25,18 +23,21 @@ export class TaskListComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.idForTask = 3;
+    this.idForTask = 0;
     this.taskTitle ='';
+    
+    
     this.tasks = [
-      {
-        'id':1,
+     
+    {
+        'id':this.idForTask ++,
         'title':"This is Task #1",
         'completed':false,
         'editing':false,
         'description': "Description for Task #1"
       },
       {
-        'id':2,
+        'id':this.idForTask ++,
         'title':"This is Task #2",
         'completed':false,
         'editing':false,
@@ -44,7 +45,7 @@ export class TaskListComponent implements OnInit {
       },
     ];
   }
-
+  
   deleteTask(id: number){
     this.tasks = this.tasks.filter(tasks => tasks.id != id);
   }
@@ -54,20 +55,18 @@ export class TaskListComponent implements OnInit {
     let title = ""
     let description = ''
     let result = prompt("Task Title", title);
-    let result1 = prompt("task description", description);
-    if (result1 !== null && result1 !== "") {
-       result1 = " "
-    }
+    let result1 = prompt("Task Description", description);
 
 
-      if (result !== null && result !== "") {
+
+    if (result !== null && result !== "") {
 
         this.tasks.push({
           id: id,
           title: result,
           completed: false,
           editing: false,
-          description: result1
+          description: result1,
         })
         this.idForTask++;
       }
@@ -77,11 +76,12 @@ export class TaskListComponent implements OnInit {
 
   edit(id:number) {
 
+
     let title =this.tasks[id-1].title;
     let result = prompt("Edit Task Title", title);
-    let result1 = prompt("edit task description", this.tasks[id-1].description);
+    let result1 = prompt("Edit Task Description", this.tasks[id-1].description);
     if (result1 !== null && result1 !== "") {
-      this.tasks[id - 1].description = result1;
+      this.tasks[id-1].description = result1;
     }
     if (result !== null && result !== "") {
       this.tasks[id-1].title = result;

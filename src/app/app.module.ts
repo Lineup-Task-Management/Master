@@ -8,13 +8,18 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import {MaterialModule} from "./material/material.module";
 
+import {LightDarkComponent} from "./components/light-dark/light-dark.component";
+
+
 
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    TaskListComponent
+    TaskListComponent,
+
+    LightDarkComponent
   ],
   imports: [
 
@@ -22,6 +27,7 @@ import {MaterialModule} from "./material/material.module";
     BrowserAnimationsModule,
     MaterialModule,
     FormsModule,
+
 
   ],
   providers: [],
