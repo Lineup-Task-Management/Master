@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {TaskLineService} from "./task-line.service";
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,18 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'task-management-angular';
+
+
+
+  constructor() {
+
+  }
+
+  otherTheme: boolean = false;
+
+  changeTheme() {
+    this.otherTheme = !this.otherTheme;
+  }
+
+
 }
