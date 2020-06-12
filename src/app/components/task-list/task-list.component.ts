@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import { Task } from '../../interfaces/task';
+import {TaskLineService} from "../../task-line.service";
 
 
 
@@ -14,9 +15,9 @@ export class TaskListComponent implements OnInit {
   taskTitle:string;
   idForTask: number;
   panelOpenState: boolean;
+  theme: boolean = false;
 
-
-  constructor(){
+  constructor(private _taskService: TaskLineService){
 
   }
 
@@ -94,7 +95,13 @@ export class TaskListComponent implements OnInit {
 
 
   }
+  @Output() changeTheme1: EventEmitter<boolean> = new EventEmitter<boolean>();
 
+  onThemeChange(value :boolean) {
+    this.theme = value;
+    this.changeTheme1.emit(this.theme);
+
+  }
 
 
 
