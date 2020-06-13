@@ -1,0 +1,7 @@
+<!DOCTYPE html>
+
+<mat-form-field class="date-picker">
+  <input matInput [matDatepickerFilter] = "duedatepicker" placeholder = "Select a Due Date">
+  <mat-datepicker #duedatepicker></mat-datepicker>
+</mat-form-field>
+<button mat-raised-button (click)="duedatepicker.open()"> Select Date </button>

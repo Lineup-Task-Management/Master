@@ -9,6 +9,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MaterialModule} from "./material/material.module";
 
 import {LightDarkComponent} from "./components/light-dark/light-dark.component";
+import { DatepickerComponent } from './datepicker/datepicker.component';
 
 
 
@@ -19,7 +20,9 @@ import {LightDarkComponent} from "./components/light-dark/light-dark.component";
     AppComponent,
     TaskListComponent,
 
-    LightDarkComponent
+    LightDarkComponent,
+
+    DatepickerComponent
   ],
   imports: [
 
