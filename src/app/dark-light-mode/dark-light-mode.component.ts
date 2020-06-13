@@ -11,6 +11,8 @@ export class DarkLightModeComponent implements OnInit {
 
   ngOnInit(): void {
   
+
+    
   //script// 
         // function to set a given theme/color-scheme
         function setTheme(themeName) {
