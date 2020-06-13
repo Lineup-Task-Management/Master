@@ -10,22 +10,31 @@ import {MaterialModule} from "./material/material.module";
 import { LightModeComponent } from './light-mode/light-mode.component';
 import { DarkLightModeComponent } from './dark-light-mode/dark-light-mode.component';
 
+import {LightDarkComponent} from 'src/app/components/light-dark/light-dark.component';
+import {TaskLineService} from "./task-line.service";
+
+
+
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    TaskListComponent,
-    LightModeComponent,
-    DarkLightModeComponent
+    TaskListComponent, 
+    
+    LightDarkComponent
+
   ],
   imports: [
 
     BrowserModule,
     BrowserAnimationsModule,
     MaterialModule,
-    FormsModule
+    FormsModule,
+
+
   ],
-  providers: [],
+  providers: [TaskLineService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

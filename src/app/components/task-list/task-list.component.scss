@@ -1,4 +1,4 @@
-.mat-raised-button{
+.mat-raised-button {
   padding: 2px 3px 2px 3px;
   margin: 2px 4px 2px 4px;
   min-width: 88px;
@@ -6,12 +6,13 @@
   font-size: 14px;
   text-align: center;
   text-transform: uppercase;
-  text-decoration:none;
+  text-decoration: none;
   border: none;
   outline: none;
-
-
 }
 
-  
-
+span {
+  display: inline-block;
+  text-align: center;
+  width: 100%;
+}
