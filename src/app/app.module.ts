@@ -8,7 +8,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import {MaterialModule} from "./material/material.module";
 
-import {LightDarkComponent} from "./components/light-dark/light-dark.component";
+import {LightDarkComponent} from 'src/app/components/light-dark/light-dark.component';
+import {TaskLineService} from "./task-line.service";
 
 
 
@@ -30,7 +31,7 @@ import {LightDarkComponent} from "./components/light-dark/light-dark.component";
 
 
   ],
-  providers: [],
+  providers: [TaskLineService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

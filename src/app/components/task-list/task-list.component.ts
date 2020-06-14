@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import { Task } from '../../interfaces/task';
-import {TaskLineService} from '../../task-line.service';
-
+import {TaskLineService} from "../../task-line.service";
 
 
 
@@ -16,9 +15,9 @@ export class TaskListComponent implements OnInit {
   taskTitle:string;
   idForTask: number;
   panelOpenState: boolean;
+  theme: boolean = false;
 
-
-  constructor(){
+  constructor(private _taskService: TaskLineService){
 
   }
 
@@ -55,19 +54,17 @@ export class TaskListComponent implements OnInit {
     let description = ''
     let result = prompt("Task Title", title);
     let result1 = prompt("Task Description", description);
-    if (result1 !== null && result1 !== "") {
-       result1 = " "
-    }
 
 
-      if (result !== null && result !== "") {
+
+    if (result !== null && result !== "") {
 
         this.tasks.push({
           id: id,
           title: result,
           completed: false,
           editing: false,
-          description: result1
+          description: result1,
         })
         this.idForTask++;
       }
@@ -98,7 +95,13 @@ export class TaskListComponent implements OnInit {
 
 
   }
+  @Output() changeTheme1: EventEmitter<boolean> = new EventEmitter<boolean>();
 
+  onThemeChange(value :boolean) {
+    this.theme = value;
+    this.changeTheme1.emit(this.theme);
+
+  }
 
 
 

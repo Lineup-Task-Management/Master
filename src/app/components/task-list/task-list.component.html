@@ -3,6 +3,7 @@
 
 
 
+<div [class.alternative]="this.theme">
 
 <mat-toolbar color="primary">
     <mat-toolbar-row>
@@ -17,6 +18,9 @@
   </button>
 
 </div>
+
+
+
 <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
     <mat-button-toggle value="bold">Priority</mat-button-toggle>
     <mat-button-toggle value="italic">Completed</mat-button-toggle>
@@ -62,6 +66,15 @@
         </mat-accordion>
     </mat-card>
 </div>
+<<<<<<< HEAD
 <div align="right">
     <app-light-dark></app-light-dark>
 </div>
+=======
+<div align="right">   <app-light-dark (changeTheme)="onThemeChange($event)"> {{this.theme}}</app-light-dark>  </div>
+
+
+
+</div>
+
+>>>>>>> 5ff6077dd544d8f6ab13b35d6ed2ecc78bc5883a
