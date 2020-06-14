@@ -50,26 +50,36 @@ export class TaskListComponent implements OnInit {
   }
 
   addTaskItem(): void  {
-    if (this.taskTitle.trim().length === 0){
-      return;
+    let id = this.idForTask
+    let title = ""
+    let description = ''
+    let result = prompt("Task Title", title);
+    let result1 = prompt("Task Description", description);
+    if (result1 !== null && result1 !== "") {
+       result1 = " "
     }
-    this.tasks.push({
-      id: this.idForTask,
-      title: this.taskTitle,
-      completed: false,
-      editing: false,
-      description: ""
-    })
 
-    this.taskTitle = '';
-    this.idForTask++;
-  }
+
+      if (result !== null && result !== "") {
+
+        this.tasks.push({
+          id: id,
+          title: result,
+          completed: false,
+          editing: false,
+          description: result1
+        })
+        this.idForTask++;
+      }
+
+    }
+
 
   edit(id:number) {
 
     let title =this.tasks[id-1].title;
     let result = prompt("Edit Task Title", title);
-    let result1 = prompt("edit task description", this.tasks[id-1].description);
+    let result1 = prompt("Edit Task Description", this.tasks[id-1].description);
     if (result1 !== null && result1 !== "") {
       this.tasks[id - 1].description = result1;
     }
@@ -79,7 +89,17 @@ export class TaskListComponent implements OnInit {
 
   }
 
- 
+  complete(id: number,completed:boolean){
+    let taskCompletion = this.tasks[id-1].completed;
+    let promptComplete = confirm("Are you sure you wish to complete?");
+    if (promptComplete !=null){
+      this.tasks[id-1].completed = true;
+    }
+
+
+  }
+
+
 
 
 
