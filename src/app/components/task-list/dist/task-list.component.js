@@ -9,30 +9,43 @@ exports.__esModule = true;
 exports.TaskListComponent = void 0;
 var core_1 = require("@angular/core");
 var TaskListComponent = /** @class */ (function () {
-    function TaskListComponent() {
+    function TaskListComponent(tlService) {
+        this.tlService = tlService;
+        this.theme = false;
+        this.changeTheme1 = new core_1.EventEmitter();
     }
     TaskListComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.tlService.currentProjects.subscribe(function (projects) { return _this.projects = projects; });
         this.idForTask = 3;
         this.taskTitle = '';
         this.tasks = [
             {
-                'id': 1,
+                'id': this.idForTask++,
                 'title': "This is Task #1",
                 'completed': false,
                 'editing': false,
                 'description': "Description for Task #1"
             },
             {
-                'id': 2,
+                'id': this.idForTask++,
                 'title': "This is Task #2",
                 'completed': false,
                 'editing': false,
                 'description': "Description for Task #2"
             },
         ];
+        this.projects = [
+            {
+                'id': 1,
+                'title': "this is a test",
+                'tasks': this.tasks
+            }
+        ];
+        this.tlService.changeProjects(this.projects);
     };
     TaskListComponent.prototype.deleteTask = function (id) {
-        this.tasks = this.tasks.filter(function (tasks) { return tasks.id != id; });
+        this.projects[0].tasks = this.projects[0].tasks.filter(function (tasks) { return tasks.id != id; });
     };
     TaskListComponent.prototype.addTaskItem = function () {
         var id = this.idForTask;
@@ -40,9 +53,6 @@ var TaskListComponent = /** @class */ (function () {
         var description = '';
         var result = prompt("Task Title", title);
         var result1 = prompt("Task Description", description);
-        if (result1 !== null && result1 !== "") {
-            result1 = " ";
-        }
         if (result !== null && result !== "") {
             this.tasks.push({
                 id: id,
@@ -53,6 +63,7 @@ var TaskListComponent = /** @class */ (function () {
             });
             this.idForTask++;
         }
+        this.projects[0].tasks = this.tasks;
     };
     TaskListComponent.prototype.edit = function (id) {
         var title = this.tasks[id - 1].title;
@@ -72,6 +83,16 @@ var TaskListComponent = /** @class */ (function () {
             this.tasks[id - 1].completed = true;
         }
     };
+    TaskListComponent.prototype.onThemeChange = function (value) {
+        this.theme = value;
+        this.changeTheme1.emit(this.theme);
+    };
+    TaskListComponent.prototype.onClick = function () {
+        console.log(this.projects[0].tasks);
+    };
+    __decorate([
+        core_1.Output()
+    ], TaskListComponent.prototype, "changeTheme1");
     TaskListComponent = __decorate([
         core_1.Component({
             selector: 'app-task-list',
