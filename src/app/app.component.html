@@ -1,12 +1,13 @@
 
-<div [class.alternative]="otherTheme">
 
-  <app-task-list></app-task-list>
-</div>
-<body [class.alternative]="otherTheme">
-<br>
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+
+
+
+  <app-task-list [class.alternative]="theme" (changeTheme1)="onThemeChange($event)" ></app-task-list>
+
+  <body [class.alternative]="theme">
+
 </body>
 
 

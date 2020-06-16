@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {TaskLineService} from "../../task-line.service";
-import {AppComponent} from 'src/app/app.component'
+import {Observable} from "rxjs";
+import { Output, EventEmitter} from "@angular/core";
 
 
 @Component({
@@ -10,13 +11,17 @@ import {AppComponent} from 'src/app/app.component'
   providers:[TaskLineService]
 })
 export class LightDarkComponent implements OnInit {
+  theme: boolean = false;
+  @Output() changeTheme: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-
-
-
-  constructor(public comp: AppComponent) { }
-
-  ngOnInit(): void {
+  themeChange(){
+    this.theme = !this.theme;
+    this.changeTheme.emit(this.theme);
   }
 
+  constructor() { }
+
+
+  ngOnInit() {
+  }
 }
