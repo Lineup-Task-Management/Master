@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import {Subject} from "rxjs";
+import {BehaviorSubject, Subject} from "rxjs";
+import {Project} from "./interfaces/Project";
 
 
 
@@ -11,9 +12,17 @@ import {Subject} from "rxjs";
 export class TaskLineService {
 
 
+  projects: Project[];
+  private projectsSource = new BehaviorSubject<Project[]>(this.projects);
+  currentProjects = this.projectsSource.asObservable();
+
+
+
   constructor() { }
 
-
+  changeProjects(projects: Project[]){
+    this.projectsSource.next(projects)
+  }
 
 
 
