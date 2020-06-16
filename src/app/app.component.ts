@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {TaskLineService} from "./task-line.service";
+import { MessagingService } from './service/messaging.service';
 
 @Component({
   selector: 'app-root',
@@ -8,12 +9,14 @@ import {TaskLineService} from "./task-line.service";
 })
 export class AppComponent {
   title = 'task-management-angular';
+  message;
+  constructor(private messagingService: MessagingService) { }
+ngOnInit() {
+  this.messagingService.requestPermission()
+  this.messagingService.receiveMessage()
+  this.message = this.messagingService.currentMessage
+ }
 
-
-
-  constructor() {
-
-  }
 
   otherTheme: boolean = false;
 
