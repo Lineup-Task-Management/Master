@@ -27,19 +27,24 @@ export class TaskListComponent implements OnInit {
 
 
 
+
     this.tlService.currentProjects.subscribe(projects => this.projects = projects)
     this.idForTask = 3;
+
     this.taskTitle ='';
+
+
     this.tasks = [
-      {
-        'id':1,
+
+    {
+        'id':this.idForTask ++,
         'title':"This is Task #1",
         'completed':false,
         'editing':false,
         'description': "Description for Task #1"
       },
       {
-        'id':2,
+        'id':this.idForTask ++,
         'title':"This is Task #2",
         'completed':false,
         'editing':false,
@@ -90,11 +95,12 @@ export class TaskListComponent implements OnInit {
 
   edit(id:number) {
 
+
     let title =this.tasks[id-1].title;
     let result = prompt("Edit Task Title", title);
     let result1 = prompt("Edit Task Description", this.tasks[id-1].description);
     if (result1 !== null && result1 !== "") {
-      this.tasks[id - 1].description = result1;
+      this.tasks[id-1].description = result1;
     }
     if (result !== null && result !== "") {
       this.tasks[id-1].title = result;
