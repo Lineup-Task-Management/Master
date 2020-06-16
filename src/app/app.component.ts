@@ -20,7 +20,7 @@ export class AppComponent {
 
   onThemeChange(value :boolean) {
     this.theme = value;
-    this.changeTheme1.emit(this.theme);
+//    this.changeTheme1.emit(this.theme);
 
   }
 

@@ -1,10 +1,15 @@
 
 
+<div [class.alternative]="theme">
+  <app-header></app-header>
+  <app-task-list  (changeTheme1)="onThemeChange($event)" ></app-task-list>
+  <div align="right">   <app-light-dark (changeTheme)="onThemeChange($event)"> </app-light-dark>  </div>
+ <app-task-operations></app-task-operations>
+</div>
 
 
 
 
-  <app-task-list [class.alternative]="theme" (changeTheme1)="onThemeChange($event)" ></app-task-list>
 
   <body [class.alternative]="theme">
 

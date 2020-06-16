@@ -1,8 +1,7 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import { Task } from '../../interfaces/task';
 import {TaskLineService} from "../../task-line.service";
-
-
+import { Project} from "../../interfaces/Project";
 
 
 @Component({
@@ -16,15 +15,21 @@ export class TaskListComponent implements OnInit {
   idForTask: number;
   panelOpenState: boolean;
   theme: boolean = false;
+  projects:Project[];
 
-  constructor(private _taskService: TaskLineService){
+
+  constructor(private tlService: TaskLineService){
 
   }
 
 
   ngOnInit(): void {
 
-    this.idForTask = 0;
+
+
+
+    this.tlService.currentProjects.subscribe(projects => this.projects = projects)
+    this.idForTask = 3;
     this.taskTitle ='';
     
     
@@ -45,10 +50,21 @@ export class TaskListComponent implements OnInit {
         'description': "Description for Task #2"
       },
     ];
+
+    this.projects = [
+      {
+        'id' :1,
+        'title': "this is a test",
+        'tasks': this.tasks,
+
+      }
+      ];
+
+  this.tlService.changeProjects(this.projects);
   }
   
   deleteTask(id: number){
-    this.tasks = this.tasks.filter(tasks => tasks.id != id);
+    this.projects[0].tasks = this.projects[0].tasks.filter(tasks => tasks.id != id);
   }
 
   addTaskItem(): void  {
@@ -71,6 +87,7 @@ export class TaskListComponent implements OnInit {
         })
         this.idForTask++;
       }
+    this.projects[0].tasks = this.tasks;
 
     }
 
@@ -105,6 +122,10 @@ export class TaskListComponent implements OnInit {
     this.theme = value;
     this.changeTheme1.emit(this.theme);
 
+  }
+
+  onClick(){
+    console.log(this.projects[0].tasks);
   }
 
 

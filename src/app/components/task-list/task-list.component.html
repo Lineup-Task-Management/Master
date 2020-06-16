@@ -5,12 +5,10 @@
 
 <div [class.alternative]="this.theme">
 
-<mat-toolbar color="primary">
-    <mat-toolbar-row>
-        <span class="toolbar" align="center">Lineup Task Management Application</span>
-    </mat-toolbar-row>
-</mat-toolbar>
+
 <br>
+
+
 
 <div align="center">
   <button mat-fab color="primary" aria-label="New Task" (click)=" addTaskItem()" matTooltip="Add new Task" >
@@ -27,46 +25,46 @@
   <mat-button-toggle value="underline">All</mat-button-toggle>
 </mat-button-toggle-group>
 
-
-
-
-<br>
-<div *ngFor="let task of tasks; let idx=index">
+  <div *ngFor="let task of projects[0].tasks; let idx=index">
 
 
     <mat-card>
-        <mat-accordion>
+      <mat-accordion>
 
-            <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-                <mat-expansion-panel-header>
-                    <mat-panel-title align="center">
+        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+          <mat-expansion-panel-header>
+            <mat-panel-title align="center">
 
-                        <h1> {{idx +1}}. {{task.title}} </h1>
+              <h1> {{idx +1}}. {{task.title}} </h1>
 
-                    </mat-panel-title>
-                    <mat-panel-description align="right">
-                        Click to see description
-                    </mat-panel-description>
-                </mat-expansion-panel-header>
-                <div align="center">
-                    <p>{{task.description}} </p>
-                   <p>Task Completion Status: {{task.completed}}</p>
-                </div>
-                <mat-card-actions class="mat-action-row">
-                    <button mat-raised-button color="primary" (click)="edit(task.id)">Edit Task</button>
-                    <button mat-raised-button color="primary" (click)="complete(task.id, task.completed)">Complete Task</button>
-                    <button mat-raised-button color="primary" (click)="deleteTask(task.id)">Delete Task</button>
-                </mat-card-actions>
-              <mat-card-actions>
-                <mat-progress-bar mode="determinate" value="40" matTooltip="Time Remaining"></mat-progress-bar>
-              </mat-card-actions>
+            </mat-panel-title>
+            <mat-panel-description align="right">
+              Click to see description
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <div align="center">
+            <p>{{task.description}} </p>
+            <p>Task Completion Status: {{task.completed}}</p>
+          </div>
+          <mat-card-actions class="mat-action-row">
+            <button mat-raised-button color="primary" (click)="edit(task.id)">Edit Task</button>
+            <button mat-raised-button color="primary" (click)="complete(task.id, task.completed)">Complete Task</button>
+            <button mat-raised-button color="primary" (click)="deleteTask(task.id)">Delete Task</button>
+          </mat-card-actions>
+          <mat-card-actions>
+            <mat-progress-bar mode="determinate" value="40" matTooltip="Time Remaining"></mat-progress-bar>
+          </mat-card-actions>
 
 
-            </mat-expansion-panel>
-        </mat-accordion>
+        </mat-expansion-panel>
+      </mat-accordion>
     </mat-card>
-</div>
-<div align="right">   <app-light-dark (changeTheme)="onThemeChange($event)"> {{this.theme}}</app-light-dark>  </div>
+  </div>
+
+
+<br>
+
+
 
 
 
