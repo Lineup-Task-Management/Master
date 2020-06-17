@@ -1,6 +1,7 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import { Task } from '../../interfaces/task';
 import {TaskLineService} from "../../task-line.service";
+import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 
 
 
@@ -101,6 +102,10 @@ export class TaskListComponent implements OnInit {
     this.theme = value;
     this.changeTheme1.emit(this.theme);
 
+  }
+
+  drop(event: CdkDragDrop<string[]>) {
+    moveItemInArray(this.tasks, event.previousIndex, event.currentIndex);
   }
 
 

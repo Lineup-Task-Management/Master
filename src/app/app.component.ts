@@ -11,6 +11,7 @@ import {Observable} from "rxjs";
 export class AppComponent {
   title = 'task-management-angular';
   theme: boolean = false;
+  changeTheme1: { emit: (arg0: boolean) => void; }
 
 
   constructor() {

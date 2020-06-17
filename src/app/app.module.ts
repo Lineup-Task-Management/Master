@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from'@angular/forms';
+import { DragDropModule} from '@angular/cdk/drag-drop';
 
 import { AppComponent } from './app.component';
 import { TaskListComponent } from './components/task-list/task-list.component';
@@ -15,12 +16,13 @@ import {TaskLineService} from "./task-line.service";
 
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
     TaskListComponent,
-
-    LightDarkComponent
+    LightDarkComponent,
+    
   ],
   imports: [
 
@@ -28,6 +30,7 @@ import {TaskLineService} from "./task-line.service";
     BrowserAnimationsModule,
     MaterialModule,
     FormsModule,
+    DragDropModule,
 
 
   ],
