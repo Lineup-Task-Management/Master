@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import {TaskLineService} from "./task-line.service";
+import {Observable} from "rxjs";
+
 
 @Component({
   selector: 'app-root',
@@ -8,18 +10,26 @@ import {TaskLineService} from "./task-line.service";
 })
 export class AppComponent {
   title = 'task-management-angular';
-
+  theme: boolean = false;
 
 
   constructor() {
 
+    }
+
+
+  onThemeChange(value :boolean) {
+    this.theme = value;
+    //this.changeTheme1.emit(this.theme);
+
   }
 
-  otherTheme: boolean = false;
 
-  changeTheme() {
-    this.otherTheme = !this.otherTheme;
+  ngOnInit(): void {
+
+
   }
+
 
 
 }
