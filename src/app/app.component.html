@@ -2,9 +2,9 @@
 
 <div [class.alternative]="theme">
   <app-header></app-header>
-  <app-task-list  (changeTheme1)="onThemeChange($event)" ></app-task-list>
+  <app-task-list   [indexForProj]="indexForProj" ></app-task-list>
   <div align="right">   <app-light-dark (changeTheme)="onThemeChange($event)"> </app-light-dark>  </div>
- <app-task-operations></app-task-operations>
+ <app-task-operations (updateProjIndex)="onIndexChange($event)"></app-task-operations>
 </div>
 
 

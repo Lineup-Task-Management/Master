@@ -17,7 +17,7 @@
 
 </div>
 
-
+<div>{{this.indexForProj}}</div>
 
 <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
   <mat-button-toggle value="bold">Priority</mat-button-toggle>
@@ -25,7 +25,7 @@
   <mat-button-toggle value="underline">All</mat-button-toggle>
 </mat-button-toggle-group>
 
-  <div *ngFor="let task of projects[0].tasks; let idx=index">
+  <div *ngFor="let task of this.projects[this.indexForProj].tasks; let idx=index" >
 
 
     <mat-card>
@@ -47,12 +47,17 @@
             <p>Task Completion Status: {{task.completed}}</p>
           </div>
           <mat-card-actions class="mat-action-row">
+
             <button mat-raised-button color="primary" (click)="edit(task.id)">Edit Task</button>
             <button mat-raised-button color="primary" (click)="complete(task.id, task.completed)">Complete Task</button>
             <button mat-raised-button color="primary" (click)="deleteTask(task.id)">Delete Task</button>
+
           </mat-card-actions>
           <mat-card-actions>
-            <mat-progress-bar mode="determinate" value="40" matTooltip="Time Remaining"></mat-progress-bar>
+            <div class="poop" align="right">
+              <app-dueDate ></app-dueDate>
+            </div>
+          <!--  <mat-progress-bar mode="determinate" value="40" matTooltip="Time Remaining"></mat-progress-bar> -->
           </mat-card-actions>
 
 

@@ -1,7 +1,8 @@
 <p>
   <mat-form-field>
-    <input matInput [matDatepicker]= "taskDueDatePicker">
+
     <mat-datepicker-toggle [for]="taskDueDatePicker"></mat-datepicker-toggle>
     <mat-datepicker #taskDueDatePicker> </mat-datepicker>
+    <input matInput [matDatepicker]= "taskDueDatePicker">
   </mat-form-field>
 </p>

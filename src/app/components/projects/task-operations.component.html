@@ -1,0 +1,19 @@
+
+<div [(ngModel)]="projects" *ngFor="let project of projects;">
+
+  <h1>  Project:{{project.id}} {{this.project.title}} </h1>
+<button mat-raised-button (click)="updateIndex(project.id)">Select</button>
+
+</div>
+
+<div *ngFor="let task of projects[this.indexForProj].tasks">
+ <!-- <h1>{{this.indexForProj}}{{this.project.id}}</h1> -->
+  <h1> {{task.title  }} {{task.description}} </h1>
+
+</div>
+
+
+
+<button mat-raised-button (click)="addProject()">New project</button>
+
+<h1>{{this.indexForProj}}</h1>
