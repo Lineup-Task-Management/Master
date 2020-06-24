@@ -31,6 +31,10 @@ addProject(){
   let title = ""
   let result = prompt("Project Title", title);
 
+  if(result === null || result === "")
+    return;
+
+
   this.tasks = [
 
     {
@@ -53,16 +57,6 @@ addProject(){
 
 
 
-
-      /*this.projects[this.idForProj].tasks.push(
-        {
-          'id': 1,
-          'title':"this is a sample task",
-          'completed': false,
-          'editing': false,
-          'description': " please work"
-        }
-      )*/
 
 
     this.tlService.changeProjects(this.projects);

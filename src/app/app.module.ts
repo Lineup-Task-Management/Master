@@ -14,6 +14,7 @@ import {HeaderComponent} from "./components/header/header.component";
 import { TaskOperationsComponent } from './components/projects/task-operations.component';
 import {DragDropModule} from "@angular/cdk/drag-drop";
 import {DueDateComponent} from "./components/dueDate/dueDate.component";
+import { SideNavComponent } from './components/side-nav/side-nav.component';
 
 
 
@@ -27,7 +28,8 @@ import {DueDateComponent} from "./components/dueDate/dueDate.component";
     LightDarkComponent,
     HeaderComponent,
     TaskOperationsComponent,
-    DueDateComponent
+    DueDateComponent,
+    SideNavComponent
   ],
   imports: [
 

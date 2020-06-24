@@ -12,6 +12,8 @@ export class AppComponent {
   title = 'task-management-angular';
   theme: boolean = false;
   indexForProj: number =0;
+  opened = false;
+
 
   constructor() {
 
@@ -21,6 +23,11 @@ export class AppComponent {
   onThemeChange(value :boolean) {
     this.theme = value;
 //    this.changeTheme1.emit(this.theme);
+
+  }
+
+  onOpen(value: boolean){
+    this.opened = value;
 
   }
   onIndexChange(value :number) {

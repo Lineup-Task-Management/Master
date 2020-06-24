@@ -113,15 +113,15 @@ export class TaskListComponent implements OnInit {
   }
 
   complete(id: number,completed:boolean){
-    let taskCompletion = this.tasks[id-1].completed;
+    let taskCompletion = this.projects[this.indexForProj].tasks[id-1].completed;
     let promptComplete = confirm("Are you sure you wish to complete?");
     if (promptComplete !=null){
-      this.tasks[id-1].completed = true;
+      this.projects[this.indexForProj].tasks[id-1].completed = true;
     }
 
 
   }
-  @Output() changeTheme1: EventEmitter<boolean> = new EventEmitter<boolean>();
+
 
 
 
