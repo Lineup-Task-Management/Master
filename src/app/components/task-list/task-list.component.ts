@@ -15,7 +15,7 @@ export class TaskListComponent implements OnInit {
   taskTitle:string;
   idForTask: number;
   panelOpenState: boolean;
-
+  task: any;
 
   constructor(
     public firebaseService: FirebaseService
@@ -25,7 +25,6 @@ export class TaskListComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.idForTask = 0;
     this.getData();
   }
 
@@ -34,17 +33,17 @@ export class TaskListComponent implements OnInit {
     .subscribe(result => (this.tasks = result));
   }
     
-  deleteTask(id: number){
-    this.tasks = this.tasks.filter(tasks => tasks.id != id);
-  }
+  deleteTask = task => this.firebaseService.deleteTask(task);
+    //this.tasks = this.tasks.filter(tasks => tasks.id != id);
+  
 
   addTaskItem(): void  {
-    let id = this.idForTask
+    //let id = this.idForTask
     let title = ""
     let description = ''
     let result = prompt("Task Title", title);
     let result1 = prompt("Task Description", description);
-
+    let completed = false;
 
 
     if (result !== null && result !== "") {
@@ -58,8 +57,8 @@ export class TaskListComponent implements OnInit {
         })
         */
 
-        this.firebaseService.addTask(id,result,result1)
-        this.idForTask++;
+        this.firebaseService.addTask(result,result1, completed)
+        //this.idForTask++;
         this.getData();
       }
 
@@ -80,19 +79,17 @@ export class TaskListComponent implements OnInit {
     }
 
   }
-
+/*
   complete(id: number,completed:boolean){
     let taskCompletion = this.tasks[id-1].completed;
     let promptComplete = confirm("Are you sure you wish to complete?");
     if (promptComplete !=null){
       this.tasks[id-1].completed = true;
     }
+*/
+
+complete = task => this.firebaseService.completeTask(task);
+
 
 
   }
-
-
-
-
-
-}

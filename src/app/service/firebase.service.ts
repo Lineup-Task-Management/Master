@@ -13,12 +13,26 @@ import { AngularFirestore } from '@angular/fire/firestore';
         return this.db.collection('task').snapshotChanges();
       }
     
-    
-    addTask(id,title,description){
+    deleteTask(data){
+        return this.db.collection('task').doc(data.payload.doc.id).delete();
+
+
+    }
+
+    completeTask(data){
+        return this.db.collection('task').doc(data.payload.doc.id).set({ completed: true}, {merge : true});
+
+
+
+
+    }
+
+    addTask(title,description, completed){
         return this.db.collection('task').add({
-          id : id,
+          //id : id,
           title: title,
-          description:description
+          description:description,
+          completed:completed
         });
       }
     }
