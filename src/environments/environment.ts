@@ -5,14 +5,14 @@
 export const environment = {
   production: false,
   firebase: {
-    apiKey: "AIzaSyBYySh1ML9lO_MwvhTLo0mquwxN7nk9IAQ",
-    authDomain: "pushnotificationtest-4cb85.firebaseapp.com",
-    databaseURL: "https://pushnotificationtest-4cb85.firebaseio.com",
-    projectId: "pushnotificationtest-4cb85",
-    storageBucket: "pushnotificationtest-4cb85.appspot.com",
-    messagingSenderId: "672823914265",
-    appId: "1:672823914265:web:3efe98f931debf0bf79f88",
-    measurementId: "G-KY995YSCX6"
+    apiKey: "AIzaSyChR7EfqyyyVgc3sL9P3bvycYsuomjzbrQ",
+    authDomain: "lineuptaskmanager.firebaseapp.com",
+    databaseURL: "https://lineuptaskmanager.firebaseio.com",
+    projectId: "lineuptaskmanager",
+    storageBucket: "lineuptaskmanager.appspot.com",
+    messagingSenderId: "507265156919",
+    appId: "1:507265156919:web:84aa69736449de75d0fcb2",
+    measurementId: "G-MH82GSBW5S"
   }
 };
 

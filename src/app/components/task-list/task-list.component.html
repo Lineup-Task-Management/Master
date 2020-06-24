@@ -37,7 +37,7 @@
                 <mat-expansion-panel-header>
                     <mat-panel-title align="center">
 
-                        <h1> {{idx +1}}. {{task.title}} </h1>
+                        <h1> {{idx +1}}. {{task.payload.doc.data().title}} </h1>
 
                     </mat-panel-title>
                     <mat-panel-description align="right">
@@ -45,7 +45,7 @@
                     </mat-panel-description>
                 </mat-expansion-panel-header>
                 <div align="center">
-                    <p>{{task.description}} </p>
+                    <p>{{task.payload.doc.data().description}} </p>
                    <p>Task Completion Status: {{task.completed}}</p>
                 </div>
                 <mat-card-actions class="mat-action-row">

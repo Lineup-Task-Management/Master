@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Task } from '../../interfaces/task';
-
+import { FirebaseService } from '../../service/firebase.service';
+import { getLocaleDateFormat } from '@angular/common';
 
 
 
@@ -10,42 +11,29 @@ import { Task } from '../../interfaces/task';
   styleUrls: ['./task-list.component.scss']
 })
 export class TaskListComponent implements OnInit {
-  tasks: Task[];
+  tasks: Array<any>;
   taskTitle:string;
   idForTask: number;
   panelOpenState: boolean;
 
 
-  constructor(){
+  constructor(
+    public firebaseService: FirebaseService
+  ){
 
   }
 
 
   ngOnInit(): void {
-
     this.idForTask = 0;
-    this.taskTitle ='';
-    
-    
-    this.tasks = [
-     
-    {
-        'id':this.idForTask ++,
-        'title':"This is Task #1",
-        'completed':false,
-        'editing':false,
-        'description': "Description for Task #1"
-      },
-      {
-        'id':this.idForTask ++,
-        'title':"This is Task #2",
-        'completed':false,
-        'editing':false,
-        'description': "Description for Task #2"
-      },
-    ];
+    this.getData();
   }
-  
+
+  getData(){
+    this.firebaseService.getTasks()
+    .subscribe(result => (this.tasks = result));
+  }
+    
   deleteTask(id: number){
     this.tasks = this.tasks.filter(tasks => tasks.id != id);
   }
@@ -60,7 +48,7 @@ export class TaskListComponent implements OnInit {
 
 
     if (result !== null && result !== "") {
-
+      /*
         this.tasks.push({
           id: id,
           title: result,
@@ -68,7 +56,11 @@ export class TaskListComponent implements OnInit {
           editing: false,
           description: result1,
         })
+        */
+
+        this.firebaseService.addTask(id,result,result1)
         this.idForTask++;
+        this.getData();
       }
 
     }
