@@ -62,8 +62,7 @@ var TaskListComponent = /** @class */ (function () {
                 title: result,
                 completed: false,
                 editing: false,
-                description: result1,
-
+                description: result1
             });
             this.idForTask++;
         }

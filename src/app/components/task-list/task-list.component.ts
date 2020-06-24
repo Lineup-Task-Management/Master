@@ -91,7 +91,6 @@ export class TaskListComponent implements OnInit {
           completed: false,
           editing: false,
           description: result1,
-          priority: number,
 
         })
         this.idForTask++;
