@@ -29,7 +29,11 @@
   <mat-button-toggle value="underline">All</mat-button-toggle>
 </mat-button-toggle-group>
 </div>
-  <div *ngFor="let task of this.projects[this.indexForProj].tasks; let idx=index" >
+
+
+
+  <div cdkDropList class = "Tasks" (cdkDropListDropped) = "drop($event)">
+  <div *ngFor="let task of this.projects[this.indexForProj].tasks; let idx=index" cdkDrag>
 
 
     <mat-card>
@@ -69,7 +73,7 @@
       </mat-accordion>
     </mat-card>
   </div>
-
+  </div>
 
 <br>
 

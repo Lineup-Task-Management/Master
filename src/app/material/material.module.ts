@@ -26,10 +26,6 @@ import {MatTreeModule} from '@angular/material/tree';
 
 
 
-
-
-
-
 const MaterialComponents = [
   MatCardModule,
   MatButtonModule,
@@ -53,7 +49,8 @@ const MaterialComponents = [
   MatRippleModule,
   MatFormFieldModule,
   MatSidenavModule,
-  MatTreeModule
+  MatTreeModule,
+
 
 ]
 

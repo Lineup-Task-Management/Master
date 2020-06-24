@@ -5,5 +5,6 @@ export interface Task {
   completed:boolean,
   editing:boolean,
   description:string
+  priority: number
 
 }

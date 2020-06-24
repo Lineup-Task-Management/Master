@@ -1,6 +1,13 @@
 @import '~@angular/material/theming';
 @include mat-core();
 
+
+$custom-typography: mat-typography-config(
+$font-family: Raleway
+);
+
+@include angular-material-typography($custom-typography);
+
 $light-primary: mat-palette($mat-cyan);
 $light-accent: mat-palette($mat-light-blue);
 $light-theme: mat-light-theme($light-primary,$light-accent);
@@ -22,3 +29,4 @@ $alt-theme: mat-dark-theme($alt-primary,$alt-accent,$alt-warn);
 
   @include angular-material-theme($alt-theme)
 }
+

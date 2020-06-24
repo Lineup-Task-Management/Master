@@ -2,6 +2,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import { Task } from '../../interfaces/task';
 import {TaskLineService} from "../../task-line.service";
 import { Project} from "../../interfaces/Project";
+import {CdkDragDrop, moveItemInArray} from "@angular/cdk/drag-drop";
 
 
 @Component({
@@ -75,6 +76,8 @@ export class TaskListComponent implements OnInit {
     let title = ""
     let description = ''
     let result = prompt("Task Title", title);
+    if (result === null || result === "")
+      return;
     let result1 = prompt("Task Description", description);
 
 
@@ -124,7 +127,9 @@ export class TaskListComponent implements OnInit {
 
 
 
-
+  drop(event: CdkDragDrop<string[]>) {
+    moveItemInArray(this.tasks, event.previousIndex, event.currentIndex);
+  }
 
 
 
