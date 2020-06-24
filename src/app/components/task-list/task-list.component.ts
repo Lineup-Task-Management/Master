@@ -1,7 +1,8 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import { Task } from '../../interfaces/task';
 import {TaskLineService} from "../../task-line.service";
 import { Project} from "../../interfaces/Project";
+import {CdkDragDrop, moveItemInArray} from "@angular/cdk/drag-drop";
 
 
 @Component({
@@ -16,6 +17,7 @@ export class TaskListComponent implements OnInit {
   panelOpenState: boolean;
   theme: boolean = false;
   projects:Project[];
+  @Input() indexForProj: number;
 
 
   constructor(private tlService: TaskLineService){
@@ -29,12 +31,14 @@ export class TaskListComponent implements OnInit {
 
 
     this.tlService.currentProjects.subscribe(projects => this.projects = projects)
-    this.idForTask = 3;
+
+    this.idForTask = 1;
+
     this.taskTitle ='';
-    
-    
+
+
     this.tasks = [
-     
+
     {
         'id':this.idForTask ++,
         'title':"This is Task #1",
@@ -53,7 +57,7 @@ export class TaskListComponent implements OnInit {
 
     this.projects = [
       {
-        'id' :1,
+        'id' :0,
         'title': "this is a test",
         'tasks': this.tasks,
 
@@ -62,9 +66,10 @@ export class TaskListComponent implements OnInit {
 
   this.tlService.changeProjects(this.projects);
   }
-  
+
   deleteTask(id: number){
-    this.projects[0].tasks = this.projects[0].tasks.filter(tasks => tasks.id != id);
+    this.projects[this.indexForProj].tasks = this.projects[this.indexForProj].tasks.filter(tasks => tasks.id != id);
+    this.tlService.changeProjects(this.projects);
   }
 
   addTaskItem(): void  {
@@ -72,24 +77,30 @@ export class TaskListComponent implements OnInit {
     let title = ""
     let description = ''
     let result = prompt("Task Title", title);
+    if (result === null || result === "")
+      return;
     let result1 = prompt("Task Description", description);
 
 
 
     if (result !== null && result !== "") {
 
-        this.tasks.push({
+        this.projects[this.indexForProj].tasks.push({
           id: id,
           title: result,
           completed: false,
           editing: false,
           description: result1,
+          priority: number,
+
         })
         this.idForTask++;
       }
-    this.projects[0].tasks = this.tasks;
 
-    }
+    this.tlService.changeProjects(this.projects);
+
+
+  }
 
 
   edit(id:number) {
@@ -108,26 +119,20 @@ export class TaskListComponent implements OnInit {
   }
 
   complete(id: number,completed:boolean){
-    let taskCompletion = this.tasks[id-1].completed;
+    let taskCompletion = this.projects[this.indexForProj].tasks[id-1].completed;
     let promptComplete = confirm("Are you sure you wish to complete?");
     if (promptComplete !=null){
-      this.tasks[id-1].completed = true;
+      this.projects[this.indexForProj].tasks[id-1].completed = true;
     }
 
 
   }
-  @Output() changeTheme1: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-  onThemeChange(value :boolean) {
-    this.theme = value;
-    this.changeTheme1.emit(this.theme);
 
+
+  drop(event: CdkDragDrop<string[]>) {
+    moveItemInArray(this.tasks, event.previousIndex, event.currentIndex);
   }
-
-  onClick(){
-    console.log(this.projects[0].tasks);
-  }
-
 
 
 

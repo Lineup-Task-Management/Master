@@ -21,6 +21,9 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
 import {MatRippleModule} from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatTreeModule} from '@angular/material/tree';
+
 
 
 const MaterialComponents = [
@@ -44,7 +47,10 @@ const MaterialComponents = [
   MatNativeDateModule,
   MatDatepickerModule,
   MatRippleModule,
-  MatFormFieldModule
+  MatFormFieldModule,
+  MatSidenavModule,
+  MatTreeModule,
+
 
 ]
 
@@ -52,7 +58,7 @@ const MaterialComponents = [
 
 @NgModule({
 
-  imports: [ 
+  imports: [
     MaterialComponents,
 
   ],

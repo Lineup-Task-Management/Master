@@ -11,6 +11,8 @@ import {Observable} from "rxjs";
 export class AppComponent {
   title = 'task-management-angular';
   theme: boolean = false;
+  indexForProj: number =0;
+  opened = false;
 
 
   constructor() {
@@ -24,6 +26,13 @@ export class AppComponent {
 
   }
 
+  onOpen(value: boolean){
+    this.opened = value;
+
+  }
+  onIndexChange(value :number) {
+    this.indexForProj = value;
+  }
 
   ngOnInit(): void {
 
