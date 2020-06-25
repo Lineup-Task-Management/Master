@@ -9,7 +9,7 @@
 <br>
 <div class="title" align="center">
   <mat-card color="primary">
-    <h1 align="center" class="display-1">{{this.projects[indexForProj].title}}</h1>
+    <!--<h1 align="center" class="display-1">{{this.projects[indexForProj].title}}</h1>-->
   </mat-card>
 </div>
 
@@ -33,17 +33,19 @@
 
 
   <div cdkDropList class = "Tasks" (cdkDropListDropped) = "drop($event)">
-  <div *ngFor="let task of this.projects[this.indexForProj].tasks; let idx=index" cdkDrag>
-
+<!-- <div *ngFor="let task of this.projects[this.indexForProj].tasks; let idx=index" cdkDrag>
+-->
+    <div *ngFor="let task of tasks; let idx =index" cdkDrag>
 
     <mat-card>
+
       <mat-accordion>
 
         <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
           <mat-expansion-panel-header>
             <mat-panel-title align="center">
 
-              <h1> {{idx +1}}. {{task.title}} </h1>
+              <h1> {{idx +1}}. {{task.payload.doc.data().title}} </h1>
 
             </mat-panel-title>
             <mat-panel-description align="right">
@@ -51,14 +53,14 @@
             </mat-panel-description>
           </mat-expansion-panel-header>
           <div align="center">
-            <p>{{task.description}} </p>
-            <p>Task Completion Status: {{task.completed}}</p>
+            <p>{{task.payload.doc.data().description}} </p>
+            <p>Task Completion Status: {{task.payload.doc.data().completed}}</p>
           </div>
           <mat-card-actions class="mat-action-row">
 
             <button mat-fab color="primary" (click)="edit(task.id)" matTooltip="Edit Task"><mat-icon>edit</mat-icon></button>
-            <button mat-fab color="primary" (click)="complete(task.id, task.completed)" matTooltip="Complete Task"><mat-icon>check</mat-icon></button>
-            <button mat-fab color="primary" (click)="deleteTask(task.id)"><mat-icon>delete</mat-icon></button>
+            <button mat-fab color="primary" (click)="complete(task)" matTooltip="Complete Task"><mat-icon>check</mat-icon></button>
+            <button mat-fab color="primary" (click)="deleteTask(task)"><mat-icon>delete</mat-icon></button>
 
           </mat-card-actions>
           <mat-card-actions>
@@ -71,10 +73,11 @@
 
         </mat-expansion-panel>
       </mat-accordion>
+
     </mat-card>
   </div>
-  </div>
 
+  </div>
 <br>
 
 

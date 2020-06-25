@@ -1,8 +1,14 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import { Task } from '../../interfaces/task';
-import {TaskLineService} from "../../task-line.service";
+
+import {TaskLineService} from "../../service/task-line.service";
 import { Project} from "../../interfaces/Project";
 import {CdkDragDrop, moveItemInArray} from "@angular/cdk/drag-drop";
+
+import { FirebaseService } from '../../service/firebase.service';
+import { getLocaleDateFormat } from '@angular/common';
+
+
 
 
 @Component({
@@ -11,92 +17,123 @@ import {CdkDragDrop, moveItemInArray} from "@angular/cdk/drag-drop";
   styleUrls: ['./task-list.component.scss']
 })
 export class TaskListComponent implements OnInit {
-  tasks: Task[];
+  tasks: Array<any>;
   taskTitle:string;
   idForTask: number;
   panelOpenState: boolean;
+
   theme: boolean = false;
-  projects:Project[];
+  projects:   Array<any>        // Project[];
   @Input() indexForProj: number;
 
 
-  constructor(private tlService: TaskLineService){
+
+  task: any;
+
+
+  constructor(private tlService: TaskLineService,
+    public firebaseService: FirebaseService){
+
 
   }
+  getData(){
+    this.firebaseService.getTasks()
+      .subscribe((result => (this.projects = result));
 
+
+
+
+
+
+   // this.firebaseService.getTasks()
+    //  .subscribe(result => (this.tasks = result));
+  }
+
+  deleteTask = task => this.firebaseService.deleteTask(task);
+  //this.tasks = this.tasks.filter(tasks => tasks.id != id);
 
   ngOnInit(): void {
-
-
-
-
-    this.tlService.currentProjects.subscribe(projects => this.projects = projects)
-
-    this.idForTask = 1;
-
-    this.taskTitle ='';
-
-
-    this.tasks = [
-
-    {
-        'id':this.idForTask ++,
-        'title':"This is Task #1",
-        'completed':false,
-        'editing':false,
-        'description': "Description for Task #1"
-      },
-      {
-        'id':this.idForTask ++,
-        'title':"This is Task #2",
-        'completed':false,
-        'editing':false,
-        'description': "Description for Task #2"
-      },
-    ];
-
-    this.projects = [
-      {
-        'id' :0,
-        'title': "this is a test",
-        'tasks': this.tasks,
-
-      }
-      ];
-
-  this.tlService.changeProjects(this.projects);
+    this.getData();
   }
 
-  deleteTask(id: number){
-    this.projects[this.indexForProj].tasks = this.projects[this.indexForProj].tasks.filter(tasks => tasks.id != id);
-    this.tlService.changeProjects(this.projects);
-  }
+    //   this.tlService.currentProjects.subscribe(projects => this.projects = projects)
+    //
+    //   this.idForTask = 1;
+    //
+    //   this.taskTitle ='';
+    //
+    //
+    //   this.tasks = [
+    //
+    //   {
+    //       'id':this.idForTask ++,
+    //       'title':"This is Task #1",
+    //       'completed':false,
+    //       'editing':false,
+    //       'description': "Description for Task #1"
+    //     },
+    //     {
+    //       'id':this.idForTask ++,
+    //       'title':"This is Task #2",
+    //       'completed':false,
+    //       'editing':false,
+    //       'description': "Description for Task #2"
+    //     },
+    //   ];
+    //
+    //   this.projects = [
+    //     {
+    //       'id' :0,
+    //       'title': "this is a test",
+    //       'tasks': this.tasks,
+    //
+    //     }
+    //     ];
+    //
+    // this.tlService.changeProjects(this.projects);
+    // }
+
+ // deleteTask(id: number){
+   // this.projects[this.indexForProj].tasks = this.projects[this.indexForProj].tasks.filter(tasks => tasks.id != id);
+   // this.tlService.changeProjects(this.projects);
+ // }
+
+
+
 
   addTaskItem(): void  {
-    let id = this.idForTask
+    //let id = this.idForTask
     let title = ""
     let description = ''
     let result = prompt("Task Title", title);
     if (result === null || result === "")
       return;
     let result1 = prompt("Task Description", description);
-
+    let completed = false;
 
 
     if (result !== null && result !== "") {
 
-        this.projects[this.indexForProj].tasks.push({
-          id: id,
-          title: result,
-          completed: false,
-          editing: false,
-          description: result1,
 
-        })
-        this.idForTask++;
+  /*  this.projects[this.indexForProj].tasks.push({
+
+
+
+    id: id,
+    title: result,
+    completed: false,
+    editing: false,
+    description: result1,
+
+  })
+  */
+
+        this.firebaseService.addTask(result,result1, completed)
+        //this.idForTask++;
+        this.getData();
       }
 
-    this.tlService.changeProjects(this.projects);
+  //  this.tlService.changeProjects(this.projects);
 
 
   }
@@ -116,18 +153,16 @@ export class TaskListComponent implements OnInit {
     }
 
   }
-
+/*
   complete(id: number,completed:boolean){
     let taskCompletion = this.projects[this.indexForProj].tasks[id-1].completed;
     let promptComplete = confirm("Are you sure you wish to complete?");
     if (promptComplete !=null){
       this.projects[this.indexForProj].tasks[id-1].completed = true;
     }
+*/
 
-
-  }
-
-
+complete = task => this.firebaseService.completeTask(task);
 
   drop(event: CdkDragDrop<string[]>) {
     moveItemInArray(this.tasks, event.previousIndex, event.currentIndex);
@@ -135,4 +170,4 @@ export class TaskListComponent implements OnInit {
 
 
 
-}
+  }

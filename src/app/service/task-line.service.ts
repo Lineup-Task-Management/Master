@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {BehaviorSubject, Subject} from "rxjs";
-import {Project} from "./interfaces/Project";
+import {Project} from "../interfaces/Project";
 
 
 

@@ -1,5 +1,5 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {TaskLineService} from "../../task-line.service";
+import {TaskLineService} from "../../service/task-line.service";
 
 @Component({
   selector: 'app-header',
