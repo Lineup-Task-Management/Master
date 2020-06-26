@@ -7,8 +7,9 @@ import {CdkDragDrop, moveItemInArray} from "@angular/cdk/drag-drop";
 
 import { FirebaseService } from '../../service/firebase.service';
 import { getLocaleDateFormat } from '@angular/common';
-
-
+import { AngularFirestoreCollection, AngularFirestore } from '@angular/fire/firestore';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/map';
 
 
 @Component({
@@ -17,13 +18,14 @@ import { getLocaleDateFormat } from '@angular/common';
   styleUrls: ['./task-list.component.scss']
 })
 export class TaskListComponent implements OnInit {
-  tasks: Array<any>;
+  //tasks: Task[] //Array<any>;
   taskTitle:string;
   idForTask: number;
   panelOpenState: boolean;
-
+  projectsCollection: AngularFirestoreCollection<Project>;
+  tasks: any
   theme: boolean = false;
-  projects:   Array<any>        // Project[];
+  projects: Project[];  //Array<any>        
   @Input() indexForProj: number;
 
 
@@ -32,13 +34,13 @@ export class TaskListComponent implements OnInit {
 
 
   constructor(private tlService: TaskLineService,
-    public firebaseService: FirebaseService){
+    private afs: AngularFirestore){
 
 
   }
-  getData(){
-    this.firebaseService.getTasks()
-      .subscribe((result => (this.projects = result));
+  // getData(){
+  //   this.firebaseService.getTasks()
+  //     .subscribe((result => (this.projects = result));
 
 
 
@@ -47,13 +49,28 @@ export class TaskListComponent implements OnInit {
 
    // this.firebaseService.getTasks()
     //  .subscribe(result => (this.tasks = result));
-  }
+  //}
 
-  deleteTask = task => this.firebaseService.deleteTask(task);
+  //deleteTask = task => this.firebaseService.deleteTask(task);
   //this.tasks = this.tasks.filter(tasks => tasks.id != id);
 
-  ngOnInit(): void {
-    this.getData();
+  ngOnInit() {
+
+      this.projectsCollection = this.afs.collection('Projects');
+      this.projects = this.projectsCollection.snapshotChanges()
+        .map(actions => {
+
+          return actions.map(a=> {
+            const data = a.payload.doc.data() as Project;
+            const id = a.payload.doc.id;
+            return {id, data};
+          })
+
+
+
+        })
+    //this.getData();
+
   }
 
     //   this.tlService.currentProjects.subscribe(projects => this.projects = projects)
