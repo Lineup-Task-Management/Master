@@ -18,7 +18,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
   }
 
 getProjects(){
-    return this.db.collection('Projects').doc('Tasks').snapshotChanges();
+    return this.db.collection('Projects').doc('Tasks/Task').snapshotChanges();
 }
 
     deleteTask(data){
