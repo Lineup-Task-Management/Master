@@ -38,7 +38,7 @@ export class TaskListComponent implements OnInit {
   }
   getData(){
     this.firebaseService.getTasks()
-      .subscribe((result => (this.projects = result));
+      .subscribe((result => (this.tasks = result)));
 
 
 

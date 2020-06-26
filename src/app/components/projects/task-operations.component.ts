@@ -2,6 +2,7 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {TaskLineService} from "../../service/task-line.service";
 import {Project} from "../../interfaces/Project";
 import {Task} from "../../interfaces/task";
+import {FirebaseService} from "../../service/firebase.service";
 
 @Component({
   selector: 'app-task-operations',
@@ -11,21 +12,26 @@ import {Task} from "../../interfaces/task";
 export class TaskOperationsComponent implements OnInit {
 
 
-  projects: Project[];
+  projects: Array<any>    // Project[];
   idForProj: number =0;
   titleForProj: string = "this is a test";
   indexForProj:number =0;
   tasks: Task[];
 
-  constructor(private tlService: TaskLineService) { }
+  constructor(private tlService: TaskLineService,
+              public firebaseService: FirebaseService) { }
 
   ngOnInit() {
 
-this.tlService.currentProjects.subscribe(projects => this.projects = projects);
-
+//this.tlService.currentProjects.subscribe(projects => this.projects = projects);
+this.getProjects();
   }
 
+  getProjects(){
+    this.firebaseService.getProjects()
+      .subscribe((result => (this.projects = result)));
 
+  }
 addProject(){
 
   let title = ""
