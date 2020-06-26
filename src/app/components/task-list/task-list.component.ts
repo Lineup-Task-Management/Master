@@ -9,7 +9,7 @@ import { FirebaseService } from '../../service/firebase.service';
 import { getLocaleDateFormat } from '@angular/common';
 import { AngularFirestoreCollection, AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/map';
+import {map} from 'rxjs/operators';
 
 
 @Component({
@@ -22,15 +22,16 @@ export class TaskListComponent implements OnInit {
   taskTitle:string;
   idForTask: number;
   panelOpenState: boolean;
-  projectsCollection: AngularFirestoreCollection<Project>;
-  tasks: any
+  tasksCollection: AngularFirestoreCollection<Task>;
+  tasks: any;
   theme: boolean = false;
-  projects: Project[];  //Array<any>        
+  projects: Project[];  //Array<any>
+  description: string;        
   @Input() indexForProj: number;
 
 
 
-  task: any;
+ // task: any;
 
 
   constructor(private tlService: TaskLineService,
@@ -56,22 +57,21 @@ export class TaskListComponent implements OnInit {
 
   ngOnInit() {
 
-      this.projectsCollection = this.afs.collection('Projects');
-      this.projects = this.projectsCollection.snapshotChanges()
-        .map(actions => {
+      this.tasksCollection = this.afs.collection('Projects').doc('Tasks').collection("Tasks");
+      this.tasks = this.tasksCollection.snapshotChanges().pipe(map(actions => {
 
           return actions.map(a=> {
-            const data = a.payload.doc.data() as Project;
+            const data = a.payload.doc.data() as Task;
             const id = a.payload.doc.id;
             return {id, data};
           })
 
 
 
-        })
+        }))
     //this.getData();
 
-  }
+      }
 
     //   this.tlService.currentProjects.subscribe(projects => this.projects = projects)
     //
@@ -118,9 +118,9 @@ export class TaskListComponent implements OnInit {
 
 
 
-  addTaskItem(): void  {
+  addTaskItem() {
     //let id = this.idForTask
-    let title = ""
+    /* let title = ""
     let description = ''
     let result = prompt("Task Title", title);
     if (result === null || result === "")
@@ -129,7 +129,7 @@ export class TaskListComponent implements OnInit {
     let completed = false;
 
 
-    if (result !== null && result !== "") {
+    if (result !== null && result !== "") { */ 
 
 
   /*  this.projects[this.indexForProj].tasks.push({
@@ -145,9 +145,14 @@ export class TaskListComponent implements OnInit {
   })
   */
 
-        this.firebaseService.addTask(result,result1, completed)
+        this.afs.collection('Tasks').add({
+          'title': this.taskTitle,
+          'description': this.description,
+          'completed': false
+
+        })
         //this.idForTask++;
-        this.getData();
+        //this.getData();
       }
 
   //  this.tlService.changeProjects(this.projects);
@@ -156,7 +161,7 @@ export class TaskListComponent implements OnInit {
   }
 
 
-  edit(id:number) {
+/*   edit(id:number) {
 
 
     let title =this.tasks[id-1].title;
@@ -170,21 +175,21 @@ export class TaskListComponent implements OnInit {
     }
 
   }
-/*
+
   complete(id: number,completed:boolean){
     let taskCompletion = this.projects[this.indexForProj].tasks[id-1].completed;
     let promptComplete = confirm("Are you sure you wish to complete?");
     if (promptComplete !=null){
       this.projects[this.indexForProj].tasks[id-1].completed = true;
     }
-*/
+
 
 complete = task => this.firebaseService.completeTask(task);
 
   drop(event: CdkDragDrop<string[]>) {
     moveItemInArray(this.tasks, event.previousIndex, event.currentIndex);
   }
+  */
 
 
-
-  }
+  
