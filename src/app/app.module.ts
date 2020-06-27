@@ -10,6 +10,11 @@ import {MaterialModule} from "./material/material.module";
 
 import {LightDarkComponent} from 'src/app/components/light-dark/light-dark.component';
 import {TaskLineService} from "./task-line.service";
+import {HeaderComponent} from "./components/header/header.component";
+import { TaskOperationsComponent } from './components/projects/task-operations.component';
+import {DragDropModule} from "@angular/cdk/drag-drop";
+import {DueDateComponent} from "./components/dueDate/dueDate.component";
+import { SideNavComponent } from './components/side-nav/side-nav.component';
 
 
 
@@ -20,7 +25,11 @@ import {TaskLineService} from "./task-line.service";
     AppComponent,
     TaskListComponent,
 
-    LightDarkComponent
+    LightDarkComponent,
+    HeaderComponent,
+    TaskOperationsComponent,
+    DueDateComponent,
+    SideNavComponent
   ],
   imports: [
 
@@ -28,6 +37,7 @@ import {TaskLineService} from "./task-line.service";
     BrowserAnimationsModule,
     MaterialModule,
     FormsModule,
+    DragDropModule,
 
 
   ],
