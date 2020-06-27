@@ -5,68 +5,82 @@
 
 <div [class.alternative]="this.theme">
 
-<mat-toolbar color="primary">
-    <mat-toolbar-row>
-        <span class="toolbar" align="center">Lineup Task Management Application</span>
-    </mat-toolbar-row>
-</mat-toolbar>
+
 <br>
+<div class="title" align="center">
+  <mat-card color="primary">
+    <!--<h1 align="center" class="display-1">{{this.projects[indexForProj].title}}</h1>-->
+  </mat-card>
+</div>
 
 <div align="center">
-    <button mat-fab color="primary" aria-label="New Task" (click)=" addTaskItem()" matTooltip="Add New Task">
+
+  <button mat-fab color="primary" aria-label="New Task" (click)=" addTaskItem()" matTooltip="Add new Task" >
     <mat-icon>add</mat-icon>
   </button>
 
 </div>
 
 
-
-<mat-button-toggle-group name="fontStyle" aria-label="Font Style">
-    <mat-button-toggle value="bold">Priority</mat-button-toggle>
-    <mat-button-toggle value="italic">Completed</mat-button-toggle>
-    <mat-button-toggle value="underline">All</mat-button-toggle>
+<div align="center" class="marg">
+<mat-button-toggle-group  name="fontStyle" aria-label="Font Style">
+  <mat-button-toggle value="bold">Priority</mat-button-toggle>
+  <mat-button-toggle value="italic">Completed</mat-button-toggle>
+  <mat-button-toggle value="underline">All</mat-button-toggle>
 </mat-button-toggle-group>
+</div>
 
 
 
-
-<br>
-<div *ngFor="let task of tasks; let idx=index">
-
+  <div cdkDropList class = "Tasks" (cdkDropListDropped) = "drop($event)">
+<!-- <div *ngFor="let task of this.projects[this.indexForProj].tasks; let idx=index" cdkDrag>
+-->
+    <div *ngFor="let task of tasks; let idx =index" cdkDrag>
 
     <mat-card>
-        <mat-accordion>
 
-            <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-                <mat-expansion-panel-header>
-                    <mat-panel-title align="center">
+      <mat-accordion>
 
-                        <h1> {{idx +1}}. {{task.title}} </h1>
+        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+          <mat-expansion-panel-header>
+            <mat-panel-title align="center">
 
-                    </mat-panel-title>
-                    <mat-panel-description align="right">
-                        Click to see description
-                    </mat-panel-description>
-                </mat-expansion-panel-header>
-                <div align="center">
-                    <p>{{task.description}} </p>
-                    <p>Task Completion Status: {{task.completed}}</p>
-                </div>
-                <mat-card-actions class="mat-action-row">
-                    <button mat-raised-button color="primary" (click)="edit(task.id)">Edit Task</button>
-                    <button mat-raised-button color="primary" (click)="complete(task.id, task.completed)">Complete Task</button>
-                    <button mat-raised-button color="primary" (click)="deleteTask(task.id)">Delete Task</button>
-                </mat-card-actions>
-                <mat-card-actions>
-                    <mat-progress-bar mode="determinate" value="40" matTooltip="Time Remaining"></mat-progress-bar>
-                </mat-card-actions>
+              <h1> {{idx +1}}. {{task.payload.doc.data().title}} </h1>
+
+            </mat-panel-title>
+            <mat-panel-description align="right">
+              Click to see description
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <div align="center">
+            <p>{{task.payload.doc.data().description}} </p>
+            <p>Task Completion Status: {{task.payload.doc.data().completed}}</p>
+          </div>
+          <mat-card-actions class="mat-action-row">
+
+            <button mat-fab color="primary" (click)="edit(task.id)" matTooltip="Edit Task"><mat-icon>edit</mat-icon></button>
+            <button mat-fab color="primary" (click)="complete(task)" matTooltip="Complete Task"><mat-icon>check</mat-icon></button>
+            <button mat-fab color="primary" (click)="deleteTask(task)"><mat-icon>delete</mat-icon></button>
+
+          </mat-card-actions>
+          <mat-card-actions>
+            <div class="poop" align="right">
+              <app-dueDate ></app-dueDate>
+            </div>
+          <!--  <mat-progress-bar mode="determinate" value="40" matTooltip="Time Remaining"></mat-progress-bar> -->
+          </mat-card-actions>
 
 
-            </mat-expansion-panel>
-        </mat-accordion>
+        </mat-expansion-panel>
+      </mat-accordion>
+
     </mat-card>
-</div>
-<div align="right">   <app-light-dark (changeTheme)="onThemeChange($event)"> {{this.theme}}</app-light-dark>  </div>
+  </div>
+
+  </div>
+<br>
+
+
 
 
 

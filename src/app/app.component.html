@@ -1,15 +1,38 @@
 
 
+<html [class.alternative]="theme">
+
+
+
+<body [class.alternative]="theme">
+  <mat-sidenav-container  [class.alternative]="theme">
+    <mat-sidenav [class.alternative]="theme"  mode="side" [(opened)]="opened"> <app-task-operations (updateProjIndex)="onIndexChange($event)"></app-task-operations></mat-sidenav>
+    <mat-sidenav-content [class.alternative]="theme">
+
+
+
+  <app-header (open)="onOpen($event)" (changeTheme1)="onThemeChange($event)"></app-header>
+
+  <app-task-list   [indexForProj]="indexForProj" ></app-task-list>
 
 
 
 
-  <app-task-list [class.alternative]="theme" (changeTheme1)="onThemeChange($event)" ></app-task-list>
-
-  <body [class.alternative]="theme">
-
+    </mat-sidenav-content>
+  </mat-sidenav-container>
 </body>
 
+
+</html>
+
+
+
+
+
+
+
+
+{{ message | async | json }}
 
 
 

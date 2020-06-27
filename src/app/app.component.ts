@@ -1,6 +1,10 @@
 import { Component } from '@angular/core';
-import {TaskLineService} from "./task-line.service";
+import {TaskLineService} from "./service/task-line.service";
+
 import {Observable} from "rxjs";
+
+
+import { MessagingService } from './service/messaging.service';
 
 
 @Component({
@@ -10,25 +14,37 @@ import {Observable} from "rxjs";
 })
 export class AppComponent {
   title = 'task-management-angular';
+
   theme: boolean = false;
+  indexForProj: number =0;
+  opened = false;
 
 
-  constructor() {
+  message;
+  constructor(private messagingService: MessagingService) { }
+  ngOnInit() {
+    this.messagingService.requestPermission()
+    this.messagingService.receiveMessage()
+    this.message = this.messagingService.currentMessage;
 
-    }
-
+  }
 
   onThemeChange(value :boolean) {
     this.theme = value;
-    //this.changeTheme1.emit(this.theme);
+//    this.changeTheme1.emit(this.theme);
 
   }
 
-
-  ngOnInit(): void {
+  onOpen(value: boolean){
+    this.opened = value;
 
 
   }
+  onIndexChange(value :number) {
+    this.indexForProj = value;
+  }
+
+
 
 
 

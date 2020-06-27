@@ -1,0 +1,11 @@
+<mat-sidenav-container >
+  <mat-sidenav mode="side" [(opened)]="opened"> Sidenav
+
+    <app-task-operations (updateProjIndex)="onIndexChange($event)"></app-task-operations>
+
+  </mat-sidenav>
+  <mat-sidenav-content> sidenav closed
+
+    <button mat-fab (click)="opened=!opened"><mat-icon>menu</mat-icon> </button>
+  </mat-sidenav-content>
+</mat-sidenav-container>
