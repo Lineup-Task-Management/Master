@@ -39,34 +39,36 @@ addProject(){
 
   if(result === null || result === "")
     return;
-
-
-  this.tasks = [
-
-    {
-      'id':0,
-      'title':"Make your first task",
-      'completed':false,
-      'editing':false,
-      'description': "Click the add new task button!"
-    },
-
-  ];
-
- this.projects.push(
-      {
-        'id': ++this.idForProj,
-        'title':result,
-        'tasks': this.tasks
-      } )
-
-
-
-
-
-
-    this.tlService.changeProjects(this.projects);
-    this.updateIndex(this.idForProj);
+  this.firebaseService.addProject(result);
+  this.getProjects();
+ //
+ //
+ //  this.tasks = [
+ //
+ //    {
+ //      'id':0,
+ //      'title':"Make your first task",
+ //      'completed':false,
+ //      'editing':false,
+ //      'description': "Click the add new task button!"
+ //    },
+ //
+ //  ];
+ //
+ // this.projects.push(
+ //      {
+ //        'id': ++this.idForProj,
+ //        'title':result,
+ //        'tasks': this.tasks
+ //      } )
+ //
+ //
+ //
+ //
+ //
+ //
+ //    this.tlService.changeProjects(this.projects);
+ //    this.updateIndex(this.idForProj);
 }
 
   @Output() updateProjIndex: EventEmitter<number> = new EventEmitter<number>();

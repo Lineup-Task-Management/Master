@@ -5,14 +5,17 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { TaskListComponent } from './components/task-list/task-list.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { LoginComponent } from './components/login/login.component';
+import {LightDarkComponent} from 'src/app/components/light-dark/light-dark.component';
+import { TaskOperationsComponent } from './components/projects/task-operations.component';
 
 import {MaterialModule} from "./material/material.module";
 
 
-import {LightDarkComponent} from 'src/app/components/light-dark/light-dark.component';
+
 import {TaskLineService} from "./service/task-line.service";
 import {HeaderComponent} from "./components/header/header.component";
-import { TaskOperationsComponent } from './components/projects/task-operations.component';
+
 import {DragDropModule} from "@angular/cdk/drag-drop";
 import {DueDateComponent} from "./components/dueDate/dueDate.component";
 import { SideNavComponent } from './components/side-nav/side-nav.component';
@@ -31,6 +34,9 @@ import { AngularFireModule } from '@angular/fire';
 import { environment } from '../environments/environment';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
+//import {AngularFireAuth} from '@angular/fire/auth';
+
+
 
 
 @NgModule({
@@ -43,7 +49,8 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
     HeaderComponent,
     TaskOperationsComponent,
     DueDateComponent,
-    SideNavComponent
+    SideNavComponent,
+    LoginComponent
 
   ],
   imports: [
@@ -59,6 +66,7 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
     AngularFireMessagingModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
+    //AngularFireAuth,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
 
   ],

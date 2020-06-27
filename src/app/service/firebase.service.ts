@@ -6,41 +6,51 @@ import { AngularFirestore } from '@angular/fire/firestore';
   })
   export class FirebaseService {
 
-    constructor(public db: AngularFirestore) {}
+  constructor(public db: AngularFirestore) {
+  }
 
-   /* getTasks(){
+  /* getTasks(){
 
-        return this.db.collection('task').snapshotChanges();
-      }
-    */
-  getTasks(){
+       return this.db.collection('task').snapshotChanges();
+     }
+   */
+  getTasks() {
     return this.db.collection('Projects/Tasks/Tasks').snapshotChanges();
   }
 
-getProjects(){
-    return this.db.collection('Projects').doc('Tasks/Task').snapshotChanges();
+  getProjects() {
+    return this.db.collection('Projects').snapshotChanges();
+  }
+
+  deleteTask(data) {
+    return this.db.collection('Projects/Tasks/Tasks').doc(data.payload.doc.id).delete();
+
+
+  }
+
+  completeTask(data) {
+    return this.db.collection('Projects/Tasks/Tasks').doc(data.payload.doc.id).set({completed: true}, {merge: true});
+
+
+  }
+
+  addTask(title, description, completed) {
+    return this.db.collection('Projects/Tasks/Tasks').add({
+      //id : id,
+      title: title,
+      description: description,
+      completed: completed
+    });
+  }
+
+
+  addProject(title) {
+    return this.db.collection('Projects').doc(title).set({
+
+      title: "First Task",
+      description: "Make a new Task",
+      completed: false
+    });
+  }
+
 }
-
-    deleteTask(data){
-        return this.db.collection('Projects/Tasks/Tasks').doc(data.payload.doc.id).delete();
-
-
-    }
-
-    completeTask(data){
-        return this.db.collection('Projects/Tasks/Tasks').doc(data.payload.doc.id).set({ completed: true}, {merge : true});
-
-
-
-
-    }
-
-    addTask(title,description, completed){
-        return this.db.collection('Projects/Tasks/Tasks').add({
-          //id : id,
-          title: title,
-          description:description,
-          completed:completed
-        });
-      }
-    }
