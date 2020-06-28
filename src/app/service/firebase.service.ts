@@ -1,10 +1,17 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
+import {BehaviorSubject, Observable} from "rxjs";
+import {Project} from "../interfaces/Project";
 
 @Injectable({
     providedIn: 'root'
   })
   export class FirebaseService {
+
+
+  userId:string;
+  private userIdSource = new BehaviorSubject<string>(this.userId);
+  currentProjects = this.userIdSource.asObservable();
 
   constructor(public db: AngularFirestore) {
   }
@@ -53,4 +60,10 @@ import { AngularFirestore } from '@angular/fire/firestore';
     });
   }
 
+  changeUserId(userId: string){
+    this.userIdSource.next(userId)
+  }
+
 }
+
+
