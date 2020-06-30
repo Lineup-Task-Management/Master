@@ -13,7 +13,7 @@
 <br>
 
 <div align="center">
-  <button mat-fab color="primary" aria-label="New Task" (click)=" addTaskItem()" matTooltip="Add new Task" >
+    <button mat-fab color="primary" aria-label="New Task" (click)=" addTaskItem()" matTooltip="Add New Task">
     <mat-icon>add</mat-icon>
   </button>
 
@@ -22,9 +22,9 @@
 
 
 <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
-  <mat-button-toggle value="bold">Priority</mat-button-toggle>
-  <mat-button-toggle value="italic">Completed</mat-button-toggle>
-  <mat-button-toggle value="underline">All</mat-button-toggle>
+    <mat-button-toggle value="bold">Priority</mat-button-toggle>
+    <mat-button-toggle value="italic">Completed</mat-button-toggle>
+    <mat-button-toggle value="underline">All</mat-button-toggle>
 </mat-button-toggle-group>
 
 
@@ -50,16 +50,16 @@
                 </mat-expansion-panel-header>
                 <div align="center">
                     <p>{{task.description}} </p>
-                   <p>Task Completion Status: {{task.completed}}</p>
+                    <p>Task Completion Status: {{task.completed}}</p>
                 </div>
                 <mat-card-actions class="mat-action-row">
                     <button mat-raised-button color="primary" (click)="edit(task.id)">Edit Task</button>
                     <button mat-raised-button color="primary" (click)="complete(task.id, task.completed)">Complete Task</button>
                     <button mat-raised-button color="primary" (click)="deleteTask(task.id)">Delete Task</button>
                 </mat-card-actions>
-              <mat-card-actions>
-                <mat-progress-bar mode="determinate" value="40" matTooltip="Time Remaining"></mat-progress-bar>
-              </mat-card-actions>
+                <mat-card-actions>
+                    <mat-progress-bar mode="determinate" value="40" matTooltip="Time Remaining"></mat-progress-bar>
+                </mat-card-actions>
 
 
             </mat-expansion-panel>
