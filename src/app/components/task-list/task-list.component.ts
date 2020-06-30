@@ -77,6 +77,8 @@ export class TaskListComponent implements OnInit {
 
   ngOnInit(): void {
     this.getData();
+
+
     //this.docRef = this.db.collection('Users').doc(this.firebaseService.userId);
     //this.docRef.get().toPromise().then(function(doc){
      //   return doc
@@ -87,7 +89,10 @@ export class TaskListComponent implements OnInit {
 
 
 
+ngOnChanges(): void{
+this.getData();
 
+}
 
   addTaskItem(): void  {
     //let id = this.idForTask

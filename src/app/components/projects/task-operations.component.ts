@@ -16,7 +16,7 @@ export class TaskOperationsComponent implements OnInit {
   idForProj: number =0;
   titleForProj: string = "this is a test";
   indexForProj:number =0;
-  tasks: Task[];
+
 
   constructor(private tlService: TaskLineService,
               public firebaseService: FirebaseService) { }
@@ -29,9 +29,13 @@ this.getProjects();
 
   getProjects(){
     this.firebaseService.getProjects()
-      .subscribe((result => (this.projects = result)));
-
-  }
+      .subscribe((result => {
+        this.projects = result.payload.data();
+        console.log(result);
+        console.log(this.indexForProj)
+        ;
+      }));
+    }
 addProject(){
 
   let title = ""
@@ -73,10 +77,11 @@ addProject(){
 
   @Output() updateProjIndex: EventEmitter<number> = new EventEmitter<number>();
 
-updateIndex(id: number){
-    this.indexForProj = this.projects[id].id;
+updateIndex(index: number){
+    this.indexForProj = index;
     this.updateProjIndex.emit(this.indexForProj)
-
+    console.log(this.indexForProj)
+    
 }
 
 }
