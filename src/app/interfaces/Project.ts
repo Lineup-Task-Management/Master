@@ -1,9 +1,9 @@
 import { Task } from "./task";
 
 export class Project{
-  id:number;
+
   title:string;
-  tasks: Task[];
+  tasks: Array<any>;
   constructor(){
 
   }
