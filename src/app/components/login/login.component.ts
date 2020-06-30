@@ -105,6 +105,7 @@ export class LoginComponent implements OnInit {
 
   async signOut(){
     await this.afAuth.auth.signOut();
+    window.location.reload();
 
   }
 
