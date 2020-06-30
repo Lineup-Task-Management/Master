@@ -11,7 +11,7 @@ import {Project} from "../interfaces/Project";
 
   userId:string;
   private userIdSource = new BehaviorSubject<string>(this.userId);
-  currentProjects = this.userIdSource.asObservable();
+  currentUserId = this.userIdSource.asObservable();
 
   constructor(public db: AngularFirestore) {
   }
@@ -22,11 +22,15 @@ import {Project} from "../interfaces/Project";
      }
    */
   getTasks() {
-    return this.db.collection('Projects/Tasks/Tasks').snapshotChanges();
+    return this.db.collection('Users/'+this.userId).snapshotChanges();
+  }
+  viewTasks() {
+    return this.db.collection('Users/'+this.userId);
   }
 
   getProjects() {
-    return this.db.collection('Projects').snapshotChanges();
+    return this.db.collection('Users').doc('9vuFijZpCfeAarBes9eZjd6MggE3')
+      .snapshotChanges();
   }
 
   deleteTask(data) {

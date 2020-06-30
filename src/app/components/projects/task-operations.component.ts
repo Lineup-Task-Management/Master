@@ -12,7 +12,7 @@ import {FirebaseService} from "../../service/firebase.service";
 export class TaskOperationsComponent implements OnInit {
 
 
-  projects: Array<any>    // Project[];
+  projects: any    // Project[];
   idForProj: number =0;
   titleForProj: string = "this is a test";
   indexForProj:number =0;

@@ -9,6 +9,15 @@ import { FirebaseService } from '../../service/firebase.service';
 import { getLocaleDateFormat } from '@angular/common';
 
 
+import {functions} from "firebase";
+
+import {map} from "rxjs/operators";
+import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
+
+
+
+
+
 
 
 @Component({
@@ -17,7 +26,7 @@ import { getLocaleDateFormat } from '@angular/common';
   styleUrls: ['./task-list.component.scss']
 })
 export class TaskListComponent implements OnInit {
-  tasks: Array<any>;
+  tasks: any;
   taskTitle:string;
   idForTask: number;
   panelOpenState: boolean;
@@ -27,18 +36,32 @@ export class TaskListComponent implements OnInit {
   @Input() indexForProj: number;
 
 
-
+  docRef: any
   task: any;
 
 
   constructor(private tlService: TaskLineService,
-    public firebaseService: FirebaseService){
+    public firebaseService: FirebaseService,
+  private db: AngularFirestore){
 
 
   }
   getData(){
-    this.firebaseService.getTasks()
-      .subscribe((result => (this.tasks = result)));
+
+    this.firebaseService.getProjects()
+      .subscribe((result => {
+        this.tasks = result.payload.data();
+        console.log(result);
+        console.log(this.tasks)
+
+        ;
+      }));
+    // this.tasks = this.db.collection("Users/"+this.firebaseService.userId)
+    //   .snapshotChanges().subscribe(res=>{
+    //     this.tasks = res;
+    //     console.log(res);
+    //     console.log(this.tasks);
+    //   })
 
 
 
@@ -54,49 +77,14 @@ export class TaskListComponent implements OnInit {
 
   ngOnInit(): void {
     this.getData();
+    //this.docRef = this.db.collection('Users').doc(this.firebaseService.userId);
+    //this.docRef.get().toPromise().then(function(doc){
+     //   return doc
+   // })
+
+
   }
 
-    //   this.tlService.currentProjects.subscribe(projects => this.projects = projects)
-    //
-    //   this.idForTask = 1;
-    //
-    //   this.taskTitle ='';
-    //
-    //
-    //   this.tasks = [
-    //
-    //   {
-    //       'id':this.idForTask ++,
-    //       'title':"This is Task #1",
-    //       'completed':false,
-    //       'editing':false,
-    //       'description': "Description for Task #1"
-    //     },
-    //     {
-    //       'id':this.idForTask ++,
-    //       'title':"This is Task #2",
-    //       'completed':false,
-    //       'editing':false,
-    //       'description': "Description for Task #2"
-    //     },
-    //   ];
-    //
-    //   this.projects = [
-    //     {
-    //       'id' :0,
-    //       'title': "this is a test",
-    //       'tasks': this.tasks,
-    //
-    //     }
-    //     ];
-    //
-    // this.tlService.changeProjects(this.projects);
-    // }
-
- // deleteTask(id: number){
-   // this.projects[this.indexForProj].tasks = this.projects[this.indexForProj].tasks.filter(tasks => tasks.id != id);
-   // this.tlService.changeProjects(this.projects);
- // }
 
 
 

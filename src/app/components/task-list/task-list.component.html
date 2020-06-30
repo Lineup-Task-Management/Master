@@ -9,7 +9,7 @@
 <br>
 <div class="title" align="center">
   <mat-card color="primary">
-<!--{{task.payload.doc.data().title}}-->
+{{tasks.projects[0].title}}
   </mat-card>
 </div>
 
@@ -35,7 +35,7 @@
   <div cdkDropList class = "Tasks" (cdkDropListDropped) = "drop($event)">
 <!-- <div *ngFor="let task of this.projects[this.indexForProj].tasks; let idx=index" cdkDrag>
 -->
-    <div *ngFor="let task of tasks; let idx =index" cdkDrag>
+    <div *ngFor="let task of tasks.projects[0].task; let idx =index" cdkDrag>
 
     <mat-card>
 
@@ -45,7 +45,7 @@
           <mat-expansion-panel-header>
             <mat-panel-title align="center">
 
-              <h1> {{idx +1}}. {{task.payload.doc.data().title}} </h1>
+              <h1> {{idx +1}}. {{task.title}} </h1>
 
             </mat-panel-title>
             <mat-panel-description align="right">
@@ -53,8 +53,7 @@
             </mat-panel-description>
           </mat-expansion-panel-header>
           <div align="center">
-            <p>{{task.payload.doc.data().description}} </p>
-            <p>Task Completion Status: {{task.payload.doc.data().completed}}</p>
+
           </div>
           <mat-card-actions class="mat-action-row">
 
