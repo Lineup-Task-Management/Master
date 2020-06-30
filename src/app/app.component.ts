@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {TaskLineService} from "./service/task-line.service";
+import {LoginComponent} from "./components/login/login.component";
 
 import {Observable} from "rxjs";
 
@@ -10,18 +11,24 @@ import { MessagingService } from './service/messaging.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
   title = 'task-management-angular';
-
+  isLoggedIn: boolean = false;
   theme: boolean = false;
   indexForProj: number =0;
   opened = false;
 
 
   message;
-  constructor(private messagingService: MessagingService) { }
+  constructor(
+    private messagingService: MessagingService,
+    private loginComponent: LoginComponent
+    ) {
+      loginComponent.isLoggedIn = this.isLoggedIn;
+
+     }
   ngOnInit() {
     this.messagingService.requestPermission()
     this.messagingService.receiveMessage()
