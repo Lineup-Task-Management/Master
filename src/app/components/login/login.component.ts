@@ -69,17 +69,19 @@ export class LoginComponent implements OnInit {
        if (!res.payload.exists)
        {
          this.db.collection('Users').doc(this.userId).set({
-           projects: Array<any>(
-             {
-               title:"first project",
-               task: Array<any>({
-                 title: "Whats your first task?",
-                 description: "click the add new task button",
-                 completed: false
-               },)
-             }),
            uid: this.userId
-         },{merge: true});
+         },{merge: true})
+
+         this.db.doc('Users/'+this.userId+'/Projects/project1').set({
+              id:"1",
+               title:"First Project",
+               tasks:Array<any>({
+                 title:"Whats your first task?",
+                 description:"click the add the new task button",
+                 completed: false
+               })
+             },{merge: true});
+
 
        }
        else{

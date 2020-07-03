@@ -13,7 +13,7 @@ import {functions} from "firebase";
 
 import {map} from "rxjs/operators";
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
-import {Holder} from "../../interfaces/Holder";
+
 import {Observable} from "rxjs";
 
 

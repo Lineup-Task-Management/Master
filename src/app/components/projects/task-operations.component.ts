@@ -14,7 +14,7 @@ export class TaskOperationsComponent implements OnInit {
 
 
   projects: Project[]   // Project[];
-  idForProj: number =0;
+  idForProj: number =1;
   titleForProj: string = "this is a test";
   indexForProj:number =0;
 
@@ -45,10 +45,9 @@ addProject(){
   if(result === null || result === "")
     return;
   this.firebaseService.addProject(result);
-  this.getProjects();
 
- //    this.tlService.changeProjects(this.projects);
- //    this.updateIndex(this.idForProj);
+
+
 }
 
   @Output() updateProjIndex: EventEmitter<number> = new EventEmitter<number>();

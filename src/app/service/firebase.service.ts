@@ -84,13 +84,33 @@ import { map } from 'rxjs/operators'
 
 
   addProject(title) {
-    return this.db.collection('Projects').doc(title).set({
 
-      title: "First Task",
-      description: "Make a new Task",
-      completed: false
-    });
+
+    var ranNum = Math.floor(Math.random() * 1000000).toString();
+    this.db.doc('Users/' + this.userId + '/projects/' + ranNum).set({
+      id: ranNum,
+      title: title,
+      tasks: Array<any>({
+        title: "Whats your first task?",
+        description: "click the add the new task button",
+        completed: false,
+
+      })
+    }, {merge: true});
+
+    console.log(this.db.doc('Users/' + this.userId + '/Projects/' + ranNum).get());
+
+
+
   }
+
+        // else{
+        //   this.fbService.changeUserId(this.userId);
+        //   console.log("already Exists");
+        //   console.log(this.userId);
+        //   console.log(this.fbService.userId);
+        // }
+
 
   changeUserId(userId: string){
     this.userIdSource.next(userId)
