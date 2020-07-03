@@ -26,6 +26,16 @@ import { map } from 'rxjs/operators'
 
     this.currentUserId.subscribe(userId=> this.userId = userId);
 
+
+
+
+    }
+
+
+
+  getProjects() {
+  //   return this.db.collection('Users', ref=> ref.where('uid','==',this.userId))
+  //     .snapshotChanges();
     this.projectCollection = this.db.collection('Users/'+this.userId+'/projects');
 
     this.items = this.projectCollection.snapshotChanges().pipe(map(changes => {
@@ -35,34 +45,13 @@ import { map } from 'rxjs/operators'
         data.id = a.payload.doc.id;
         console.log(data);
         return data;
-    })
+      })
     }));
-
-
-    }
-
-
-  /* getTasks(){
-
-       return this.db.collection('task').snapshotChanges();
-     }
-   */
-
-  getTasks() {
-    return this.db.collection('Users/'+this.userId).snapshotChanges();
-  }
-  viewTasks() {
-    return this.db.collection('Users/'+this.userId);
-  }
-
-  getProjects() {
-  //   return this.db.collection('Users', ref=> ref.where('uid','==',this.userId))
-  //     .snapshotChanges();
     return this.items;
   }
 
   deleteTask(data) {
-    return this.db.collection('Projects/Tasks/Tasks').doc(data.payload.doc.id).delete();
+    return this.db.collection('Users/'+this.userId+'/projects').doc(data).delete();
 
 
   }
@@ -104,16 +93,13 @@ import { map } from 'rxjs/operators'
 
   }
 
-        // else{
-        //   this.fbService.changeUserId(this.userId);
-        //   console.log("already Exists");
-        //   console.log(this.userId);
-        //   console.log(this.fbService.userId);
-        // }
+
 
 
   changeUserId(userId: string){
-    this.userIdSource.next(userId)
+    this.userIdSource.next(userId);
+
+
   }
 
   anonymousId(){

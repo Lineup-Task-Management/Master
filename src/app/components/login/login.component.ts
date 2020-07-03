@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import * as firebase from "firebase";
 import {AngularFireAuth} from "@angular/fire/auth";
 import * as firebaseui from "firebaseui";
 
 import {AngularFirestore} from "@angular/fire/firestore";
-import {merge} from "rxjs";
+import {BehaviorSubject, merge} from "rxjs";
 import {FirebaseService} from "../../service/firebase.service";
 import {take, tap} from "rxjs/operators";
 
@@ -16,6 +16,10 @@ import {take, tap} from "rxjs/operators";
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+
+  // userChange:boolean = false;
+  // private userChangeSource = new BehaviorSubject<boolean>(this.userChange);
+  // currentUserChange = this.userChangeSource.asObservable();
 
   ui: firebaseui.auth.AuthUI;
   userId:string;
@@ -87,9 +91,10 @@ export class LoginComponent implements OnInit {
        else{
          this.fbService.changeUserId(this.userId);
          console.log("already Exists");
-         console.log(this.userId);
+
          console.log(this.fbService.userId);
        }
+
        }
        )
 

@@ -29,8 +29,7 @@ import {Observable} from "rxjs";
 })
 export class TaskListComponent implements OnInit {
   project: Project[];
-  taskTitle:string;
-  idForTask: number;
+
   panelOpenState: boolean;
   userId:string;
 
@@ -39,7 +38,7 @@ export class TaskListComponent implements OnInit {
   theme: boolean = false;
         // Project[];
   @Input() indexForProj: number;
-
+  @Input() userChange: boolean;
 
 
   task: any;
@@ -59,20 +58,26 @@ export class TaskListComponent implements OnInit {
         console.log(result);
         console.log(this.project);
       }));
-    this.firebaseService.currentUserId.subscribe(userId=> {
-      this.userId = userId;
-    })
+
+
+
+
 
 
 
   }
 
-  deleteTask = task => this.firebaseService.deleteTask(task);
+
   //this.tasks = this.tasks.filter(tasks => tasks.id != id);
 
   ngOnInit(): void {
     this.getData();
 
+    this.firebaseService.currentUserId.subscribe(userId=> {
+      this.userId = userId;
+
+
+    });
 
 
 

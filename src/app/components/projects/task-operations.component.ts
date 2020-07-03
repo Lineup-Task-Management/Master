@@ -54,9 +54,11 @@ addProject(){
 
 updateIndex(index: number){
     this.indexForProj = index;
-    this.updateProjIndex.emit(this.indexForProj)
-    console.log(this.indexForProj)
+    this.updateProjIndex.emit(this.indexForProj);
+    console.log(this.indexForProj);
 
 }
+
+  deleteProject = task => this.firebaseService.deleteTask(task);
 
 }
