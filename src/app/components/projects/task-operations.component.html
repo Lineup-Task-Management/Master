@@ -1,7 +1,7 @@
 
 <div align="center"> <!--[(ngModel)]="projects" *ngFor="let project of projects;"> -->
   <mat-selection-list [multiple]="false">
-    <mat-list-option  [(ngModel)]="projects" *ngFor="let project of projects.projects; let i = index;" (click)="updateIndex(i)">
+    <mat-list-option  [(ngModel)]="projects" *ngFor="let project of projects; let i = index;" (click)="updateIndex(i)">
       {{project.title}}
 
 

@@ -9,7 +9,7 @@
 <br>
 <div class="title" align="center">
   <mat-card color="primary">
-{{tasks.projects[0].title}}
+{{project[this.indexForProj].title}} {{this.userId}}
   </mat-card>
 </div>
 
@@ -35,7 +35,7 @@
   <div cdkDropList class = "Tasks" (cdkDropListDropped) = "drop($event)">
 <!-- <div *ngFor="let task of this.projects[this.indexForProj].tasks; let idx=index" cdkDrag>
 -->
-    <div *ngFor="let task of tasks.projects[this.indexForProj].task; let idx =index" cdkDrag>
+    <div *ngFor="let task of project[this.indexForProj].tasks; let idx =index" cdkDrag>
 
     <mat-card>
 
@@ -53,6 +53,7 @@
             </mat-panel-description>
           </mat-expansion-panel-header>
           <div align="center">
+            {{task.description}}
 
           </div>
           <mat-card-actions class="mat-action-row">

@@ -3,7 +3,8 @@ import { Task } from "./task";
 export class Project{
 
   title:string;
-  tasks: Array<any>;
+  tasks: Array<Task>;
+  id:string;
   constructor(){
 
   }

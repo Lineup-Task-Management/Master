@@ -4,6 +4,7 @@ import {Project} from "../../interfaces/Project";
 import {Task} from "../../interfaces/task";
 import {FirebaseService} from "../../service/firebase.service";
 
+
 @Component({
   selector: 'app-task-operations',
   templateUrl: './task-operations.component.html',
@@ -12,7 +13,7 @@ import {FirebaseService} from "../../service/firebase.service";
 export class TaskOperationsComponent implements OnInit {
 
 
-  projects: any    // Project[];
+  projects: Project[]   // Project[];
   idForProj: number =0;
   titleForProj: string = "this is a test";
   indexForProj:number =0;
@@ -23,14 +24,14 @@ export class TaskOperationsComponent implements OnInit {
 
   ngOnInit() {
 
-//this.tlService.currentProjects.subscribe(projects => this.projects = projects);
+
 this.getProjects();
   }
 
   getProjects(){
     this.firebaseService.getProjects()
       .subscribe((result => {
-        this.projects = result.payload.data();
+        this.projects = result;
         console.log(result);
         console.log(this.indexForProj)
         ;
@@ -45,32 +46,7 @@ addProject(){
     return;
   this.firebaseService.addProject(result);
   this.getProjects();
- //
- //
- //  this.tasks = [
- //
- //    {
- //      'id':0,
- //      'title':"Make your first task",
- //      'completed':false,
- //      'editing':false,
- //      'description': "Click the add new task button!"
- //    },
- //
- //  ];
- //
- // this.projects.push(
- //      {
- //        'id': ++this.idForProj,
- //        'title':result,
- //        'tasks': this.tasks
- //      } )
- //
- //
- //
- //
- //
- //
+
  //    this.tlService.changeProjects(this.projects);
  //    this.updateIndex(this.idForProj);
 }
@@ -81,7 +57,7 @@ updateIndex(index: number){
     this.indexForProj = index;
     this.updateProjIndex.emit(this.indexForProj)
     console.log(this.indexForProj)
-    
+
 }
 
 }

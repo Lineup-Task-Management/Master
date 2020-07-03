@@ -77,12 +77,16 @@ export class LoginComponent implements OnInit {
                  description: "click the add new task button",
                  completed: false
                },)
-             })
+             }),
+           uid: this.userId
          },{merge: true});
-         this.fbService.changeUserId(this.userId);
+
        }
        else{
+         this.fbService.changeUserId(this.userId);
          console.log("already Exists");
+         console.log(this.userId);
+         console.log(this.fbService.userId);
        }
        }
        )

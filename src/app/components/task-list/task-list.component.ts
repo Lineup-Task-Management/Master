@@ -13,6 +13,8 @@ import {functions} from "firebase";
 
 import {map} from "rxjs/operators";
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
+import {Holder} from "../../interfaces/Holder";
+import {Observable} from "rxjs";
 
 
 
@@ -26,17 +28,20 @@ import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firest
   styleUrls: ['./task-list.component.scss']
 })
 export class TaskListComponent implements OnInit {
-  tasks: any;
+  project: Project[];
   taskTitle:string;
   idForTask: number;
   panelOpenState: boolean;
+  userId:string;
+
+
 
   theme: boolean = false;
-  projects:   Array<any>        // Project[];
+        // Project[];
   @Input() indexForProj: number;
 
 
-  docRef: any
+
   task: any;
 
 
@@ -50,26 +55,16 @@ export class TaskListComponent implements OnInit {
 
     this.firebaseService.getProjects()
       .subscribe((result => {
-        this.tasks = result.payload.data();
+        this.project = result;
         console.log(result);
-        console.log(this.tasks)
-
-        ;
+        console.log(this.project);
       }));
-    // this.tasks = this.db.collection("Users/"+this.firebaseService.userId)
-    //   .snapshotChanges().subscribe(res=>{
-    //     this.tasks = res;
-    //     console.log(res);
-    //     console.log(this.tasks);
-    //   })
+    this.firebaseService.currentUserId.subscribe(userId=> {
+      this.userId = userId;
+    })
 
 
 
-
-
-
-   // this.firebaseService.getTasks()
-    //  .subscribe(result => (this.tasks = result));
   }
 
   deleteTask = task => this.firebaseService.deleteTask(task);
@@ -79,10 +74,7 @@ export class TaskListComponent implements OnInit {
     this.getData();
 
 
-    //this.docRef = this.db.collection('Users').doc(this.firebaseService.userId);
-    //this.docRef.get().toPromise().then(function(doc){
-     //   return doc
-   // })
+
 
 
   }
@@ -95,7 +87,7 @@ this.getData();
 }
 
   addTaskItem(): void  {
-    //let id = this.idForTask
+
     let title = ""
     let description = ''
     let result = prompt("Task Title", title);
@@ -108,20 +100,9 @@ this.getData();
     if (result !== null && result !== "") {
 
 
-  /*  this.projects[this.indexForProj].tasks.push({
 
 
-
-    id: id,
-    title: result,
-    completed: false,
-    editing: false,
-    description: result1,
-
-  })
-  */
-
-        this.firebaseService.addTask(result,result1, completed)
+        this.firebaseService.addTask(result,result1, completed,this.indexForProj)
         //this.idForTask++;
         this.getData();
       }
@@ -135,15 +116,15 @@ this.getData();
   edit(id:number) {
 
 
-    let title =this.tasks[id-1].title;
-    let result = prompt("Edit Task Title", title);
-    let result1 = prompt("Edit Task Description", this.tasks[id-1].description);
-    if (result1 !== null && result1 !== "") {
-      this.tasks[id-1].description = result1;
-    }
-    if (result !== null && result !== "") {
-      this.tasks[id-1].title = result;
-    }
+    // let title =this.tasks[id-1].title;
+    // let result = prompt("Edit Task Title", title);
+    // let result1 = prompt("Edit Task Description", this.tasks[id-1].description);
+    // if (result1 !== null && result1 !== "") {
+    //   this.tasks[id-1].description = result1;
+    // }
+    // if (result !== null && result !== "") {
+    //   this.tasks[id-1].title = result;
+    //}
 
   }
 /*
@@ -158,7 +139,7 @@ this.getData();
 complete = task => this.firebaseService.completeTask(task);
 
   drop(event: CdkDragDrop<string[]>) {
-    moveItemInArray(this.tasks, event.previousIndex, event.currentIndex);
+    moveItemInArray(this.project, event.previousIndex, event.currentIndex);
   }
 
 
