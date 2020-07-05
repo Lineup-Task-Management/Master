@@ -1,0 +1,27 @@
+
+<div align="center"> <!--[(ngModel)]="projects" *ngFor="let project of projects;"> -->
+  <mat-selection-list [multiple]="false">
+    <mat-list-option  [(ngModel)]="projects" *ngFor="let project of projects; let i = index;" (click)="updateIndex(i)">
+      <div style="display:flex; justify-content:space-between;align-items:center">
+      {{project.title}}
+      <div (click)="deleteProject(project.id)" align="right">
+
+          <button mat-icon-button >
+            <mat-icon>delete</mat-icon>
+          </button>
+
+
+      </div>
+
+
+      </div>
+    </mat-list-option>
+  </mat-selection-list>
+
+</div>
+<div align="center" >
+
+<button mat-fab color="primary" (click)="addProject()" matTooltip="New Project"><mat-icon>add</mat-icon></button>
+
+
+</div>

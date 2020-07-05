@@ -1,5 +1,13 @@
 @import '~@angular/material/theming';
+@import "~firebaseui/dist/firebaseui.css";
 @include mat-core();
+
+
+$custom-typography: mat-typography-config(
+$font-family: Raleway
+);
+
+@include angular-material-typography($custom-typography);
 
 $light-primary: mat-palette($mat-cyan);
 $light-accent: mat-palette($mat-light-blue);
@@ -9,20 +17,17 @@ $light-theme: mat-light-theme($light-primary,$light-accent);
 
 $alt-primary: mat-palette($mat-deep-purple);
 $alt-accent: mat-palette($mat-blue-gray);
+$alt-warn: mat-palette($mat-amber);
 
-$alt-theme: mat-dark-theme($alt-primary,$alt-accent);
+$alt-theme: mat-dark-theme($alt-primary,$alt-accent,$alt-warn);
 
 
 
 .alternative{
-  background: #060a11;
-  html, body {
-    margin: 0;
-    height: 100%;
-    background: #060a11;
 
-  }
+
 
 
   @include angular-material-theme($alt-theme)
 }
+

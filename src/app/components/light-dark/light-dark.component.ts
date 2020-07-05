@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {TaskLineService} from "../../task-line.service";
+import {TaskLineService} from "../../service/task-line.service";
 import {Observable} from "rxjs";
 import { Output, EventEmitter} from "@angular/core";
 

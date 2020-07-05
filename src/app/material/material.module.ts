@@ -17,10 +17,15 @@ import {MatTooltipModule} from "@angular/material/tooltip";
 import {MatProgressBarModule} from "@angular/material/progress-bar";
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 import {MatCheckboxModule} from '@angular/material/checkbox';
-
-
-
-
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatNativeDateModule} from '@angular/material/core';
+import {MatRippleModule} from '@angular/material/core';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatTreeModule} from '@angular/material/tree';
+import {MatGridListModule} from '@angular/material/grid-list';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatRadioModule} from '@angular/material/radio';
 
 
 const MaterialComponents = [
@@ -40,18 +45,30 @@ const MaterialComponents = [
   MatDialogModule,
   MatMenuModule,
   MatSlideToggleModule,
-  MatCheckboxModule
+  MatCheckboxModule,
+  MatNativeDateModule,
+  MatDatepickerModule,
+  MatRippleModule,
+  MatFormFieldModule,
+  MatSidenavModule,
+  MatTreeModule,
+  MatGridListModule,
+  MatSnackBarModule,
+  MatRadioModule
+
+
 ]
 
 
 
 @NgModule({
 
-  imports: [ MaterialComponents
+  imports: [
+    MaterialComponents,
 
   ],
   exports:[
-MaterialComponents
+MaterialComponents,
   ]
 })
 export class MaterialModule { }

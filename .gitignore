@@ -45,3 +45,7 @@ testem.log
 .DS_Store
 Thumbs.db
 .angulardoc.json
+.metals/metals.lock.db
+
+.fake
+.ionide
