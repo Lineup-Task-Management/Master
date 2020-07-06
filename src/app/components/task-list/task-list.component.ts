@@ -173,7 +173,7 @@ this.getData();
 complete = task => this.firebaseService.completeTask(task);
 
   drop(event: CdkDragDrop<string[]>) {
-    moveItemInArray(this.project, event.previousIndex, event.currentIndex);
+    moveItemInArray(this.project[this.indexForProj].tasks, event.previousIndex, event.currentIndex);
   }
 
 
