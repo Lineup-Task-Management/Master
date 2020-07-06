@@ -68,7 +68,7 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
     AngularFirestoreModule,
 
     //AngularFireAuth,
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+    //ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
 
   ],
 
