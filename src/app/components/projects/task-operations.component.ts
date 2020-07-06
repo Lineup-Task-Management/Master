@@ -5,6 +5,7 @@ import {Task} from "../../interfaces/task";
 import {FirebaseService} from "../../service/firebase.service";
 import {takeWhile} from "rxjs/operators";
 import {Observable} from "rxjs";
+import {AngularFireAuth} from "@angular/fire/auth";
 
 
 @Component({
@@ -23,18 +24,31 @@ export class TaskOperationsComponent implements OnInit {
   tempUid: string;
   items: Observable<Project[]>;
 
-  constructor(private tlService: TaskLineService,
+  constructor(private afAuth: AngularFireAuth,
               public firebaseService: FirebaseService) { }
 
   ngOnInit() {
 
     this.firebaseService.currentUserId.subscribe(userId=> {
       this.userId = userId;
-
     });
+
     this.tempUid = this.userId;
 
-this.getProjects();
+    this.getProjects();
+
+    this.afAuth.authState.subscribe(user =>{
+
+      if(user){
+        this.firebaseService.changeUserId(user.uid)
+        console.log(this.firebaseService.userId);
+        this.checkUser()
+      }
+      else{
+        this.firebaseService.changeUserId("2CThQyuj97facovRlrzWh2J8gMn1");
+        this.checkUser();
+      }
+    })
 
   }
 

@@ -82,7 +82,7 @@ export class TaskListComponent implements OnInit {
     this.getData();
 
     this.afAuth.authState.subscribe(user =>{
-      console.log(user);
+
       if(user){
         this.firebaseService.changeUserId(user.uid)
         console.log(this.firebaseService.userId);
@@ -92,9 +92,7 @@ export class TaskListComponent implements OnInit {
         this.firebaseService.changeUserId("2CThQyuj97facovRlrzWh2J8gMn1");
         this.checkUser();
       }
-      }
-
-    )
+  })
 
 }
 
