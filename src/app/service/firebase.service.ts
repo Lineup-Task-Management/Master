@@ -32,13 +32,7 @@ import {Task} from "../interfaces/task";
     }
 
 
-
-<<<<<<< HEAD
-getProjects(){
-    return this.db.collection('Projects').snapshotChanges();
-}
-=======
-  getProjects() {
+    getProjects() {
   //   return this.db.collection('Users', ref=> ref.where('uid','==',this.userId))
   //     .snapshotChanges();
     this.projectCollection = this.db.collection('Users/'+this.userId+'/projects');
@@ -63,13 +57,11 @@ getProjects(){
 
   completeTask(data) {
     return this.db.collection('Projects/Tasks/Tasks').doc(data.payload.doc.id).set({completed: true}, {merge: true});
->>>>>>> Masondev
 
 
   }
 
-  updateTasks() {
-
+  updateTasks(){
   }
 
 
