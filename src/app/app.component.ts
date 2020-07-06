@@ -20,6 +20,7 @@ export class AppComponent {
   opened = false;
 
 
+
   message;
   constructor(private messagingService: MessagingService) { }
   ngOnInit() {

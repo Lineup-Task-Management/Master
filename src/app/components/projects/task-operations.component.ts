@@ -3,6 +3,10 @@ import {TaskLineService} from "../../service/task-line.service";
 import {Project} from "../../interfaces/Project";
 import {Task} from "../../interfaces/task";
 import {FirebaseService} from "../../service/firebase.service";
+import {takeWhile} from "rxjs/operators";
+import {Observable} from "rxjs";
+import {AngularFireAuth} from "@angular/fire/auth";
+
 
 @Component({
   selector: 'app-task-operations',
@@ -12,26 +16,57 @@ import {FirebaseService} from "../../service/firebase.service";
 export class TaskOperationsComponent implements OnInit {
 
 
-  projects: any    // Project[];
-  idForProj: number =0;
-  titleForProj: string = "this is a test";
-  indexForProj:number =0;
-  tasks: Task[];
+  projects: Project[]
 
-  constructor(private tlService: TaskLineService,
+  indexForProj:number =0;
+
+  userId: string;
+  tempUid: string;
+  items: Observable<Project[]>;
+
+  constructor(private afAuth: AngularFireAuth,
               public firebaseService: FirebaseService) { }
 
   ngOnInit() {
 
-//this.tlService.currentProjects.subscribe(projects => this.projects = projects);
-this.getProjects();
+    this.firebaseService.currentUserId.subscribe(userId=> {
+      this.userId = userId;
+    });
+
+    this.tempUid = this.userId;
+
+    this.getProjects();
+
+    this.afAuth.authState.subscribe(user =>{
+
+      if(user){
+        this.firebaseService.changeUserId(user.uid)
+        console.log(this.firebaseService.userId);
+        this.checkUser()
+      }
+      else{
+        this.firebaseService.changeUserId("2CThQyuj97facovRlrzWh2J8gMn1");
+        this.checkUser();
+      }
+    })
+
   }
 
-  getProjects(){
-    this.firebaseService.getProjects()
-      .subscribe((result => (this.projects = result)));
 
+  getProjects() {
+    this.items = this.firebaseService.getProjects();
+    this.items
+      .pipe(takeWhile(value => this.userId === this.tempUid))
+      .subscribe((result => {
+        this.projects = result;
+        console.log(result);
+        console.log(this.projects);
+
+      }));
   }
+
+
+
 addProject(){
 
   let title = ""
@@ -40,43 +75,32 @@ addProject(){
   if(result === null || result === "")
     return;
   this.firebaseService.addProject(result);
-  this.getProjects();
- //
- //
- //  this.tasks = [
- //
- //    {
- //      'id':0,
- //      'title':"Make your first task",
- //      'completed':false,
- //      'editing':false,
- //      'description': "Click the add new task button!"
- //    },
- //
- //  ];
- //
- // this.projects.push(
- //      {
- //        'id': ++this.idForProj,
- //        'title':result,
- //        'tasks': this.tasks
- //      } )
- //
- //
- //
- //
- //
- //
- //    this.tlService.changeProjects(this.projects);
- //    this.updateIndex(this.idForProj);
+
+
+
 }
 
   @Output() updateProjIndex: EventEmitter<number> = new EventEmitter<number>();
 
-updateIndex(id: number){
-    this.indexForProj = this.projects[id].id;
-    this.updateProjIndex.emit(this.indexForProj)
+updateIndex(index: number){
+    this.indexForProj = index;
+    this.updateProjIndex.emit(this.indexForProj);
+    console.log(this.indexForProj);
 
 }
+
+  deleteProject = task => this.firebaseService.deleteTask(task);
+
+  checkUser(){
+    console.log("checking user", this.userId,this.tempUid);
+    if(this.userId !== this.tempUid){
+      this.tempUid = this.userId;
+      this.getProjects();
+      console.log("checking user", this.userId,this.tempUid);
+    }
+
+
+  }
+
 
 }
