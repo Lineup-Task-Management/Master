@@ -66,11 +66,9 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
     AngularFireMessagingModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
-<<<<<<< HEAD
-=======
+
     //AngularFireAuth,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
->>>>>>> Masondev
 
   ],
 
