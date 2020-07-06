@@ -11,17 +11,12 @@ import { getLocaleDateFormat } from '@angular/common';
 
 import {functions} from "firebase";
 
-import {map} from "rxjs/operators";
+import {map, takeWhile} from "rxjs/operators";
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 
 import {Observable} from "rxjs";
-
-
-
-
-
-
-
+import {AngularFireAuth} from "@angular/fire/auth";
+import * as firebase from "firebase";
 @Component({
   selector: 'app-task-list',
   templateUrl: './task-list.component.html',
@@ -33,30 +28,36 @@ export class TaskListComponent implements OnInit {
   panelOpenState: boolean;
   userId:string;
 
-
+  items: Observable<Project[]>
 
   theme: boolean = false;
-        // Project[];
+  // Project[];
   @Input() indexForProj: number;
   @Input() userChange: boolean;
+  tempUid: string;
 
 
   task: any;
 
 
-  constructor(private tlService: TaskLineService,
-    public firebaseService: FirebaseService,
-  private db: AngularFirestore){
+  constructor(private afAuth: AngularFireAuth,
+              public firebaseService: FirebaseService,
+              private db: AngularFirestore){
 
 
   }
   getData(){
 
-    this.firebaseService.getProjects()
+    this.items = this.firebaseService.getProjects();
+    this.items
+      .pipe(takeWhile(value => this.userId === this.tempUid))
       .subscribe((result => {
         this.project = result;
         console.log(result);
         console.log(this.project);
+
+
+
       }));
 
 
@@ -71,18 +72,39 @@ export class TaskListComponent implements OnInit {
   //this.tasks = this.tasks.filter(tasks => tasks.id != id);
 
   ngOnInit(): void {
-    this.getData();
+
 
     this.firebaseService.currentUserId.subscribe(userId=> {
       this.userId = userId;
 
-
     });
+    this.tempUid = this.userId;
+    this.getData();
+
+    this.afAuth.authState.subscribe(user =>{
+      console.log(user);
+      if(user){
+        this.firebaseService.changeUserId(user.uid)
+        console.log(this.firebaseService.userId);
+        this.checkUser()
+      }
+      else{
+        this.firebaseService.changeUserId("2CThQyuj97facovRlrzWh2J8gMn1");
+        this.checkUser();
+      }
+      }
+
+    )
+
+}
 
 
 
 
-  }
+
+
+
+
 
 
 
@@ -99,17 +121,26 @@ this.getData();
     if (result === null || result === "")
       return;
     let result1 = prompt("Task Description", description);
-    let completed = false;
+
 
 
     if (result !== null && result !== "") {
+    let date: Date = new Date();
+
+    this.project[this.indexForProj].tasks.push({
+      id: ""+ date.getTime(),
+      title: result,
+      description: result1,
+      completed:false,
+      editing:false,
+    })
+
+    this.firebaseService.addTask(this.project[this.indexForProj].tasks,this.project[this.indexForProj].id);
 
 
 
-
-        this.firebaseService.addTask(result,result1, completed,this.indexForProj)
         //this.idForTask++;
-        this.getData();
+
       }
 
   //  this.tlService.changeProjects(this.projects);
@@ -148,5 +179,17 @@ complete = task => this.firebaseService.completeTask(task);
   }
 
 
+  checkUser(){
+    if (this.tempUid !== this.userId)
+    console.log("checking user", this.userId,this.tempUid);
+    if(this.userId !== this.tempUid){
+      this.tempUid = this.userId;
+      this.getData();
+      console.log("checking user", this.userId,this.tempUid);
+    }
+
 
   }
+
+
+}

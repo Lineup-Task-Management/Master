@@ -76,13 +76,14 @@ export class LoginComponent implements OnInit {
            uid: this.userId
          },{merge: true})
 
-         this.db.doc('Users/'+this.userId+'/Projects/project1').set({
+         this.db.doc('Users/'+this.userId+'/projects/project1').set({
               id:"1",
                title:"First Project",
                tasks:Array<any>({
                  title:"Whats your first task?",
                  description:"click the add the new task button",
-                 completed: false
+                 completed: false,
+                 editing: false,
                })
              },{merge: true});
 
@@ -116,7 +117,7 @@ export class LoginComponent implements OnInit {
 
   async signOut(){
     await this.afAuth.auth.signOut();
-
+    this.fbService.changeUserId("2CThQyuj97facovRlrzWh2J8gMn1");
   }
 
 
