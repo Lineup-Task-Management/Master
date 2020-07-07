@@ -36,7 +36,7 @@ export class TaskListComponent implements OnInit {
   @Input() userChange: boolean;
   tempUid: string;
 
-
+  projectID: string;
   task: any;
 
 
@@ -170,9 +170,20 @@ this.getData();
     }
 */
 
+deleteTask(task){
+  this.firebaseService.deleteTask(this.projectID,task)
+}
+
 complete = task => this.firebaseService.completeTask(task);
 
-  drop(event: CdkDragDrop<string[]>) {
+  
+updateTaskIndex(idx){
+  this.projectID = idx;
+
+  console.log(this.projectID);
+}
+
+drop(event: CdkDragDrop<string[]>) {
     moveItemInArray(this.project[this.indexForProj].tasks, event.previousIndex, event.currentIndex);
   }
 
