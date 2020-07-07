@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import {AngularFirestore, AngularFirestoreCollection} from '@angular/fire/firestore';
 import {BehaviorSubject, Observable} from "rxjs";
 import {Project} from "../interfaces/Project";
-import { map } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 import {Task} from "../interfaces/task";
-
+import * as firebase from "firebase";
 
 @Injectable({
     providedIn: 'root'
@@ -50,17 +50,47 @@ import {Task} from "../interfaces/task";
     return this.items;
   }
 
-  deleteTask(data) {
+  deleteProject(data) {
     return this.db.collection('Users/'+this.userId+'/projects').doc(data).delete();
 
 
   }
 
-  completeTask(data) {
-    return this.db.collection('Projects/Tasks/Tasks').doc(data.payload.doc.id).set({completed: true}, {merge: true});
+  completeTask(projectID,task) {
+    console.log(projectID);
+    console.log(task);
+    this.deleteTask(projectID,task);
+     return this.db.collection('Users/'+this.userId+'/projects').doc(projectID).update({
+       tasks: firebase.firestore.FieldValue.arrayUnion({
+        completed : true,
+        description: task.description,
+        editing: task.editing,
+        id: task.id,
+        title: task.title,
+       })
+       
+      })
+    }
+  deleteTask(projectID,task) {
+    console.log(projectID);
+    console.log(task);
+     return this.db.collection('Users/'+this.userId+'/projects').doc(projectID).update({
+       tasks: firebase.firestore.FieldValue.arrayRemove({
+          completed: task.completed,
+          description: task.description,
+          editing: task.editing,
+          id: task.id,
+          title: task.title,
+
+
+       })
+     })
+    
 
 
   }
+
+
 
   updateTasks() {
 

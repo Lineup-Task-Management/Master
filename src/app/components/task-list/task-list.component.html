@@ -35,7 +35,7 @@
   <div cdkDropList class = "Tasks" (cdkDropListDropped) = "drop($event)">
 <!-- <div *ngFor="let task of this.projects[this.indexForProj].tasks; let idx=index" cdkDrag>
 -->
-    <div *ngFor="let task of project[this.indexForProj].tasks; let idx =index" cdkDrag>
+    <div *ngFor="let task of project[this.indexForProj].tasks; let idx =index" (click)="updateTaskIndex(project[this.indexForProj].id)" cdkDrag>
 
     <mat-card>
 
@@ -46,6 +46,7 @@
             <mat-panel-title align="center">
 
               <h1>  {{task.title}} </h1>
+        
 
             </mat-panel-title>
             <mat-panel-description align="right">
@@ -54,13 +55,18 @@
           </mat-expansion-panel-header>
           <div align="center">
             {{task.description}}
+            {{task.completed}}
+
+          </div>
+          <div align="center">
+            completed status: {{task.completed}}
 
           </div>
           <mat-card-actions class="mat-action-row">
 
             <button mat-fab color="primary" (click)="edit(task.id)" matTooltip="Edit Task"><mat-icon>edit</mat-icon></button>
-            <button mat-fab color="primary" (click)="complete(task)" matTooltip="Complete Task"><mat-icon>check</mat-icon></button>
-            <button mat-fab color="primary" (click)="this.checkUser()"><mat-icon>delete</mat-icon></button>
+            <button mat-fab color="primary" (click)="completeTask(task)" matTooltip="Complete Task"><mat-icon>check</mat-icon></button>
+            <button mat-fab color="primary" (click)="deleteTask(task)"><mat-icon>delete</mat-icon></button>
 
           </mat-card-actions>
           <mat-card-actions>
