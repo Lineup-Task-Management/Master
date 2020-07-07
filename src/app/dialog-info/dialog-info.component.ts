@@ -1,19 +1,20 @@
 import { Component, OnInit } from '@angular/core';
+import {IEdit} from 'src/app/components/IEdit'; 
 import { DialogBoxService } from 'src/app/service/dialog-box.service';
 import { SubmitNotifService} from 'src/app/service/submit-notif.service'
 import {MatDialogRef} from '@angular/material/dialog';
-import { IEdit } from '../IEdit';
 
 @Component({
-  selector: 'app-dialog-box',
-  templateUrl: './dialog-box.component.html',
-  styleUrls: ['./dialog-box.component.css']
+  selector: 'app-factory-method2',
+  templateUrl: './factory-method2.component.html',
+  styleUrls: ['./factory-method2.component.css']
 })
-export class DialogBoxComponent implements IEdit {
+export class DialogInfoComponent implements IEdit {
 
   constructor(private service: DialogBoxService,
     public submitService: SubmitNotifService,
-    public dialogRef: MatDialogRef<DialogBoxComponent>) { }
+    public dialogRef: MatDialogRef<DialogInfoComponent>) { }
+  showotherAttribute: any;
   open: any;
   types = [ 
     {id:1 , value: 'Task'},
@@ -30,17 +31,13 @@ export class DialogBoxComponent implements IEdit {
   
   
 
-showAttribute(title: string, description: string, 
- ) {
-this.title = title;
-this.description = description;
-
+showotherAttribute(
+level: number, type: string ) {
+this.level = level;
+this.type = type;
 
 
 }
-
-
-
 
 
   onClear(){

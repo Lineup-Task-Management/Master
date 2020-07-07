@@ -36,7 +36,8 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { DialogBoxComponent } from './components/dialog-box/dialog-box.component';
 import { DialogBoxService } from './service/dialog-box.service';
-import { ReactiveFormsModule} from '@angular/forms'
+import { ReactiveFormsModule} from '@angular/forms';
+
 //import {AngularFireAuth} from '@angular/fire/auth';
 
 
@@ -55,7 +56,8 @@ import { ReactiveFormsModule} from '@angular/forms'
     DueDateComponent,
     SideNavComponent,
     LoginComponent,
-    DialogBoxComponent
+    DialogBoxComponent,
+    
 
   ],
   imports: [

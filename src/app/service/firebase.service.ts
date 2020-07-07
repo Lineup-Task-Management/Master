@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import {AngularFirestore, AngularFirestoreCollection} from '@angular/fire/firestore';
 import {BehaviorSubject, Observable} from "rxjs";
 import {Project} from "../interfaces/Project";
-import { map } from 'rxjs/operators'
-
+import { map } from 'rxjs/operators';
+import {Task} from "../interfaces/task";
 
 
 @Injectable({
@@ -62,27 +62,42 @@ import { map } from 'rxjs/operators'
 
   }
 
-  addTask(title, description, completed, index) {
-    // return this.db.collection('Users').doc('9vuFijZpCfeAarBes9eZjd6MggE3').set({
-    //   projects[index],
-    //   title: title,
+  updateTasks() {
+
+  }
+
+
+  addTask(task: Task[], id: string) {
+
+    this.db.collection('Users/'+this.userId+'/projects').doc(id).set({
+      tasks: task,
+    },{merge:true});
+
+
+
+
+    // return this.db.collection('Users/'+this.userId+'/projects').doc(id).({
+    //
+    //  title: title,
     //   description: description,
-    //   completed: completed
-    // });
+    //    completed: completed
+    //  });
   }
 
 
   addProject(title) {
 
-
+    let date: Date = new Date();
     var ranNum = Math.floor(Math.random() * 1000000).toString();
     this.db.doc('Users/' + this.userId + '/projects/' + ranNum).set({
       id: ranNum,
       title: title,
-      tasks: Array<any>({
+      tasks: Array<Task>({
+        id: ""+date.getTime(),
         title: "Whats your first task?",
         description: "click the add the new task button",
         completed: false,
+        editing: false,
 
       })
     }, {merge: true});
@@ -97,8 +112,8 @@ import { map } from 'rxjs/operators'
 
 
   changeUserId(userId: string){
-    this.userIdSource.next(userId);
 
+    this.userIdSource.next(userId);
 
   }
 
