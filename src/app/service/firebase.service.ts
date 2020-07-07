@@ -56,6 +56,21 @@ import * as firebase from "firebase";
 
   }
 
+  completeTask(projectID,task) {
+    console.log(projectID);
+    console.log(task);
+    this.deleteTask(projectID,task);
+     return this.db.collection('Users/'+this.userId+'/projects').doc(projectID).update({
+       tasks: firebase.firestore.FieldValue.arrayUnion({
+        completed : true,
+        description: task.description,
+        editing: task.editing,
+        id: task.id,
+        title: task.title,
+       })
+       
+      })
+    }
   deleteTask(projectID,task) {
     console.log(projectID);
     console.log(task);
@@ -75,11 +90,7 @@ import * as firebase from "firebase";
 
   }
 
-  completeTask(data) {
-    return this.db.collection('Projects/Tasks/Tasks').doc(data.payload.doc.id).set({completed: true}, {merge: true});
 
-
-  }
 
   updateTasks() {
 

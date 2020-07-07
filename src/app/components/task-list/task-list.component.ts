@@ -174,8 +174,9 @@ deleteTask(task){
   this.firebaseService.deleteTask(this.projectID,task)
 }
 
-complete = task => this.firebaseService.completeTask(task);
-
+completeTask(task){
+  this.firebaseService.completeTask(this.projectID,task);
+}
   
 updateTaskIndex(idx){
   this.projectID = idx;
