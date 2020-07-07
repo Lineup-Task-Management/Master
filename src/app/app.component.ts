@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {TaskLineService} from "./service/task-line.service";
-import {LoginComponent} from "./components/login/login.component";
+
 
 import {Observable} from "rxjs";
 
@@ -25,9 +25,9 @@ export class AppComponent {
   message;
   constructor(
     private messagingService: MessagingService,
-    private loginComponent: LoginComponent
+
     ) {
-      loginComponent.isLoggedIn = this.isLoggedIn;
+
 
      }
   ngOnInit() {
