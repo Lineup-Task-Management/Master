@@ -6,29 +6,29 @@
 <div [class.alternative]="this.theme">
 
 
-<br>
-<div class="title" align="center">
-  <mat-card color="primary">
-{{project[this.indexForProj].title}} {{this.userId}}
-  </mat-card>
-</div>
+  <br>
+  <div class="title" align="center">
+    <mat-card color="primary">
+      {{project[this.indexForProj].title}} {{this.userId}}
+    </mat-card>
+  </div>
 
-<div align="center">
+  <div align="center">
 
-  <button mat-fab color="primary" aria-label="New Task" (click)=" addTaskItem()" matTooltip="Add new Task" >
-    <mat-icon>add</mat-icon>
-  </button>
+    <button mat-fab color="primary" aria-label="New Task" (click)=" addTaskItem()" matTooltip="Add new Task" >
+      <mat-icon>add</mat-icon>
+    </button>
 
-</div>
+  </div>
 
 
-<div align="center" class="marg">
-<mat-button-toggle-group  name="fontStyle" aria-label="Font Style">
-  <mat-button-toggle value="bold">Priority</mat-button-toggle>
-  <mat-button-toggle value="italic">Completed</mat-button-toggle>
-  <mat-button-toggle value="underline">All</mat-button-toggle>
-</mat-button-toggle-group>
-</div>
+  <div align="center" class="marg">
+    <mat-button-toggle-group  name="fontStyle" aria-label="Font Style">
+      <mat-button-toggle value="bold">Priority</mat-button-toggle>
+      <mat-button-toggle value="italic">Completed</mat-button-toggle>
+      <mat-button-toggle value="underline">All</mat-button-toggle>
+    </mat-button-toggle-group>
+  </div>
 
 
 
@@ -36,66 +36,65 @@
 
     <div *ngFor="let task of project[this.indexForProj].tasks; let idx =index" cdkDrag>
 
-    <mat-card>
+      <mat-card>
 
-      <mat-accordion>
+        <mat-accordion>
 
-        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-          <mat-expansion-panel-header>
-            <mat-panel-title align="center">
+          <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+            <mat-expansion-panel-header>
+              <mat-panel-title align="center">
 
-              <h1>  {{task.title}} </h1>
+                <h1>  {{task.title}} </h1>
 
 
-            </mat-panel-title>
-            <mat-panel-description align="right">
-              Click to see description
-            </mat-panel-description>
-          </mat-expansion-panel-header>
-          <div align="center">
+              </mat-panel-title>
+              <mat-panel-description align="right">
+                Click to see description
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <div align="center">
 
               {{task.description}}
 
 
 
 
-          </div>
-          <div align="center">
+            </div>
+            <div align="center">
 
-
-          </div>
-
-          <mat-card-actions class="mat-action-row">
-            <div align="left">
-              <mat-chip-list>
-                <mat-chip color="primary" selected>Completed: {{task.completed}}</mat-chip>
-              </mat-chip-list>
 
             </div>
-            <button mat-fab color="primary" (click)="edit(task.id, task)" matTooltip="Edit Task"><mat-icon>edit</mat-icon></button>
-            <button mat-fab color="primary" (click)="completeTask(task)" matTooltip="Complete Task"><mat-icon>check</mat-icon></button>
-            <button mat-fab color="primary" (click)="deleteTask(task)"><mat-icon>delete</mat-icon></button>
 
-          </mat-card-actions>
-          <mat-card-actions>
-            <div class="poop" align="right">
-              <app-dueDate ></app-dueDate>
-            </div>
+            <mat-card-actions class="mat-action-row">
+              <div align="left">
+                <mat-chip-list>
+                  <mat-chip color="primary" selected>Completed: {{task.completed}}</mat-chip>
+                </mat-chip-list>
 
-          </mat-card-actions>
+              </div>
+              <button mat-fab color="primary" (click)="edit(task.id, task)" matTooltip="Edit Task"><mat-icon>edit</mat-icon></button>
+              <button mat-fab color="primary" (click)="completeTask(task)" matTooltip="Complete Task"><mat-icon>check</mat-icon></button>
+              <button mat-fab color="primary" (click)="deleteTask(task)"><mat-icon>delete</mat-icon></button>
+
+            </mat-card-actions>
+            <mat-card-actions>
+              <div class="poop" align="right">
+                <app-dueDate ></app-dueDate>
+              </div>
+
+            </mat-card-actions>
 
 
-        </mat-expansion-panel>
-      </mat-accordion>
+          </mat-expansion-panel>
+        </mat-accordion>
 
-    </mat-card>
+      </mat-card>
+    </div>
+
   </div>
-
-  </div>
-<br>
+  <br>
 
 
 
 
 </div>
-

@@ -41,6 +41,7 @@ export class AppComponent {
     this.theme = value;
 
 
+
   }
 
   onOpen(value: boolean){
