@@ -1,22 +1,23 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import { Task } from '../../interfaces/task';
 
-import {TaskLineService} from "../../service/task-line.service";
+
+
 import { Project} from "../../interfaces/Project";
 import {CdkDragDrop, moveItemInArray} from "@angular/cdk/drag-drop";
 
 import { FirebaseService } from '../../service/firebase.service';
-import { getLocaleDateFormat } from '@angular/common';
 
 
-import {functions} from "firebase";
+
+
 
 import {map, takeWhile} from "rxjs/operators";
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 
 import {Observable} from "rxjs";
 import {AngularFireAuth} from "@angular/fire/auth";
-import * as firebase from "firebase";
+import {Task} from "../../interfaces/task";
+
 @Component({
   selector: 'app-task-list',
   templateUrl: './task-list.component.html',
@@ -36,7 +37,7 @@ export class TaskListComponent implements OnInit {
   @Input() userChange: boolean;
   tempUid: string;
 
-  projectID: string;
+
   task: any;
 
 
@@ -56,15 +57,7 @@ export class TaskListComponent implements OnInit {
         console.log(result);
         console.log(this.project);
 
-
-
       }));
-
-
-
-
-
-
 
   }
 
@@ -95,13 +88,6 @@ export class TaskListComponent implements OnInit {
   })
 
 }
-
-
-
-
-
-
-
 
 
 
@@ -137,52 +123,54 @@ this.getData();
 
 
 
-        //this.idForTask++;
-
       }
 
-  //  this.tlService.changeProjects(this.projects);
-
-
   }
 
 
-  edit(id:number) {
+  edit(id:string, task) {
+
+    let title = ""
+    let description = ''
+    let result = prompt("Task Title", title);
+    if (result === null || result === "")
+      return;
+    let result1 = prompt("Task Description", description);
+
+    if (result1 !== null  || result1 !== "") {
+
+      let  tempTask: Task = {
+        completed:  false,
+
+        editing: false,
+
+        description : result1,
+
+        title : result,
+        id:id
+      };
 
 
-    // let title =this.tasks[id-1].title;
-    // let result = prompt("Edit Task Title", title);
-    // let result1 = prompt("Edit Task Description", this.tasks[id-1].description);
-    // if (result1 !== null && result1 !== "") {
-    //   this.tasks[id-1].description = result1;
-    // }
-    // if (result !== null && result !== "") {
-    //   this.tasks[id-1].title = result;
-    //}
 
-  }
-/*
-  complete(id: number,completed:boolean){
-    let taskCompletion = this.projects[this.indexForProj].tasks[id-1].completed;
-    let promptComplete = confirm("Are you sure you wish to complete?");
-    if (promptComplete !=null){
-      this.projects[this.indexForProj].tasks[id-1].completed = true;
+      this.firebaseService.updateTasks(this.project[this.indexForProj].id,task,tempTask);
+
     }
-*/
+  }
+
 
 deleteTask(task){
-  this.firebaseService.deleteTask(this.projectID,task)
+  this.firebaseService.deleteTask(this.project[this.indexForProj].id,task)
 }
 
 completeTask(task){
-  this.firebaseService.completeTask(this.projectID,task);
+  this.firebaseService.completeTask(this.project[this.indexForProj].id,task);
 }
-  
-updateTaskIndex(idx){
-  this.projectID = idx;
 
-  console.log(this.projectID);
-}
+// updateTaskIndex(idx){
+//   this.projectID = idx;
+//
+//   console.log(this.projectID);
+// }
 
 drop(event: CdkDragDrop<string[]>) {
     moveItemInArray(this.project[this.indexForProj].tasks, event.previousIndex, event.currentIndex);

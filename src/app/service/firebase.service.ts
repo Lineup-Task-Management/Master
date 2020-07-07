@@ -68,9 +68,11 @@ import * as firebase from "firebase";
         id: task.id,
         title: task.title,
        })
-       
+
       })
     }
+
+
   deleteTask(projectID,task) {
     console.log(projectID);
     console.log(task);
@@ -85,14 +87,28 @@ import * as firebase from "firebase";
 
        })
      })
-    
+
 
 
   }
 
 
 
-  updateTasks() {
+  updateTasks(projectID,taskToDelete,editTask) {
+    console.log(projectID);
+    console.log(editTask);
+    console.log(taskToDelete);
+    this.deleteTask(projectID,taskToDelete);
+    return this.db.collection('Users/'+this.userId+'/projects').doc(projectID).update({
+      tasks: firebase.firestore.FieldValue.arrayUnion({
+        completed : editTask.completed,
+        description: editTask.description,
+        editing: editTask.editing,
+        id: editTask.id,
+        title: editTask.title,
+      })
+
+    })
 
   }
 
@@ -103,15 +119,6 @@ import * as firebase from "firebase";
       tasks: task,
     },{merge:true});
 
-
-
-
-    // return this.db.collection('Users/'+this.userId+'/projects').doc(id).({
-    //
-    //  title: title,
-    //   description: description,
-    //    completed: completed
-    //  });
   }
 
 
@@ -170,14 +177,4 @@ import * as firebase from "firebase";
 
 
 
-
-// this.items = this.projectCollection.snapshotChanges().pipe(map(changes => {
-//   return changes.map(a => {
-//     const data = a.payload.doc.data()as Holder;
-//     data.projects = a.payload.doc.data().projects;
-//     data.id = a.payload.doc.id;
-//     console.log(data);
-//     return data;
-//   })
-// }));
 
