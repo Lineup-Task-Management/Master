@@ -23,6 +23,7 @@ export class LoginComponent implements OnInit {
 
   ui: firebaseui.auth.AuthUI;
   userId:string;
+  public isLoggedIn: boolean = false;
 
 
 
@@ -67,8 +68,9 @@ export class LoginComponent implements OnInit {
 
   onLoginSuccessful(){
 
+    this.isLoggedIn = true;
     this.userId = firebase.auth().currentUser.uid;
-
+      alert("Logged in successfuly to ");
      this.db.collection('Users').doc(this.userId).snapshotChanges().subscribe(res =>{
        if (!res.payload.exists)
        {
@@ -117,7 +119,11 @@ export class LoginComponent implements OnInit {
 
   async signOut(){
     await this.afAuth.auth.signOut();
+
+    this.isLoggedIn = false;
+    window.location.reload();
     this.fbService.changeUserId("2CThQyuj97facovRlrzWh2J8gMn1");
+
   }
 
 
