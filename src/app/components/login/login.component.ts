@@ -121,7 +121,7 @@ export class LoginComponent implements OnInit {
     await this.afAuth.auth.signOut();
 
     this.isLoggedIn = false;
-    window.location.reload();
+
     this.fbService.changeUserId("2CThQyuj97facovRlrzWh2J8gMn1");
 
   }

@@ -53,8 +53,10 @@
               </mat-panel-description>
             </mat-expansion-panel-header>
             <div align="center">
+          <h1>
+            {{task.description}}
+          </h1>
 
-              {{task.description}}
 
 
 
@@ -74,7 +76,7 @@
               </div>
               <button mat-fab color="primary" (click)="edit(task.id, task)" matTooltip="Edit Task"><mat-icon>edit</mat-icon></button>
               <button mat-fab color="primary" (click)="completeTask(task)" matTooltip="Complete Task"><mat-icon>check</mat-icon></button>
-              <button mat-fab color="primary" (click)="deleteTask(task)"><mat-icon>delete</mat-icon></button>
+              <button mat-fab color="primary" (click)="deleteTask(task)" matTooltip="Delete Task"><mat-icon>delete</mat-icon></button>
 
             </mat-card-actions>
             <mat-card-actions>
