@@ -11,81 +11,98 @@ import { getLocaleDateFormat } from '@angular/common';
 
 import {functions} from "firebase";
 
-import {map} from "rxjs/operators";
+import {map, takeWhile} from "rxjs/operators";
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 
-
-
-
-
-
-
+import {Observable} from "rxjs";
+import {AngularFireAuth} from "@angular/fire/auth";
+import * as firebase from "firebase";
 @Component({
   selector: 'app-task-list',
   templateUrl: './task-list.component.html',
   styleUrls: ['./task-list.component.scss']
 })
 export class TaskListComponent implements OnInit {
-  tasks: any;
-  taskTitle:string;
-  idForTask: number;
+  project: Project[];
+
   panelOpenState: boolean;
+  userId:string;
+
+  items: Observable<Project[]>
 
   theme: boolean = false;
-  projects:   Array<any>        // Project[];
+  // Project[];
   @Input() indexForProj: number;
+  @Input() userChange: boolean;
+  tempUid: string;
 
 
-  docRef: any
   task: any;
 
 
-  constructor(private tlService: TaskLineService,
-    public firebaseService: FirebaseService,
-  private db: AngularFirestore){
+  constructor(private afAuth: AngularFireAuth,
+              public firebaseService: FirebaseService,
+              private db: AngularFirestore){
 
 
   }
   getData(){
 
-    this.firebaseService.getProjects()
+    this.items = this.firebaseService.getProjects();
+    this.items
+      .pipe(takeWhile(value => this.userId === this.tempUid))
       .subscribe((result => {
-        this.tasks = result.payload.data();
+        this.project = result;
         console.log(result);
-        console.log(this.tasks)
+        console.log(this.project);
 
-        ;
+
+
       }));
-    // this.tasks = this.db.collection("Users/"+this.firebaseService.userId)
-    //   .snapshotChanges().subscribe(res=>{
-    //     this.tasks = res;
-    //     console.log(res);
-    //     console.log(this.tasks);
-    //   })
 
 
 
 
 
 
-   // this.firebaseService.getTasks()
-    //  .subscribe(result => (this.tasks = result));
+
   }
 
-  deleteTask = task => this.firebaseService.deleteTask(task);
+
   //this.tasks = this.tasks.filter(tasks => tasks.id != id);
 
   ngOnInit(): void {
+
+
+    this.firebaseService.currentUserId.subscribe(userId=> {
+      this.userId = userId;
+
+    });
+    this.tempUid = this.userId;
     this.getData();
 
+    this.afAuth.authState.subscribe(user =>{
 
-    //this.docRef = this.db.collection('Users').doc(this.firebaseService.userId);
-    //this.docRef.get().toPromise().then(function(doc){
-     //   return doc
-   // })
+      if(user){
+        this.firebaseService.changeUserId(user.uid)
+        console.log(this.firebaseService.userId);
+        this.checkUser()
+      }
+      else{
+        this.firebaseService.changeUserId("2CThQyuj97facovRlrzWh2J8gMn1");
+        this.checkUser();
+      }
+  })
+
+}
 
 
-  }
+
+
+
+
+
+
 
 
 
@@ -95,35 +112,33 @@ this.getData();
 }
 
   addTaskItem(): void  {
-    //let id = this.idForTask
+
     let title = ""
     let description = ''
     let result = prompt("Task Title", title);
     if (result === null || result === "")
       return;
     let result1 = prompt("Task Description", description);
-    let completed = false;
+
 
 
     if (result !== null && result !== "") {
+    let date: Date = new Date();
+
+    this.project[this.indexForProj].tasks.push({
+      id: ""+ date.getTime(),
+      title: result,
+      description: result1,
+      completed:false,
+      editing:false,
+    })
+
+    this.firebaseService.addTask(this.project[this.indexForProj].tasks,this.project[this.indexForProj].id);
 
 
-  /*  this.projects[this.indexForProj].tasks.push({
 
-
-
-    id: id,
-    title: result,
-    completed: false,
-    editing: false,
-    description: result1,
-
-  })
-  */
-
-        this.firebaseService.addTask(result,result1, completed)
         //this.idForTask++;
-        this.getData();
+
       }
 
   //  this.tlService.changeProjects(this.projects);
@@ -135,15 +150,15 @@ this.getData();
   edit(id:number) {
 
 
-    let title =this.tasks[id-1].title;
-    let result = prompt("Edit Task Title", title);
-    let result1 = prompt("Edit Task Description", this.tasks[id-1].description);
-    if (result1 !== null && result1 !== "") {
-      this.tasks[id-1].description = result1;
-    }
-    if (result !== null && result !== "") {
-      this.tasks[id-1].title = result;
-    }
+    // let title =this.tasks[id-1].title;
+    // let result = prompt("Edit Task Title", title);
+    // let result1 = prompt("Edit Task Description", this.tasks[id-1].description);
+    // if (result1 !== null && result1 !== "") {
+    //   this.tasks[id-1].description = result1;
+    // }
+    // if (result !== null && result !== "") {
+    //   this.tasks[id-1].title = result;
+    //}
 
   }
 /*
@@ -158,9 +173,21 @@ this.getData();
 complete = task => this.firebaseService.completeTask(task);
 
   drop(event: CdkDragDrop<string[]>) {
-    moveItemInArray(this.tasks, event.previousIndex, event.currentIndex);
+    moveItemInArray(this.project[this.indexForProj].tasks, event.previousIndex, event.currentIndex);
   }
 
 
+  checkUser(){
+    if (this.tempUid !== this.userId)
+    console.log("checking user", this.userId,this.tempUid);
+    if(this.userId !== this.tempUid){
+      this.tempUid = this.userId;
+      this.getData();
+      console.log("checking user", this.userId,this.tempUid);
+    }
+
 
   }
+
+
+}

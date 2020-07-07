@@ -13,8 +13,10 @@
   <app-header (open)="onOpen($event)" (changeTheme1)="onThemeChange($event)"></app-header>
 <div *ngIf="isLoggedIn">
   <app-task-list   [indexForProj]="indexForProj" ></app-task-list>
+
 </div>
 <app-login></app-login>
+
 
 
 

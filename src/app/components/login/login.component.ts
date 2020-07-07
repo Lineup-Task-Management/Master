@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import * as firebase from "firebase";
 import {AngularFireAuth} from "@angular/fire/auth";
 import * as firebaseui from "firebaseui";
 
 import {AngularFirestore} from "@angular/fire/firestore";
-import {merge} from "rxjs";
+import {BehaviorSubject, merge} from "rxjs";
 import {FirebaseService} from "../../service/firebase.service";
 import {take, tap} from "rxjs/operators";
 
@@ -16,6 +16,10 @@ import {take, tap} from "rxjs/operators";
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+
+  // userChange:boolean = false;
+  // private userChangeSource = new BehaviorSubject<boolean>(this.userChange);
+  // currentUserChange = this.userChangeSource.asObservable();
 
   ui: firebaseui.auth.AuthUI;
   userId:string;
@@ -71,21 +75,29 @@ export class LoginComponent implements OnInit {
        if (!res.payload.exists)
        {
          this.db.collection('Users').doc(this.userId).set({
-           projects: Array<any>(
-             {
-               title:"first project",
-               task: Array<any>({
-                 title: "Whats your first task?",
-                 description: "click the add new task button",
-                 completed: false
-               },)
-             })
-         },{merge: true});
-         this.fbService.changeUserId(this.userId);
+           uid: this.userId
+         },{merge: true})
+
+         this.db.doc('Users/'+this.userId+'/projects/project1').set({
+              id:"1",
+               title:"First Project",
+               tasks:Array<any>({
+                 title:"Whats your first task?",
+                 description:"click the add the new task button",
+                 completed: false,
+                 editing: false,
+               })
+             },{merge: true});
+
+
        }
        else{
+         this.fbService.changeUserId(this.userId);
          console.log("already Exists");
+
+         console.log(this.fbService.userId);
        }
+
        }
        )
 
@@ -107,8 +119,10 @@ export class LoginComponent implements OnInit {
 
   async signOut(){
     await this.afAuth.auth.signOut();
+
     this.isLoggedIn = false;
     window.location.reload();
+    this.fbService.changeUserId("2CThQyuj97facovRlrzWh2J8gMn1");
 
   }
 
