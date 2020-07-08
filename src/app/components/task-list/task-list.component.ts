@@ -2,8 +2,8 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
 
 
-import { Project} from "../../interfaces/Project";
-import {CdkDragDrop, moveItemInArray} from "@angular/cdk/drag-drop";
+import { Project} from '../../interfaces/Project';
+import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 
 import { FirebaseService } from '../../service/firebase.service';
 
@@ -11,12 +11,12 @@ import { FirebaseService } from '../../service/firebase.service';
 
 
 
-import {map, takeWhile} from "rxjs/operators";
+import {map, takeWhile} from 'rxjs/operators';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 
-import {Observable} from "rxjs";
-import {AngularFireAuth} from "@angular/fire/auth";
-import {Task} from "../../interfaces/task";
+import {Observable} from 'rxjs';
+import {AngularFireAuth} from '@angular/fire/auth';
+import {Task} from '../../interfaces/task';
 
 @Component({
   selector: 'app-task-list',
@@ -27,11 +27,11 @@ export class TaskListComponent implements OnInit {
   project: Project[];
 
   panelOpenState: boolean;
-  userId:string;
+  userId: string;
 
-  items: Observable<Project[]>
+  items: Observable<Project[]>;
 
-  theme: boolean = false;
+  theme = false;
   // Project[];
   @Input() indexForProj: number;
   @Input() userChange: boolean;
@@ -62,30 +62,30 @@ export class TaskListComponent implements OnInit {
   }
 
 
-  //this.tasks = this.tasks.filter(tasks => tasks.id != id);
+  // this.tasks = this.tasks.filter(tasks => tasks.id != id);
 
   ngOnInit(): void {
 
 
-    this.firebaseService.currentUserId.subscribe(userId=> {
+    this.firebaseService.currentUserId.subscribe(userId => {
       this.userId = userId;
 
     });
     this.tempUid = this.userId;
     this.getData();
 
-    this.afAuth.authState.subscribe(user =>{
+    this.afAuth.authState.subscribe(user => {
 
-      if(user){
-        this.firebaseService.changeUserId(user.uid)
+      if (user){
+        this.firebaseService.changeUserId(user.uid);
         console.log(this.firebaseService.userId);
-        this.checkUser()
-      }
-      else{
-        this.firebaseService.changeUserId("2CThQyuj97facovRlrzWh2J8gMn1");
         this.checkUser();
       }
-  })
+      else{
+        this.firebaseService.changeUserId('2CThQyuj97facovRlrzWh2J8gMn1');
+        this.checkUser();
+      }
+  });
 
 }
 
@@ -99,27 +99,28 @@ this.getData();
 
   addTaskItem(): void  {
 
-    let title = ""
-    let description = ''
-    let result = prompt("Task Title", title);
-    if (result === null || result === "")
+    const title = '';
+    const description = '';
+    const result = prompt('Task Title', title);
+    if (result === null || result === '') {
       return;
-    let result1 = prompt("Task Description", description);
+    }
+    const result1 = prompt('Task Description', description);
 
 
 
-    if (result !== null && result !== "") {
-    let date: Date = new Date();
+    if (result !== null && result !== '') {
+    const date: Date = new Date();
 
     this.project[this.indexForProj].tasks.push({
-      id: ""+ date.getTime(),
+      id: '' + date.getTime(),
       title: result,
       description: result1,
-      completed:false,
-      editing:false,
-    })
+      completed: false,
+      editing: false,
+    });
 
-    this.firebaseService.addTask(this.project[this.indexForProj].tasks,this.project[this.indexForProj].id);
+    this.firebaseService.addTask(this.project[this.indexForProj].tasks, this.project[this.indexForProj].id);
 
 
 
@@ -128,42 +129,38 @@ this.getData();
   }
 
 
-  edit(id:string, task) {
+  edit(id: string, task) {
 
-    let title = ""
-    let description = ''
-    let result = prompt("Task Title", title);
-    if (result === null || result === "")
+    const title = '';
+    const description = '';
+    const result = prompt('Task Title', title);
+    if (result === null || result === '') {
       return;
-    let result1 = prompt("Task Description", description);
+    }
+    const result1 = prompt('Task Description', description);
+    console.log(task);
+    if (result1 !== null  || result1 !== '') {
+    const newTask = new Task(task.id, task.title, task.description, task.completed, task.editing);
+    const tempTask = newTask.getClone();
+    console.log(tempTask, newTask);
 
-    if (result1 !== null  || result1 !== "") {
+    tempTask.completed = false;
+    tempTask.editing = false;
+    tempTask.title = result;
+    tempTask.description = result1;
 
-      let  tempTask: Task = {
-        completed:  false,
-
-        editing: false,
-
-        description : result1,
-
-        title : result,
-        id:id
-      };
-
-
-
-      this.firebaseService.updateTasks(this.project[this.indexForProj].id,task,tempTask);
+    this.firebaseService.updateTasks(this.project[this.indexForProj].id, newTask , tempTask);
 
     }
   }
 
 
 deleteTask(task){
-  this.firebaseService.deleteTask(this.project[this.indexForProj].id,task)
+  this.firebaseService.deleteTask(this.project[this.indexForProj].id, task);
 }
 
 completeTask(task){
-  this.firebaseService.completeTask(this.project[this.indexForProj].id,task);
+  this.firebaseService.completeTask(this.project[this.indexForProj].id, task);
 }
 
 // updateTaskIndex(idx){
@@ -178,12 +175,13 @@ drop(event: CdkDragDrop<string[]>) {
 
 
   checkUser(){
-    if (this.tempUid !== this.userId)
-    console.log("checking user", this.userId,this.tempUid);
-    if(this.userId !== this.tempUid){
+    if (this.tempUid !== this.userId) {
+    console.log('checking user', this.userId, this.tempUid);
+    }
+    if (this.userId !== this.tempUid){
       this.tempUid = this.userId;
       this.getData();
-      console.log("checking user", this.userId,this.tempUid);
+      console.log('checking user', this.userId, this.tempUid);
     }
 
 

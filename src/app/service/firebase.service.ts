@@ -41,7 +41,7 @@ import * as firebase from "firebase";
     this.items = this.projectCollection.snapshotChanges().pipe(map(changes => {
       return changes.map(a => {
         const data = a.payload.doc.data()as Project;
-
+        data.tasks = a.payload.doc.data().tasks as Task[];
         data.id = a.payload.doc.id;
         console.log(data);
         return data;
