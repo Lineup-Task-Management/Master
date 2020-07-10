@@ -35,6 +35,7 @@ import { environment } from '../environments/environment';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import {MatChipsModule} from "@angular/material/chips";
+import {MatRadioModule} from "@angular/material/radio";
 //import {AngularFireAuth} from '@angular/fire/auth';
 
 
@@ -70,6 +71,7 @@ import {MatChipsModule} from "@angular/material/chips";
     //AngularFireAuth,
     ServiceWorkerModule.register('ngsw-worker.js', {enabled: environment.production}),
     MatChipsModule,
+    MatRadioModule,
 
   ],
 

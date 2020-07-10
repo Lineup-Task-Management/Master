@@ -17,6 +17,7 @@ import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firest
 import {Observable} from "rxjs";
 import {AngularFireAuth} from "@angular/fire/auth";
 import {Task} from "../../interfaces/task";
+import {async} from "@angular/core/testing";
 
 @Component({
   selector: 'app-task-list',
@@ -34,9 +35,10 @@ export class TaskListComponent implements OnInit {
   theme: boolean = false;
   // Project[];
   @Input() indexForProj: number;
-  @Input() userChange: boolean;
-  tempUid: string;
 
+  tempUid: string;
+  connect:boolean=true;
+  tempProject: Project[];
 
   task: any;
 
@@ -76,6 +78,7 @@ export class TaskListComponent implements OnInit {
 
     this.afAuth.authState.subscribe(user =>{
 
+
       if(user){
         this.firebaseService.changeUserId(user.uid)
         console.log(this.firebaseService.userId);
@@ -101,11 +104,12 @@ this.getData();
 
     let title = ""
     let description = ''
+    let priority=''
     let result = prompt("Task Title", title);
     if (result === null || result === "")
       return;
     let result1 = prompt("Task Description", description);
-
+    let result2 = prompt("Task Priority", priority);
 
 
     if (result !== null && result !== "") {
@@ -117,6 +121,7 @@ this.getData();
       description: result1,
       completed:false,
       editing:false,
+      priority:Number(result2),
     })
 
     this.firebaseService.addTask(this.project[this.indexForProj].tasks,this.project[this.indexForProj].id);
@@ -132,10 +137,12 @@ this.getData();
 
     let title = ""
     let description = ''
+    let priority='';
     let result = prompt("Task Title", title);
     if (result === null || result === "")
       return;
     let result1 = prompt("Task Description", description);
+    let result2 = prompt("Task Priority", priority);
 
     if (result1 !== null  || result1 !== "") {
 
@@ -147,7 +154,8 @@ this.getData();
         description : result1,
 
         title : result,
-        id:id
+        id:id,
+        priority: Number(priority),
       };
 
 
@@ -166,11 +174,7 @@ completeTask(task){
   this.firebaseService.completeTask(this.project[this.indexForProj].id,task);
 }
 
-// updateTaskIndex(idx){
-//   this.projectID = idx;
-//
-//   console.log(this.projectID);
-// }
+
 
 drop(event: CdkDragDrop<string[]>) {
     moveItemInArray(this.project[this.indexForProj].tasks, event.previousIndex, event.currentIndex);
@@ -178,16 +182,74 @@ drop(event: CdkDragDrop<string[]>) {
 
 
   checkUser(){
-    if (this.tempUid !== this.userId)
+
     console.log("checking user", this.userId,this.tempUid);
     if(this.userId !== this.tempUid){
       this.tempUid = this.userId;
+      this.connect = true;
       this.getData();
       console.log("checking user", this.userId,this.tempUid);
     }
+  }
 
+
+
+  queueByPriority(){
+
+
+
+    this.project[this.indexForProj].tasks.sort((n1,n2) => {
+      if (n1.priority > n2.priority) {
+        return 1;
+      }
+
+      if (n1.priority < n2.priority) {
+        return -1;
+      }
+
+      return 0;
+    });
 
   }
+
+  queueByCompleted(){
+
+
+    this.tempProject = this.project;
+    this.project[this.indexForProj].tasks = this.tempProject[this.indexForProj].tasks.filter(tasks => tasks.completed != true);
+    console.log(this.tempProject,this.project);
+  }
+  queueByNew(){
+    this.project[this.indexForProj].tasks.sort((n1,n2) => {
+      if (n1.id > n2.id) {
+        return 1;
+      }
+
+      if (n1.id < n2.id) {
+        return -1;
+      }
+
+      return 0;
+    });
+  }
+  queueByAll(){
+    this.getData();
+  }
+
+  queueByOld(){
+    this.project[this.indexForProj].tasks.sort((n1,n2) => {
+      if (n1.id < n2.id) {
+        return 1;
+      }
+
+      if (n1.id > n2.id) {
+        return -1;
+      }
+
+      return 0;
+    });
+  }
+
 
 
 }

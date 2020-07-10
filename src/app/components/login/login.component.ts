@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
 
 
 
-  constructor(private afAuth: AngularFireAuth,
+  constructor(public afAuth: AngularFireAuth,
               private db: AngularFirestore,
               private fbService: FirebaseService) {
  this.afAuth.authState.subscribe(user =>{
@@ -70,7 +70,7 @@ export class LoginComponent implements OnInit {
 
     this.isLoggedIn = true;
     this.userId = firebase.auth().currentUser.uid;
-      alert("Logged in successfuly to ");
+
      this.db.collection('Users').doc(this.userId).snapshotChanges().subscribe(res =>{
        if (!res.payload.exists)
        {
@@ -86,6 +86,7 @@ export class LoginComponent implements OnInit {
                  description:"click the add the new task button",
                  completed: false,
                  editing: false,
+                 priority: 1,
                })
              },{merge: true});
 

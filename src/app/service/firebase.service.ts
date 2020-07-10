@@ -67,6 +67,7 @@ import * as firebase from "firebase";
         editing: task.editing,
         id: task.id,
         title: task.title,
+         priority: task.priority,
        })
 
       })
@@ -83,6 +84,7 @@ import * as firebase from "firebase";
           editing: task.editing,
           id: task.id,
           title: task.title,
+         priority:task.priority
 
 
        })
@@ -106,6 +108,7 @@ import * as firebase from "firebase";
         editing: editTask.editing,
         id: editTask.id,
         title: editTask.title,
+        priority:editTask.priority,
       })
 
     })
@@ -126,7 +129,7 @@ import * as firebase from "firebase";
 
     let date: Date = new Date();
     var ranNum = Math.floor(Math.random() * 1000000).toString();
-    this.db.doc('Users/' + this.userId + '/projects/' + ranNum).set({
+    this.db.doc('Users/' + this.userId + '/projects/' + title).set({
       id: ranNum,
       title: title,
       tasks: Array<Task>({
@@ -135,6 +138,7 @@ import * as firebase from "firebase";
         description: "click the add the new task button",
         completed: false,
         editing: false,
+        priority:1,
 
       })
     }, {merge: true});
@@ -154,6 +158,8 @@ import * as firebase from "firebase";
 
   }
 
+
+
   anonymousId(){
     if (this.userId === ""){
       this.changeUserId("2CThQyuj97facovRlrzWh2J8gMn1");
@@ -164,7 +170,19 @@ import * as firebase from "firebase";
     }
   }
 
+
+
+  getProjectsByCompleted(){
+    var completedTasks = this.db.collectionGroup('Users/'+this.userId+'/projects');
+  }
+
+
 }
+
+
+
+
+
 
 
 
