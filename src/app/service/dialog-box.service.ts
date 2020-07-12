@@ -1,15 +1,27 @@
 import { Injectable } from '@angular/core';
 import {FormGroup, FormControl, Validators} from "@angular/forms";
 import {AngularFireDatabase, AngularFireList} from '@angular/fire/database';
+import {AngularFirestore, AngularFirestoreCollection} from '@angular/fire/firestore';
+import { Observable} from 'rxjs';
+import {Task} from "../interfaces/task";
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class DialogBoxService {
-
-  constructor(private firebase: AngularFireDatabase) { }
-
+  formData: Task;
+  tasks: Observable<Task[]>;
   taskList: AngularFireList<any>;
+  taskCollection: AngularFirestoreCollection<Task>;
+ 
+
+  constructor(private firebase: AngularFireDatabase,
+    private firestore: AngularFirestore,
+    ) { 
+      
+    }
+ 
 
   form: FormGroup = new FormGroup({
     $key: new FormControl(null),
@@ -37,12 +49,40 @@ export class DialogBoxService {
   }
 
   getTasks(){
-    this.taskList = this.firebase.list('tasklist')
-    return this.taskList.snapshotChanges();
+    return this.tasks;
+    
+    //this.taskList = this.firebase.list('tasklist')
+    //return this.taskList.snapshotChanges();
 
   }
 
-  insertTask(task){
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  /*insertTask(task){
     this.taskList.push({
       title: task.title,
       description: task.description,
@@ -67,6 +107,6 @@ export class DialogBoxService {
 
    delete($key: string){
      this.taskList.remove($key);
-   }
+   }*/
 
 } 

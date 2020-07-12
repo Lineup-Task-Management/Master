@@ -73,7 +73,7 @@ import { ReactiveFormsModule} from '@angular/forms';
     AngularFireDatabaseModule,
     AngularFireAuthModule,
     AngularFireMessagingModule,
-    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireModule.initializeApp(environment.firebase), 
     AngularFirestoreModule,
     //AngularFireAuth,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),

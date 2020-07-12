@@ -27,7 +27,7 @@ import { DialogBoxComponent } from '../dialog-box/dialog-box.component';
 
 import {AngularFireAuth} from "@angular/fire/auth";
 import * as firebase from "firebase";
-import { IEdit } from '../IEdit';
+
 @Component({
   selector: 'app-task-list',
   templateUrl: './task-list.component.html',
@@ -50,14 +50,14 @@ export class TaskListComponent implements OnInit {
 
   task: any;
   tasks: any[];
-  dialog: IEdit;
-  makeDialog: any;
+  
+  
 
 
   constructor(private tlService: TaskLineService,
     public firebaseService: FirebaseService,
   private db: AngularFirestore,
-  // private dialog: MatDialog,
+  private dialog: MatDialog,
   private afAuth: AngularFireAuth
  
   ){
@@ -154,6 +154,12 @@ this.getData();
       description: result1,
       completed:false,
       editing:false,
+      location: '',
+      level: 0,
+      type: '',
+      duedate: 0
+
+
     })
 
     this.firebaseService.addTask(this.project[this.indexForProj].tasks,this.project[this.indexForProj].id);
@@ -208,6 +214,9 @@ complete = task => this.firebaseService.completeTask(task);
     dialogConfig.autoFocus = true;
     dialogConfig.width = "60%"
     this.dialog.open(DialogBoxComponent, dialogConfig);
+
+    
+  
     
 
   }

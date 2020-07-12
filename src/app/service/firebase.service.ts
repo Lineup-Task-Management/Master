@@ -98,7 +98,10 @@ import {Task} from "../interfaces/task";
         description: "click the add the new task button",
         completed: false,
         editing: false,
-
+       location: '',
+        level: 0,
+        type: 0,
+        duedate: 0
       })
     }, {merge: true});
 
