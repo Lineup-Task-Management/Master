@@ -180,10 +180,10 @@ complete = task => this.firebaseService.completeTask(task);
   checkUser(){
     if (this.tempUid !== this.userId)
     console.log("checking user", this.userId,this.tempUid);
-    if(this.userId !== this.tempUid){
+    if (this.userId !== this.tempUid){
       this.tempUid = this.userId;
       this.getData();
-      console.log("checking user", this.userId,this.tempUid);
+      console.log('checking user', this.userId, this.tempUid);
     }
 
 
