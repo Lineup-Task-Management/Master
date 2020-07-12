@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import {AngularFirestore, AngularFirestoreCollection} from '@angular/fire/firestore';
 import {BehaviorSubject, Observable} from "rxjs";
 import {Project} from "../interfaces/Project";
-import { map } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 import {Task} from "../interfaces/task";
-
+import * as firebase from "firebase";
 
 @Injectable({
     providedIn: 'root'
@@ -50,19 +50,68 @@ import {Task} from "../interfaces/task";
     return this.items;
   }
 
-  deleteTask(data) {
+  deleteProject(data) {
     return this.db.collection('Users/'+this.userId+'/projects').doc(data).delete();
 
 
   }
 
-  completeTask(data) {
-    return this.db.collection('Projects/Tasks/Tasks').doc(data.payload.doc.id).set({completed: true}, {merge: true});
+  completeTask(projectID,task) {
+    console.log(projectID);
+    console.log(task);
+    this.deleteTask(projectID,task);
+     return this.db.collection('Users/'+this.userId+'/projects').doc(projectID).update({
+       tasks: firebase.firestore.FieldValue.arrayUnion({
+        completed : true,
+        description: task.description,
+        editing: task.editing,
+        id: task.id,
+        title: task.title,
+         priority: task.priority,
+       })
+
+      })
+    }
+
+
+  deleteTask(projectID,task) {
+    console.log(projectID);
+    console.log(task);
+     return this.db.collection('Users/'+this.userId+'/projects').doc(projectID).update({
+       tasks: firebase.firestore.FieldValue.arrayRemove({
+          completed: task.completed,
+          description: task.description,
+          editing: task.editing,
+          id: task.id,
+          title: task.title,
+         priority:task.priority
+
+
+       })
+     })
+
 
 
   }
 
-  updateTasks() {
+
+
+  updateTasks(projectID,taskToDelete,editTask) {
+    console.log(projectID);
+    console.log(editTask);
+    console.log(taskToDelete);
+    this.deleteTask(projectID,taskToDelete);
+    return this.db.collection('Users/'+this.userId+'/projects').doc(projectID).update({
+      tasks: firebase.firestore.FieldValue.arrayUnion({
+        completed : editTask.completed,
+        description: editTask.description,
+        editing: editTask.editing,
+        id: editTask.id,
+        title: editTask.title,
+        priority:editTask.priority,
+      })
+
+    })
 
   }
 
@@ -73,15 +122,6 @@ import {Task} from "../interfaces/task";
       tasks: task,
     },{merge:true});
 
-
-
-
-    // return this.db.collection('Users/'+this.userId+'/projects').doc(id).({
-    //
-    //  title: title,
-    //   description: description,
-    //    completed: completed
-    //  });
   }
 
 
@@ -89,7 +129,7 @@ import {Task} from "../interfaces/task";
 
     let date: Date = new Date();
     var ranNum = Math.floor(Math.random() * 1000000).toString();
-    this.db.doc('Users/' + this.userId + '/projects/' + ranNum).set({
+    this.db.doc('Users/' + this.userId + '/projects/' + title).set({
       id: ranNum,
       title: title,
       tasks: Array<Task>({
@@ -98,10 +138,9 @@ import {Task} from "../interfaces/task";
         description: "click the add the new task button",
         completed: false,
         editing: false,
-       location: '',
-        level: 0,
-        type: 0,
-        duedate: 0
+    
+        priority:1,
+
       })
     }, {merge: true});
 
@@ -120,6 +159,8 @@ import {Task} from "../interfaces/task";
 
   }
 
+
+
   anonymousId(){
     if (this.userId === ""){
       this.changeUserId("2CThQyuj97facovRlrzWh2J8gMn1");
@@ -129,6 +170,13 @@ import {Task} from "../interfaces/task";
 
     }
   }
+
+
+
+  getProjectsByCompleted(){
+    var completedTasks = this.db.collectionGroup('Users/'+this.userId+'/projects');
+  }
+
 
 }
 
@@ -144,13 +192,8 @@ import {Task} from "../interfaces/task";
 
 
 
-// this.items = this.projectCollection.snapshotChanges().pipe(map(changes => {
-//   return changes.map(a => {
-//     const data = a.payload.doc.data()as Holder;
-//     data.projects = a.payload.doc.data().projects;
-//     data.id = a.payload.doc.id;
-//     console.log(data);
-//     return data;
-//   })
-// }));
+
+
+
+
 

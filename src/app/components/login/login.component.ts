@@ -23,10 +23,11 @@ export class LoginComponent implements OnInit {
 
   ui: firebaseui.auth.AuthUI;
   userId:string;
+  public isLoggedIn: boolean = false;
 
 
 
-  constructor(private afAuth: AngularFireAuth,
+  constructor(public afAuth: AngularFireAuth,
               private db: AngularFirestore,
               private fbService: FirebaseService) {
  this.afAuth.authState.subscribe(user =>{
@@ -67,6 +68,7 @@ export class LoginComponent implements OnInit {
 
   onLoginSuccessful(){
 
+    this.isLoggedIn = true;
     this.userId = firebase.auth().currentUser.uid;
 
      this.db.collection('Users').doc(this.userId).snapshotChanges().subscribe(res =>{
@@ -84,6 +86,7 @@ export class LoginComponent implements OnInit {
                  description:"click the add the new task button",
                  completed: false,
                  editing: false,
+                 priority: 1,
                })
              },{merge: true});
 
@@ -117,7 +120,11 @@ export class LoginComponent implements OnInit {
 
   async signOut(){
     await this.afAuth.auth.signOut();
+
+    this.isLoggedIn = false;
+
     this.fbService.changeUserId("2CThQyuj97facovRlrzWh2J8gMn1");
+
   }
 
 

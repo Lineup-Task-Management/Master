@@ -5,9 +5,11 @@ export interface Task {
   completed:boolean,
   editing:boolean,
   description:string,
-  location: string,
+  /*location: string,
   level: number,
   type: any,
-  duedate: number
+  duedate: number*/
+  priority:number
+
 
 }

@@ -1,9 +1,11 @@
-<div id="firebaseui-auth-container" >
+<div *ngIf="isLoggedIn===false" id="firebaseui-auth-container" >
 
 </div>
+
 <div>
   <button mat-raised-button (click)="signOut()">
     logout
   </button>
 </div>
+
 

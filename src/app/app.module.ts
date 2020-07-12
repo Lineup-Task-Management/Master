@@ -38,6 +38,8 @@ import { DialogBoxComponent } from './components/dialog-box/dialog-box.component
 import { DialogBoxService } from './service/dialog-box.service';
 import { ReactiveFormsModule} from '@angular/forms';
 
+import {MatChipsModule} from "@angular/material/chips";
+import {MatRadioModule} from "@angular/material/radio";
 //import {AngularFireAuth} from '@angular/fire/auth';
 
 
@@ -76,7 +78,9 @@ import { ReactiveFormsModule} from '@angular/forms';
     AngularFireModule.initializeApp(environment.firebase), 
     AngularFirestoreModule,
     //AngularFireAuth,
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+    ServiceWorkerModule.register('ngsw-worker.js', {enabled: environment.production}),
+    MatChipsModule,
+    MatRadioModule,
 
   ],
 

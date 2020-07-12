@@ -89,7 +89,7 @@ updateIndex(index: number){
 
 }
 
-  deleteProject = task => this.firebaseService.deleteTask(task);
+  deleteProject = task => this.firebaseService.deleteProject(task);
 
   checkUser(){
     console.log("checking user", this.userId,this.tempUid);

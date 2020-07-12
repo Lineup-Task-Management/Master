@@ -1,15 +1,15 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import { Task } from '../../interfaces/task';
 
-import {TaskLineService} from "../../service/task-line.service";
+
+
 import { Project} from "../../interfaces/Project";
 import {CdkDragDrop, moveItemInArray} from "@angular/cdk/drag-drop";
 
 import { FirebaseService } from '../../service/firebase.service';
-import { getLocaleDateFormat } from '@angular/common';
 
 
-import {functions} from "firebase";
+
+
 
 import {map, takeWhile} from "rxjs/operators";
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
@@ -27,6 +27,9 @@ import { DialogBoxComponent } from '../dialog-box/dialog-box.component';
 
 import {AngularFireAuth} from "@angular/fire/auth";
 import * as firebase from "firebase";
+import {Task} from "../../interfaces/task";
+import {async} from "@angular/core/testing";
+import { TaskLineService } from 'src/app/service/task-line.service';
 
 @Component({
   selector: 'app-task-list',
@@ -44,9 +47,10 @@ export class TaskListComponent implements OnInit {
   theme: boolean = false;
   // Project[];
   @Input() indexForProj: number;
-  @Input() userChange: boolean;
-  tempUid: string;
 
+  tempUid: string;
+  connect:boolean=true;
+  tempProject: Project[];
 
   task: any;
   tasks: any[];
@@ -79,15 +83,7 @@ export class TaskListComponent implements OnInit {
         console.log(result);
         console.log(this.project);
 
-
-
       }));
-
-
-
-
-
-
 
   }
 
@@ -106,6 +102,7 @@ export class TaskListComponent implements OnInit {
 
     this.afAuth.authState.subscribe(user =>{
 
+
       if(user){
         this.firebaseService.changeUserId(user.uid)
         console.log(this.firebaseService.userId);
@@ -122,13 +119,6 @@ export class TaskListComponent implements OnInit {
 
 
 
-
-
-
-
-
-
-
 ngOnChanges(): void{
 this.getData();
 
@@ -138,11 +128,12 @@ this.getData();
 
     let title = ""
     let description = ''
+    let priority=''
     let result = prompt("Task Title", title);
     if (result === null || result === "")
       return;
     let result1 = prompt("Task Description", description);
-
+    let result2 = prompt("Task Priority", priority);
 
 
     if (result !== null && result !== "") {
@@ -154,54 +145,68 @@ this.getData();
       description: result1,
       completed:false,
       editing:false,
-      location: '',
+      /*location: '',
       level: 0,
       type: '',
-      duedate: 0
+      duedate: 0 */
 
 
+      priority:Number(result2),
     })
 
     this.firebaseService.addTask(this.project[this.indexForProj].tasks,this.project[this.indexForProj].id);
 
 
 
-        //this.idForTask++;
-
       }
 
-  //  this.tlService.changeProjects(this.projects);
-
-
   }
 
 
-  edit(id:number) {
+  edit(id:string, task) {
+
+    let title = ""
+    let description = ''
+    let priority='';
+    let result = prompt("Task Title", title);
+    if (result === null || result === "")
+      return;
+    let result1 = prompt("Task Description", description);
+    let result2 = prompt("Task Priority", priority);
+
+    if (result1 !== null  || result1 !== "") {
+
+      let  tempTask: Task = {
+        completed:  false,
+
+        editing: false,
+
+        description : result1,
+
+        title : result,
+        id:id,
+        priority: Number(priority),
+      };
 
 
-    // let title =this.tasks[id-1].title;
-    // let result = prompt("Edit Task Title", title);
-    // let result1 = prompt("Edit Task Description", this.tasks[id-1].description);
-    // if (result1 !== null && result1 !== "") {
-    //   this.tasks[id-1].description = result1;
-    // }
-    // if (result !== null && result !== "") {
-    //   this.tasks[id-1].title = result;
-    //}
 
-  }
-/*
-  complete(id: number,completed:boolean){
-    let taskCompletion = this.projects[this.indexForProj].tasks[id-1].completed;
-    let promptComplete = confirm("Are you sure you wish to complete?");
-    if (promptComplete !=null){
-      this.projects[this.indexForProj].tasks[id-1].completed = true;
+      this.firebaseService.updateTasks(this.project[this.indexForProj].id,task,tempTask);
+
     }
-*/
+  }
 
-complete = task => this.firebaseService.completeTask(task);
 
-  drop(event: CdkDragDrop<string[]>) {
+deleteTask(task){
+  this.firebaseService.deleteTask(this.project[this.indexForProj].id,task)
+}
+
+completeTask(task){
+  this.firebaseService.completeTask(this.project[this.indexForProj].id,task);
+}
+
+
+
+drop(event: CdkDragDrop<string[]>) {
     moveItemInArray(this.project[this.indexForProj].tasks, event.previousIndex, event.currentIndex);
   }
 
@@ -230,16 +235,74 @@ complete = task => this.firebaseService.completeTask(task);
 
 
   checkUser(){
-    if (this.tempUid !== this.userId)
+
     console.log("checking user", this.userId,this.tempUid);
     if(this.userId !== this.tempUid){
       this.tempUid = this.userId;
+      this.connect = true;
       this.getData();
       console.log("checking user", this.userId,this.tempUid);
     }
+  }
 
+
+
+  queueByPriority(){
+
+
+
+    this.project[this.indexForProj].tasks.sort((n1,n2) => {
+      if (n1.priority > n2.priority) {
+        return 1;
+      }
+
+      if (n1.priority < n2.priority) {
+        return -1;
+      }
+
+      return 0;
+    });
 
   }
+
+  queueByCompleted(){
+
+
+    this.tempProject = this.project;
+    this.project[this.indexForProj].tasks = this.tempProject[this.indexForProj].tasks.filter(tasks => tasks.completed != true);
+    console.log(this.tempProject,this.project);
+  }
+  queueByNew(){
+    this.project[this.indexForProj].tasks.sort((n1,n2) => {
+      if (n1.id > n2.id) {
+        return 1;
+      }
+
+      if (n1.id < n2.id) {
+        return -1;
+      }
+
+      return 0;
+    });
+  }
+  queueByAll(){
+    this.getData();
+  }
+
+  queueByOld(){
+    this.project[this.indexForProj].tasks.sort((n1,n2) => {
+      if (n1.id < n2.id) {
+        return 1;
+      }
+
+      if (n1.id > n2.id) {
+        return -1;
+      }
+
+      return 0;
+    });
+  }
+
 
 
 }
