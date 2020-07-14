@@ -72,8 +72,9 @@ addProject(){
   let title = ""
   let result = prompt("Project Title", title);
 
-  if(result === null || result === "")
+  if(result === null || result === "") {
     return;
+  }
   this.firebaseService.addProject(result);
 
 
