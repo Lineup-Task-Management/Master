@@ -5,11 +5,18 @@ import {Project} from "../interfaces/Project";
 import { map, take } from 'rxjs/operators';
 import {Task} from "../interfaces/task";
 import * as firebase from "firebase";
+import {FormGroup, FormControl, Validators} from "@angular/forms";
+
 
 @Injectable({
     providedIn: 'root'
   })
   export class FirebaseService {
+
+    
+  
+
+
 
 
   userId:string= "";
@@ -17,6 +24,7 @@ import * as firebase from "firebase";
   currentUserId = this.userIdSource.asObservable();
   projectCollection: AngularFirestoreCollection<Project>;
   items: Observable<Project[]>;
+ 
 
 
   constructor(public db: AngularFirestore) {
@@ -26,10 +34,19 @@ import * as firebase from "firebase";
 
     this.currentUserId.subscribe(userId=> this.userId = userId);
 
+  
+
+ 
+    //this.taskList = this.firebase.list('tasklist')
+    //return this.taskList.snapshotChanges();
+
+  }
 
 
 
-    }
+
+
+
 
 
 

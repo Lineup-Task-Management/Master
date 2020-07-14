@@ -1,5 +1,6 @@
 <p>dialog-box works!</p>
-<form [formGroup]="service.form" class= "normal-form" (submit)="onSubmit()">      
+<h2 mat-dialog-title>{{tasks}} </h2>
+<form [formGroup]="service.form" class= "normal-form" (ngSubmit)="onSubmit(form)">      
     <mat-grid-list cols ="2" rowHeight = "300px">
     <mat-grid-tile>
         <div class="controles-container">

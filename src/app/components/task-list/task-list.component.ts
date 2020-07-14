@@ -217,7 +217,17 @@ drop(event: CdkDragDrop<string[]>) {
   onEdit(){
     const dialogConfig = new MatDialogConfig();
     dialogConfig.autoFocus = true;
-    dialogConfig.width = "60%"
+    dialogConfig.width = "60%";
+
+    dialogConfig.data= {
+      id: '',
+      title: '',
+      completed: false,
+      editing: false,
+      description: '',
+      priority: 1,
+    };
+    
     this.dialog.open(DialogBoxComponent, dialogConfig);
 
     
@@ -230,7 +240,30 @@ drop(event: CdkDragDrop<string[]>) {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.autoFocus = true;
     dialogConfig.width = "60%";
+
+    dialogConfig.data= {
+      id: '',
+      title: '',
+      completed: false,
+      editing: false,
+      description: '',
+      priority: 1,
+    };
+
     this.dialog.open(DialogBoxComponent, dialogConfig);
+
+
+
+
+
+    this.firebaseService.addTask(this.project[this.indexForProj].tasks,this.project[this.indexForProj].id);
+
+
+
+
+
+
+    
   }
 
 

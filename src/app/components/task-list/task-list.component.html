@@ -15,7 +15,7 @@
 
   <div align="center">
 
-    <button mat-fab color="primary" aria-label="New Task" (click)=" addTaskItem()" matTooltip="Add new Task" >
+    <button mat-fab color="primary" aria-label="New Task" (click)=" onCreate()" matTooltip="Add new Task" >
       <mat-icon>add</mat-icon>
     </button>
 
@@ -90,7 +90,7 @@
                 </mat-chip-list>
 
               </div>
-              <button mat-fab color="primary" (click)="edit(task.id, task)" matTooltip="Edit Task"><mat-icon>edit</mat-icon></button>
+              <button mat-fab color="primary" (click)="onEdit()" matTooltip="Edit Task"><mat-icon>edit</mat-icon></button>
               <button mat-fab color="primary" (click)="completeTask(task)"  matTooltip="Complete Task"><mat-icon>check</mat-icon></button>
               <button mat-fab color="primary" (click)="deleteTask(task)" matTooltip="Delete Task"><mat-icon>delete</mat-icon></button>
 

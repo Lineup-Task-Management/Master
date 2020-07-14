@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { DialogBoxService } from 'src/app/service/dialog-box.service';
 import { SubmitNotifService} from 'src/app/service/submit-notif.service'
-import {MatDialogRef} from '@angular/material/dialog';
-import { NgForm, FormGroup } from '@angular/forms';
+import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { NgForm, FormGroup, FormBuilder } from '@angular/forms';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Task } from 'src/app/interfaces/task';
+import { FirebaseService } from 'src/app/service/firebase.service';
+
 
 
 @Component({
@@ -13,6 +15,7 @@ import { Task } from 'src/app/interfaces/task';
   styleUrls: ['./dialog-box.component.css']
 })
 export class DialogBoxComponent implements OnInit {
+ 
   firebaseService: any;
   tasks: Task[];
 
@@ -20,13 +23,33 @@ export class DialogBoxComponent implements OnInit {
   constructor(public service: DialogBoxService,
     public submitService: SubmitNotifService,
     public dialogRef: MatDialogRef<DialogBoxComponent>,
-    public db: AngularFirestore, ) { }
+    public fb:FormBuilder,
+    @Inject(MAT_DIALOG_DATA) data) {
 
-  ngOnInit(): void {
-    this.service.getTasks().subscribe( tasks => {
-      this.tasks = tasks;
+      this.service.form = this.fb.group({
+        $key: [],
+        title: [],
+        description: [],
+        location: [],
+        level: [],
+        type: [],
+        duedate: []
+      });
+  }
 
-    });
+
+
+    
+
+  ngOnInit() {
+    
+     
+     
+     
+     
+     this.service.getTasks().subscribe(tasks=> {
+        console.log(tasks);
+      })  
     
   }
   open: any;
@@ -72,7 +95,8 @@ export class DialogBoxComponent implements OnInit {
       this.submitService.success('Submitted Successfully');
       this.onClose();
      // this.firebaseService.addTask(this.project[this.indexForProj].tasks,this.project[this.indexForProj].id);*/
-  
+     console.log(this.service.form);
+     this.dialogRef.close(this.service.form.value);
     
     }
   

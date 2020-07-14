@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import {FormGroup, FormControl, Validators} from "@angular/forms";
+import {FormGroup, FormControl, Validators, FormBuilder} from "@angular/forms";
 import {AngularFireDatabase, AngularFireList} from '@angular/fire/database';
 import {AngularFirestore, AngularFirestoreCollection} from '@angular/fire/firestore';
-import { Observable} from 'rxjs';
+import { Observable, BehaviorSubject} from 'rxjs';
 import {Task} from "../interfaces/task";
 
 
@@ -10,29 +10,22 @@ import {Task} from "../interfaces/task";
   providedIn: 'root'
 })
 export class DialogBoxService {
-  formData: Task;
+ 
+  form: FormGroup;
   tasks: Observable<Task[]>;
   taskList: AngularFireList<any>;
   taskCollection: AngularFirestoreCollection<Task>;
  
 
   constructor(private firebase: AngularFireDatabase,
-    private firestore: AngularFirestore,
-    ) { 
-      
-    }
+              private firestore: AngularFirestore) { 
+                   
+     
+  
+  }
+
  
 
-  form: FormGroup = new FormGroup({
-    $key: new FormControl(null),
-    title: new FormControl('', Validators.required),
-    description: new FormControl(''),
-    location: new FormControl(''),
-    level: new FormControl(''),
-    type: new FormControl(''),
-    duedate: new FormControl('')
-   
-   });
 
    initializeFormGroup(){
     this.form.setValue({
