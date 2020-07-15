@@ -70,7 +70,7 @@ export class LoginComponent implements OnInit {
 
     this.isLoggedIn = true;
     this.userId = firebase.auth().currentUser.uid;
-
+    let date: Date = new Date();
      this.db.collection('Users').doc(this.userId).snapshotChanges().subscribe(res =>{
        if (!res.payload.exists)
        {
@@ -79,7 +79,7 @@ export class LoginComponent implements OnInit {
          },{merge: true})
 
          this.db.doc('Users/'+this.userId+'/projects/project1').set({
-              id:"1",
+              id:date.getTime().toString(),
                title:"First Project",
                tasks:Array<any>({
                  title:"Whats your first task?",
@@ -103,8 +103,6 @@ export class LoginComponent implements OnInit {
        )
 
 
-
-        //this.fbService.getProjects();
 
       }
 

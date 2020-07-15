@@ -5,7 +5,7 @@ import { DebugElement } from '@angular/core';
 
 import { TaskTimerComponent } from './taskTimer.component';
 
-describe('TaskTimerComponent', () => {
+xdescribe('TaskTimerComponent', () => {
   let component: TaskTimerComponent;
   let fixture: ComponentFixture<TaskTimerComponent>;
 

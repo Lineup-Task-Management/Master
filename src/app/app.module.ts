@@ -68,7 +68,6 @@ import {MatRadioModule} from "@angular/material/radio";
     AngularFireMessagingModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
-    //AngularFireAuth,
     ServiceWorkerModule.register('ngsw-worker.js', {enabled: environment.production}),
     MatChipsModule,
     MatRadioModule,

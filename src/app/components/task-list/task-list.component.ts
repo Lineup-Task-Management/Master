@@ -45,10 +45,17 @@ export class TaskListComponent implements OnInit {
 
   constructor(private afAuth: AngularFireAuth,
               public firebaseService: FirebaseService,
-              private db: AngularFirestore){
+              ){
 
 
   }
+  /**
+   * @name getData
+   * getData will get the get an Projects[] observable from the firebase service. Which had a database collection
+   * mapped to a project data type. it then sets a local projects array equal to the data in the observable
+   * from firebase.
+   */
+
   getData(){
 
     this.items = this.firebaseService.getProjects();
@@ -64,7 +71,7 @@ export class TaskListComponent implements OnInit {
   }
 
 
-  //this.tasks = this.tasks.filter(tasks => tasks.id != id);
+
 
   ngOnInit(): void {
 
@@ -94,11 +101,12 @@ export class TaskListComponent implements OnInit {
 
 
 
-
-ngOnChanges(): void{
-this.getData();
-
-}
+  /**
+   * @name addTaskItem
+   * Add task item will take input from the user, make a new task object and push it into the local data
+   * after its in the local data we use the firebase service method addTask to add it to the data base.
+   *
+   */
 
   addTaskItem(): void  {
 
@@ -131,7 +139,12 @@ this.getData();
       }
 
   }
-
+  /**
+   * @name edit
+   * Edit task item will take input from the user, make a new task object and push it into the local data
+   * after its in the local data we use the firebase service method updateTask to add it to the data base and remove its previous version.
+   *
+   */
 
   edit(id:string, task) {
 
@@ -155,7 +168,7 @@ this.getData();
 
         title : result,
         id:id,
-        priority: Number(priority),
+        priority: Number(result2),
       };
 
 
@@ -180,7 +193,12 @@ drop(event: CdkDragDrop<string[]>) {
     moveItemInArray(this.project[this.indexForProj].tasks, event.previousIndex, event.currentIndex);
   }
 
-
+  /**
+   * @name checkUser
+   * checkUser will see if the value for userId has changed by comparing it to the local tempUid.
+   * if they are not equal then it will update tempuid and get a new observable from the database.
+   * This checks if the observable we were working with has closed and will get a new one.
+   */
   checkUser(){
 
     console.log("checking user", this.userId,this.tempUid);
@@ -192,7 +210,11 @@ drop(event: CdkDragDrop<string[]>) {
     }
   }
 
-
+  /**
+   * @name queueByPriority
+   * queueByPriority will sort the local data by priority
+   *
+   */
 
   queueByPriority(){
 
@@ -211,6 +233,12 @@ drop(event: CdkDragDrop<string[]>) {
     });
 
   }
+  /**
+   * @name queueByCompleted
+   * queueByCompleted will filter out all completed tasks
+   *
+   */
+
 
   queueByCompleted(){
 
@@ -219,6 +247,12 @@ drop(event: CdkDragDrop<string[]>) {
     this.project[this.indexForProj].tasks = this.tempProject[this.indexForProj].tasks.filter(tasks => tasks.completed != true);
     console.log(this.tempProject,this.project);
   }
+
+  /**
+   * @name queueByNew
+   * queueByNew sort the array by the id of the task.
+   * the id is equal to the numerical format of the date in miliseconds of when the task was created.
+   */
   queueByNew(){
     this.project[this.indexForProj].tasks.sort((n1,n2) => {
       if (n1.id > n2.id) {
@@ -232,10 +266,19 @@ drop(event: CdkDragDrop<string[]>) {
       return 0;
     });
   }
+
+
+  /**
+   * @name queueByAll
+   * queueByAll will refresh the observable to bring the filtered out completed tasks back into view.
+   */
   queueByAll(){
     this.getData();
   }
-
+  /**
+   * @name queueByOld
+   * queueByOld sorts array by olds tasks first by using id.
+   */
   queueByOld(){
     this.project[this.indexForProj].tasks.sort((n1,n2) => {
       if (n1.id < n2.id) {

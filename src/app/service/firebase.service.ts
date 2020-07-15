@@ -172,10 +172,6 @@ import * as firebase from "firebase";
 
 
 
-  getProjectsByCompleted(){
-    var completedTasks = this.db.collectionGroup('Users/'+this.userId+'/projects');
-  }
-
 
 }
 

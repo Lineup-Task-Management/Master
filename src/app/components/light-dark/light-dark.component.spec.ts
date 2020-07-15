@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { LightDarkComponent } from './light-dark.component';
 
-describe('LightDarkComponent', () => {
+xdescribe('LightDarkComponent', () => {
   let component: LightDarkComponent;
   let fixture: ComponentFixture<LightDarkComponent>;
 
