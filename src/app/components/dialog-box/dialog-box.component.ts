@@ -18,7 +18,10 @@ export class DialogBoxComponent implements OnInit {
  
   firebaseService: any;
   tasks: Task[];
-
+  task: Task = {
+    title:'',
+    description: ''
+  }
 
   constructor(public service: DialogBoxService,
     public submitService: SubmitNotifService,
@@ -48,7 +51,8 @@ export class DialogBoxComponent implements OnInit {
      
      
      this.service.getTasks().subscribe(tasks=> {
-        console.log(tasks);
+        //console.log(tasks);
+        this.tasks=tasks;
       })  
     
   }
@@ -78,7 +82,7 @@ export class DialogBoxComponent implements OnInit {
 
 
     this.service.form.reset();
-    this.service.initializeFormGroup();
+    //this.service.initializeFormGroup();
     
   }
 
@@ -96,6 +100,7 @@ export class DialogBoxComponent implements OnInit {
       this.onClose();
      // this.firebaseService.addTask(this.project[this.indexForProj].tasks,this.project[this.indexForProj].id);*/
      console.log(this.service.form);
+     
      this.dialogRef.close(this.service.form.value);
     
     }
@@ -103,7 +108,7 @@ export class DialogBoxComponent implements OnInit {
 
   onClose(){
     this.service.form.reset();
-    this.service.initializeFormGroup();
+    //this.service.initializeFormGroup();
     this.dialogRef.close();
   }
 

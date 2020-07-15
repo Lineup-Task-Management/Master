@@ -6,6 +6,10 @@ import { Observable, BehaviorSubject} from 'rxjs';
 import {Task} from "../interfaces/task";
 
 
+import { map, take } from 'rxjs/operators';
+
+
+
 @Injectable({
   providedIn: 'root'
 })
@@ -13,24 +17,26 @@ export class DialogBoxService {
  
   form: FormGroup;
   tasks: Observable<Task[]>;
-  taskList: AngularFireList<any>;
+  //taskList: AngularFireList<any>;
   taskCollection: AngularFirestoreCollection<Task>;
  
 
-  constructor(private firebase: AngularFireDatabase,
-              private firestore: AngularFirestore) { 
+  constructor(
+              private firestore: AngularFirestore,
+              
+              ) { 
+                this.tasks=this.firestore.collection('tasks').valueChanges();
                    
-     
-  
+                
   }
 
  
 
 
-   initializeFormGroup(){
+   /*initializeFormGroup(){
     this.form.setValue({
       $key: null,
-      title: '',
+      title: '',              // This is not needed, initialized at declaration in dialog-box.component
       description: '',
       location: '',
       level: '1',
@@ -39,7 +45,7 @@ export class DialogBoxService {
 
     })
 
-  }
+  }*/
 
   getTasks(){
     return this.tasks;
@@ -73,7 +79,7 @@ export class DialogBoxService {
   
   
   
-  
+  //These functions are not needed. They are used for Firebase real-time database
   
   /*insertTask(task){
     this.taskList.push({
