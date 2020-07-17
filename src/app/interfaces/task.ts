@@ -1,10 +1,10 @@
 export interface Task {
 
-  id:string,
-  title:string,
-  completed:boolean,
-  editing:boolean,
-  description:string
+  id: string;
+  title: string;
+  completed: boolean;
+  editing: boolean;
+  description: string;
 
 
 }

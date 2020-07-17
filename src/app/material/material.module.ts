@@ -12,10 +12,10 @@ import {MatInputModule} from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatDialogModule } from '@angular/material/dialog';
 import {MatToolbarModule} from '@angular/material/toolbar';
-import {MatIconModule} from "@angular/material/icon";
-import {MatTooltipModule} from "@angular/material/tooltip";
-import {MatProgressBarModule} from "@angular/material/progress-bar";
-import {MatSlideToggleModule} from "@angular/material/slide-toggle";
+import {MatIconModule} from '@angular/material/icon';
+import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
@@ -52,7 +52,7 @@ const MaterialComponents = [
   MatTreeModule,
 
 
-]
+];
 
 
 
@@ -62,7 +62,7 @@ const MaterialComponents = [
     MaterialComponents,
 
   ],
-  exports:[
+  exports: [
 MaterialComponents,
   ]
 })

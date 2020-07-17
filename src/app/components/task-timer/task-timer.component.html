@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="eng">
+
+<head>
+  <title> Task Timer</title>
+</head>
+
+<body>
+
+  <class "countdownTimer">
+    <button mat-fab color= "primary" aria-label= "Task Timer" (click)= "taskTimer()" matTooltip = "Open Task Timer" id = "timerbtn"><mat-icon>timer</mat-icon>
+    </button>
+
+    <form name="minutesForm" id="timerMinutes">
+      <input type="text" name="minutes" placeholder="Enter Timer Minutes">
+    </form>
+
+    <div class="timer">
+      <h1 class="timeRemaining"></h1>
+      <p class="timerStopTime"></p>
+    </div>
+
+    <script src="task-timer.component.ts"></script>
+
+</body>
+
+</html>
+

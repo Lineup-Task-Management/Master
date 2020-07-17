@@ -1,5 +1,5 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {TaskLineService} from "../../service/task-line.service";
+import {TaskLineService} from '../../service/task-line.service';
 
 @Component({
   selector: 'app-header',
@@ -7,22 +7,22 @@ import {TaskLineService} from "../../service/task-line.service";
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
+  constructor(private tlService: TaskLineService) { }
   theme = false;
-  opened = false
+  opened = false;
   @Output() open: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Output() changeTheme1: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   onOpen(){
-    this.opened =! this.opened;
+    this.opened = ! this.opened;
     this.open.emit(this.opened);
   }
 
-  onThemeChange(value :boolean) {
+  onThemeChange(value: boolean) {
     this.theme = value;
     this.changeTheme1.emit(this.theme);
 
   }
-  @Output() changeTheme1: EventEmitter<boolean> = new EventEmitter<boolean>();
-  constructor(private tlService: TaskLineService) { }
 
   ngOnInit(): void {
   }

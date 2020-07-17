@@ -1,16 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import {TaskLineService} from "../../service/task-line.service";
-import {Observable} from "rxjs";
-import { Output, EventEmitter} from "@angular/core";
+import {TaskLineService} from '../../service/task-line.service';
+import {Observable} from 'rxjs';
+import { Output, EventEmitter} from '@angular/core';
 
 
 @Component({
   selector: 'app-light-dark',
   templateUrl: './light-dark.component.html',
   styleUrls: ['./light-dark.component.scss'],
-  providers:[TaskLineService]
+  providers: [TaskLineService]
 })
 export class LightDarkComponent implements OnInit {
+  // tslint:disable-next-line: no-inferrable-types
   theme: boolean = false;
   @Output() changeTheme: EventEmitter<boolean> = new EventEmitter<boolean>();
 

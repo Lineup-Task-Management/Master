@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="eng">
+
+<div class = "w3-container w3-blue">
+  <section class = "stopwatch-duration">
+    <div *ngIf = "secondsOn;
+    else elseBlock">
+
+    </div>
+    <ng-template #elseBlock>
+      Press the Start Button to Begin!
+    </ng-template>
+  </section>
+
+  <section class = "stopwatch-btn-container">
+
+    <button mat-fab color= "primary" class = "stopwatch-btn" (click) = "startStopwatch()">
+      {{startButton}}
+    </button>
+
+    <button mat-fab color= "primary" class = "stopwatch-btn" (click) = "resetStopwatch()">
+
+    </button>
+  </section>
+</div>

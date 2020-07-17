@@ -1,10 +1,10 @@
-import { Task } from "./task";
+import { Task } from './task';
 
 export class Project{
 
-  title:string;
+  title: string;
   tasks: Array<Task>;
-  id:string;
+  id: string;
   constructor(){
 
   }
