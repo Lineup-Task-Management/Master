@@ -15,29 +15,24 @@ import { FirebaseService } from 'src/app/service/firebase.service';
   styleUrls: ['./dialog-box.component.css']
 })
 export class DialogBoxComponent implements OnInit {
- 
+ form: FormGroup;
   firebaseService: any;
   tasks: Task[];
-  task: Task = {
-    title:'',
-    description: ''
-  }
+  title: string;
+    description: string;
+      priority: number;
+      duedate: Date;
 
-  constructor(public service: DialogBoxService,
+  constructor(
     public submitService: SubmitNotifService,
     public dialogRef: MatDialogRef<DialogBoxComponent>,
     public fb:FormBuilder,
     @Inject(MAT_DIALOG_DATA) data) {
 
-      this.service.form = this.fb.group({
-        $key: [],
-        title: [],
-        description: [],
-        location: [],
-        level: [],
-        type: [],
-        duedate: []
-      });
+      this.title = data.title;
+      this.description= data.description;
+      this.priority = data.priority;
+      this.duedate= data.duedate;
   }
 
 
@@ -47,13 +42,15 @@ export class DialogBoxComponent implements OnInit {
   ngOnInit() {
     
      
+     this.form = this.fb.group({
+      title: [this.title,[]],
+      description: [this.title,[]],
+      location: [this.title,[]],
+      priority: [this.priority,[]],
+      duedate:  [this.duedate,[]],
+
+     });
      
-     
-     
-     this.service.getTasks().subscribe(tasks=> {
-        //console.log(tasks);
-        this.tasks=tasks;
-      })  
     
   }
   open: any;
@@ -81,7 +78,7 @@ export class DialogBoxComponent implements OnInit {
       } */
 
 
-    this.service.form.reset();
+    this.form.reset();
     //this.service.initializeFormGroup();
     
   }
@@ -99,15 +96,15 @@ export class DialogBoxComponent implements OnInit {
       this.submitService.success('Submitted Successfully');
       this.onClose();
      // this.firebaseService.addTask(this.project[this.indexForProj].tasks,this.project[this.indexForProj].id);*/
-     console.log(this.service.form);
+    //console.log(this.service.form);
      
-     this.dialogRef.close(this.service.form.value);
+     this.dialogRef.close(this.form.value);
     
     }
   
 
   onClose(){
-    this.service.form.reset();
+    this.form.reset();
     //this.service.initializeFormGroup();
     this.dialogRef.close();
   }
