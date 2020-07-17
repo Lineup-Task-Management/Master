@@ -28,7 +28,7 @@ export class DialogBoxService {
               
               ) { this.projectCollection = this.firestore.collection('items');
                 //this.tasks=this.firestore.collection('Users/'+this.userId+'/projects').valueChanges();
-                this.tasks = this.projectCollection.snapshotChanges().pipe(map(changes => {
+               /* this.tasks = this.projectCollection.snapshotChanges().pipe(map(changes => {
                   return changes.map(a => {
                     const data = a.payload.doc.data()as Task;
             
@@ -36,7 +36,7 @@ export class DialogBoxService {
                     console.log(data);
                     return data;
                   });
-                }));
+                })); */
   }
 
  

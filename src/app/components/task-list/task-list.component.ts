@@ -30,6 +30,7 @@ import * as firebase from "firebase";
 import {Task} from "../../interfaces/task";
 import {async} from "@angular/core/testing";
 import { TaskLineService } from 'src/app/service/task-line.service';
+import { title } from 'process';
 
 @Component({
   selector: 'app-task-list',
@@ -52,9 +53,10 @@ export class TaskListComponent implements OnInit {
   connect:boolean=true;
   tempProject: Project[];
 
-  task: any;
+  task:any;
   tasks: any[];
-  
+
+
   
 
 
@@ -242,27 +244,39 @@ drop(event: CdkDragDrop<string[]>) {
     dialogConfig.width = "60%";
 
     dialogConfig.data= {
-      id: '',
       title: '',
-      completed: false,
-      editing: false,
       description: '',
-      priority: 1,
+      priority: '',
+      duedate: ''
     };
 
+    this.getData();
     this.dialog.open(DialogBoxComponent, dialogConfig);
 
+    const dialogRef = this.dialog.open(DialogBoxComponent, dialogConfig);
+    let date: Date = new Date();
+    dialogRef.afterClosed().subscribe(
+      (data)=> {
+      this.project[this.indexForProj].tasks.push({
+      id: ""+ date.getTime(),
+      title: data.title,
+      description: data.description,
+      completed:false,
+      editing:false,
+      priority:Number(data.priority),
+      
+      
+      });
+      /*location: '',
+      level: 0,
+      type: '',
+      duedate: 0 */
+      this.firebaseService.addTask(this.project[this.indexForProj].tasks,this.project[this.indexForProj].id);
 
-
-
-
-    this.firebaseService.addTask(this.project[this.indexForProj].tasks,this.project[this.indexForProj].id);
-
-
-
-
-
-
+      
+    })
+      
+      
     
   }
 
