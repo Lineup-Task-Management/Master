@@ -100,7 +100,7 @@ export class DialogBoxComponent implements OnInit {
       this.onClose();
      // this.firebaseService.addTask(this.project[this.indexForProj].tasks,this.project[this.indexForProj].id);*/
      console.log(this.service.form);
-     
+     this.service.addTask(this.task)
      this.dialogRef.close(this.service.form.value);
     
     }

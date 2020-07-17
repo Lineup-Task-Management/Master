@@ -7,6 +7,7 @@ import {Task} from "../interfaces/task";
 
 
 import { map, take } from 'rxjs/operators';
+import { Project } from '../interfaces/Project';
 
 
 
@@ -19,15 +20,23 @@ export class DialogBoxService {
   tasks: Observable<Task[]>;
   //taskList: AngularFireList<any>;
   taskCollection: AngularFirestoreCollection<Task>;
- 
+  projectCollection: AngularFirestoreCollection<Project>
+  userId: string;
 
   constructor(
               private firestore: AngularFirestore,
               
-              ) { 
-                this.tasks=this.firestore.collection('tasks').valueChanges();
-                   
-                
+              ) { this.projectCollection = this.firestore.collection('items');
+                //this.tasks=this.firestore.collection('Users/'+this.userId+'/projects').valueChanges();
+                this.tasks = this.projectCollection.snapshotChanges().pipe(map(changes => {
+                  return changes.map(a => {
+                    const data = a.payload.doc.data()as Task;
+            
+                    data.id = a.payload.doc.id;
+                    console.log(data);
+                    return data;
+                  });
+                }));
   }
 
  
@@ -55,7 +64,14 @@ export class DialogBoxService {
 
   }
 
-  
+  addTask(task: Task[], id: string) {
+
+    this.firestore.collection('Users/'+this.userId+'/projects').doc(id).set({
+      tasks: task,
+    },{merge:true});
+
+  }
+
   
   
   
