@@ -18,7 +18,7 @@ export class AppComponent {
   theme: boolean = false;
   indexForProj: number =0;
   opened = false;
-
+  // stopwatchView = true;
 
 
   message;

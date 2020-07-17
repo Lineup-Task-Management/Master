@@ -1,5 +1,4 @@
 import {Component, OnInit, OnDestroy } from '@angular/core';
-import { UniqueSelectionDispatcher } from '@angular/cdk/collections';
 
 @Component( {
 selector: 'app-stopwatch',

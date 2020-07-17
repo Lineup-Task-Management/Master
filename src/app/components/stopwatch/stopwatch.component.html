@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="eng">
 
-<div class = "w3-container w3-blue">
+<div class = "w3-container">
   <section class = "stopwatch-duration">
     <div *ngIf = "secondsOn;
     else elseBlock">
@@ -13,11 +13,11 @@
 
   <section class = "stopwatch-btn-container">
 
-    <button mat-fab color= "primary" class = "stopwatch-btn" (click) = "startStopwatch()">
+    <button mat-button class = "stopwatch-btn" (click) = "startStopwatch()">
       {{startButton}}
     </button>
 
-    <button mat-fab color = "primary" class = "stopwatch-btn" (click) = "resetStopwatch()"> Reset
+    <button mat-button class = "stopwatch-btn" (click) = "resetStopwatch()"> Reset
     </button>
   </section>
 </div>
