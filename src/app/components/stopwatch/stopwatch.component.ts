@@ -19,8 +19,8 @@ startStopwatch() {
     this.startButton = 'Stop';
     const timeStarted = Date.now() - (this.secondsOn || 0);
 
-    this.stopwatch = setInterval(()) => {
-      this.secondsOn = Date.now - timeStarted;
+    this.stopwatch = setInterval(() => {
+      this.secondsOn = Date.now() - timeStarted;
       });
     } else {
       this.startButton = 'Continue';
