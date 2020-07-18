@@ -31,7 +31,7 @@ import {Task} from "../../interfaces/task";
 import {async} from "@angular/core/testing";
 import { TaskLineService } from 'src/app/service/task-line.service';
 import { title } from 'process';
-import { format } from 'path';
+
 
 @Component({
   selector: 'app-task-list',
@@ -151,8 +151,8 @@ this.getData();
       editing:false,
       /*location: '',
       level: 0,
-      type: '',*/
-      duedate: 0 ,
+      type: '',
+      duedate: 0 */
 
 
       priority:Number(result2),
@@ -167,12 +167,16 @@ this.getData();
   }
 
 
-  edit(id:string, title:string, description: string, priority:string) {
-    let result = title;
+  edit(id:string, task) {
+
+    let title = '';
+    let description = '';
+    let priority='';
+    let result = prompt("Task Title", title);
     if (result === null || result === "")
       return;
-    let result1 = description;
-    let result2 = priority;
+    let result1 = prompt("Task Description", description);
+    let result2 = prompt("Task Priority", priority);
 
     if (result1 !== null  || result1 !== "") {
 
@@ -190,7 +194,7 @@ this.getData();
 
 
 
-     // this.firebaseService.updateTasks(this.project[this.indexForProj].id,task,tempTask);
+      this.firebaseService.updateTasks(this.project[this.indexForProj].id,task,tempTask);
 
     }
   }
@@ -221,40 +225,46 @@ drop(event: CdkDragDrop<string[]>) {
 
     dialogConfig.data= {
       title: task.title ,
-      description: task.description ,
+      description: task.description,
       priority: task.priority,
       duedate: task.duedate
     };
-    //dialogConfig.data = task;
-
- 
-   //this.getData();
+               
+   this.getData();
     
     this.dialog.open(DialogBoxComponent, dialogConfig);
 
-
-
     const dialogRef = this.dialog.open(DialogBoxComponent, dialogConfig);
+   
     let tempTask: Task;
-   dialogRef.afterClosed().subscribe(
-    (data) => {              
-      tempTask = {
-      id: task.id,
+    
+    let date: Date = new Date();
+    dialogRef.afterClosed().subscribe(
+      (data)=> {
+      tempTask={
+      id: ""+ date.getTime(),
       title: data.title,
       description: data.description,
       completed:false,
       editing:false,
       priority:Number(data.priority),
-      duedate: data.duedate
-      }
+      
+      
+      };
       /*location: '',
       level: 0,
-      type: '',*/
+      type: '',
+      duedate: 0 */
+     
+     this.firebaseService.updateTasks(this.project[this.indexForProj].id,task,tempTask);
       
-     
-     
     })
-    this.firebaseService.updateTask(this.project[this.indexForProj].id,tempTask);
+  
+  
+  
+ 
+
+
   }
 
   onCreate(){
@@ -283,7 +293,6 @@ drop(event: CdkDragDrop<string[]>) {
       completed:false,
       editing:false,
       priority:Number(data.priority),
-      duedate: data.duedate
       
       
       });

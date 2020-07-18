@@ -124,7 +124,7 @@ import {FormGroup, FormControl, Validators} from "@angular/forms";
         description: editTask.description,
         editing: editTask.editing,
         id: editTask.id,
-        title: editTask.title,
+        title: editTask.title,  
         priority:editTask.priority,
       })
 

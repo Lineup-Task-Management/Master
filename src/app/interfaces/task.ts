@@ -1,5 +1,5 @@
 export interface Task {
-  duedate: Date;
+  
   
   id:string,
   title:string,
