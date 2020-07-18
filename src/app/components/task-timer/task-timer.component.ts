@@ -40,14 +40,14 @@ function showRemainder(sec){
   min = Math.floor(sec / 60);
   const secLeft =  (sec % 60);
   const showTime = `${min}:${secLeft < 10 ? '0' : '' }${secLeft}`;
-  // document.field = showTime;
+  document.title = showTime;
 
   timerView.textContent = showTime;
 
 }
 showStopTime(stopTime);
 
-function showStopTime(timeRef){
+function showStopTime(timeRef: string | number | Date){
   let hr: number;
   let min: number;
   const timerDone = new Date(timeRef);
