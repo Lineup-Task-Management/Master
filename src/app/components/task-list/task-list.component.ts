@@ -31,6 +31,7 @@ import {Task} from "../../interfaces/task";
 import {async} from "@angular/core/testing";
 import { TaskLineService } from 'src/app/service/task-line.service';
 import { title } from 'process';
+import { format } from 'path';
 
 @Component({
   selector: 'app-task-list',
@@ -65,6 +66,7 @@ export class TaskListComponent implements OnInit {
   private db: AngularFirestore,
   private dialog: MatDialog,
   private afAuth: AngularFireAuth
+  
  
   ){
 
@@ -149,8 +151,8 @@ this.getData();
       editing:false,
       /*location: '',
       level: 0,
-      type: '',
-      duedate: 0 */
+      type: '',*/
+      duedate: 0 ,
 
 
       priority:Number(result2),
@@ -165,16 +167,12 @@ this.getData();
   }
 
 
-  edit(id:string, task) {
-
-    let title = ""
-    let description = ''
-    let priority='';
-    let result = prompt("Task Title", title);
+  edit(id:string, title:string, description: string, priority:string) {
+    let result = title;
     if (result === null || result === "")
       return;
-    let result1 = prompt("Task Description", description);
-    let result2 = prompt("Task Priority", priority);
+    let result1 = description;
+    let result2 = priority;
 
     if (result1 !== null  || result1 !== "") {
 
@@ -192,7 +190,7 @@ this.getData();
 
 
 
-      this.firebaseService.updateTasks(this.project[this.indexForProj].id,task,tempTask);
+     // this.firebaseService.updateTasks(this.project[this.indexForProj].id,task,tempTask);
 
     }
   }
@@ -216,26 +214,47 @@ drop(event: CdkDragDrop<string[]>) {
     moveItemInArray(this.tasks, event.previousIndex, event.currentIndex);
   }
 
-  onEdit(){
+  onEdit(task){
     const dialogConfig = new MatDialogConfig();
     dialogConfig.autoFocus = true;
     dialogConfig.width = "60%";
 
     dialogConfig.data= {
-      id: '',
-      title: '',
-      completed: false,
-      editing: false,
-      description: '',
-      priority: 1,
+      title: task.title ,
+      description: task.description ,
+      priority: task.priority,
+      duedate: task.duedate
     };
+    //dialogConfig.data = task;
+
+ 
+   //this.getData();
     
     this.dialog.open(DialogBoxComponent, dialogConfig);
 
-    
-  
-    
 
+
+    const dialogRef = this.dialog.open(DialogBoxComponent, dialogConfig);
+    let tempTask: Task;
+   dialogRef.afterClosed().subscribe(
+    (data) => {              
+      tempTask = {
+      id: task.id,
+      title: data.title,
+      description: data.description,
+      completed:false,
+      editing:false,
+      priority:Number(data.priority),
+      duedate: data.duedate
+      }
+      /*location: '',
+      level: 0,
+      type: '',*/
+      
+     
+     
+    })
+    this.firebaseService.updateTask(this.project[this.indexForProj].id,tempTask);
   }
 
   onCreate(){
@@ -264,6 +283,7 @@ drop(event: CdkDragDrop<string[]>) {
       completed:false,
       editing:false,
       priority:Number(data.priority),
+      duedate: data.duedate
       
       
       });

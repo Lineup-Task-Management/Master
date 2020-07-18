@@ -132,6 +132,23 @@ import {FormGroup, FormControl, Validators} from "@angular/forms";
 
   }
 
+  updateTask(projectID,editTask) {
+    console.log(projectID);
+    console.log(editTask);
+    return this.db.collection('Users/'+this.userId+'/projects').doc(projectID).update({
+      tasks: firebase.firestore.FieldValue.arrayUnion({
+        completed : editTask.completed,
+        description: editTask.description,
+        editing: editTask.editing,
+        id: editTask.id,
+        title: editTask.title,
+        priority:editTask.priority,
+      })
+
+    })
+
+  }
+
 
   addTask(task: Task[], id: string) {
 
