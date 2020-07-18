@@ -8,10 +8,11 @@ styleUrls: ['./task-timer.component.scss']
 })
 export class TaskTimerComponent {
 
-constructor() {}
+// constructor() {}
 
  // ngOnInit(): void {}
 
+let countdownTimer: number;
 const timerView = document.querySelector('.timeRemaining');
 
 const timerStopTime = document.querySelector('.timerStopTime');
@@ -21,7 +22,6 @@ function timeRemaining(sec) {
   const currentTime = Date.now();
   const stopTime = currentTime + sec * 1000;
   showRemainder(sec);
-  let countdownTimer: number;
   countdownTimer = setInterval(() => {
 
     const remainderSec = Math.round((stopTime - (Date.now()) / 1000));
@@ -36,7 +36,7 @@ function timeRemaining(sec) {
 }
 
 function showRemainder(sec){
-  const min: number;
+  let min: number;
   min = Math.floor(sec / 60);
   const secLeft =  (sec % 60);
   const showTime = `${min}:${secLeft < 10 ? '0' : '' }${secLeft}`;
