@@ -17,7 +17,7 @@ const timerView = document.querySelector('.timeRemaining');
 
 const timerStopTime = document.querySelector('.timerStopTime');
 
-function timeRemaining(sec) {
+function timer(sec) {
   clearInterval(countdownTimer);
   const currentTime = Date.now();
   const stopTime = currentTime + sec * 1000;
@@ -54,16 +54,16 @@ function showStopTime(timeRef){
   min = timerDone.getMinutes();
   hr = timerDone.getHours();
   const remainderHr = hr > 12 ? hr - 12 : hr;
-  timesUp.textContent = `Timer will run out at: ${remainderHr}: ${min < 10 ? '0' : '' }${min}`;
+  timerStopTime.textContent = `Timer will run out at: ${remainderHr}: ${min < 10 ? '0' : '' }${min}`;
 
   function timerOn(){
   const sec = parseInt(this.dataset.time);
-  timeRemaining(sec);
+  timer(sec);
 }
   document.formField.addEventListener('submit', function(event){
   event.preventDefault();
   const minute = this.min.num;
-  timeRemaining(min * 60);
+  timer(min * 60);
   this.reset();
 
 }
