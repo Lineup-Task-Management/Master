@@ -7,6 +7,7 @@ styleUrls: ['./stopwatch.component.scss']
 })
 export class StopwatchComponent implements OnDestroy {
 constructor() {}
+
 stopwatch: number;
 isOn = false;
 secondsOn: number;
@@ -20,7 +21,7 @@ startStopwatch() {
 
     this.stopwatch = setInterval(() => {
       this.secondsOn = Date.now() - timeStarted;
-      });
+      }, 1000);
     } else {
       this.startButton = 'Continue';
       clearInterval(this.stopwatch);

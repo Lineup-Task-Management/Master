@@ -7,22 +7,18 @@
 
 <body>
 
-  <class "countdownTimer">
-    <button mat-fab color= "primary" aria-label= "Task Timer" (click)= "taskTimer()" matTooltip = "Open Task Timer" id = "timerbtn"><mat-icon>timer</mat-icon>
-    </button>
+  <div class "timeRemaining">
+    <div class "taskTimerForm">
 
-    <form name="minutesForm" id="timerMinutes">
-      <input type="text" name="minutes" placeholder="Enter Timer Minutes">
+    <form name="formField" id="textField">
+      <input type = "text" name = "min" placeholder = "Timer Minutes: ">
     </form>
 
-    <div class="timer">
-      <h1 class="timeRemaining"></h1>
-      <p class="timerStopTime"></p>
+    <div class = "showTime">
+      <h1 class = "timeRemaining"></h1>
+      <p class = "timerStopTime"></p>
     </div>
-
-    <script src="task-timer.component.ts"></script>
-
-</body>
-
+  <script src="task-timer.component.ts"></script>
+  </body>
 </html>
 

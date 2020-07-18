@@ -4,9 +4,7 @@
 <div class = "w3-container">
   <section class = "stopwatch-duration">
     <div *ngIf = "secondsOn;
-    else elseBlock">
-
-    </div>
+    else elseBlock"> {{secondsOn}}</div>
     <ng-template #elseBlock>
       Click Start! </ng-template>
   </section>

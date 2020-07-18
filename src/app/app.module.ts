@@ -34,7 +34,7 @@ import {AngularFireModule } from '@angular/fire';
 import {environment } from '../environments/environment';
 
 import {AngularFirestoreModule } from '@angular/fire/firestore';
-// import { TaskTimerComponent } from './components/task-timer/task-timer.component';
+import { TaskTimerComponent } from './components/task-timer/task-timer.component';
 import { StopwatchComponent } from './components/stopwatch/stopwatch.component';
 // import {AngularFireAuth} from '@angular/fire/auth';
 
@@ -51,7 +51,7 @@ TaskOperationsComponent,
 SideNavComponent,
 LoginComponent,
 DueDateComponent,
-// TaskTimerComponent,
+TaskTimerComponent,
 StopwatchComponent
 
 ],
