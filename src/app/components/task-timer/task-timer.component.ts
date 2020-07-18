@@ -1,5 +1,4 @@
 import {Component, OnInit, OnDestroy } from '@angular/core';
-import {timer, Subscription } from 'rxjs';
 
 @Component( {
 selector: 'app-task-timer',
@@ -17,7 +16,7 @@ const timerView = document.querySelector('.timeRemaining');
 
 const timerStopTime = document.querySelector('.timerStopTime');
 
-function timer(sec) {
+function taskTimer(sec) {
   clearInterval(countdownTimer);
   const currentTime = Date.now();
   const stopTime = currentTime + sec * 1000;
@@ -40,8 +39,6 @@ function showRemainder(sec){
   min = Math.floor(sec / 60);
   const secLeft =  (sec % 60);
   const showTime = `${min}:${secLeft < 10 ? '0' : '' }${secLeft}`;
-  document.title = showTime;
-
   timerView.textContent = showTime;
 
 }
@@ -58,12 +55,12 @@ function showStopTime(timeRef: string | number | Date){
 
   function timerOn(){
   const sec = parseInt(this.dataset.time);
-  timer(sec);
+  taskTimer(sec);
 }
-  document.formField.addEventListener('submit', function(event){
-  event.preventDefault();
+  document.formField.addEventListener('submit', function(x){
+  x.preventDefault();
   const minute = this.min.num;
-  timer(min * 60);
+  taskTimer(min * 60);
   this.reset();
 
 }
