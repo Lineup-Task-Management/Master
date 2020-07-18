@@ -1,4 +1,4 @@
-import {Component, OnInit, OnDestroy, Pipe, PipeTransform } from '@angular/core';
+import {Component, OnInit, OnDestroy } from '@angular/core';
 import {timer, Subscription } from 'rxjs';
 
 @Component( {
@@ -6,7 +6,7 @@ selector: 'app-task-timer',
 templateUrl: './task-timer.component.html',
 styleUrls: ['./task-timer.component.scss']
 })
-export class TaskTimerComponent implements OnInit {
+export class TaskTimerComponent {
 
 constructor() {}
 
@@ -15,6 +15,7 @@ constructor() {}
 const timerView = document.querySelector('.timeRemaining');
 
 const timerStopTime = document.querySelector('.timerStopTime');
+
 function timeRemaining(sec) {
   clearInterval(countdownTimer);
   const currentTime = Date.now();
@@ -38,7 +39,7 @@ function showRemainder(sec){
   const min: number;
   min = Math.floor(sec / 60);
   const secLeft =  (sec % 60);
-  const showTime = '${min}:${secLeft < 10 ? '0'}${secLeft}';
+  const showTime = `${min}:${secLeft < 10 ? '0' : '' }${secLeft}`;
   // document.field = showTime;
 
   timerView.textContent = showTime;
@@ -53,17 +54,17 @@ function showStopTime(timeRef){
   min = timerDone.getMinutes();
   hr = timerDone.getHours();
   const remainderHr = hr > 12 ? hr - 12 : hr;
-  timesUp.textContent = 'Timer will run out at: ${remainderHr'}:${min < 10 ? '0'}${min}';
+  timesUp.textContent = `Timer will run out at: ${remainderHr}: ${min < 10 ? '0' : '' }${min}`;
 
-function timerOn(){
+  function timerOn(){
   const sec = parseInt(this.dataset.time);
   timeRemaining(sec);
 }
-document.formField.addEventListener('submit', function(event){
+  document.formField.addEventListener('submit', function(event){
   event.preventDefault();
   const minute = this.min.num;
   timeRemaining(min * 60);
-  this.clear();
+  this.reset();
 
 }
 
