@@ -28,6 +28,8 @@ export class TaskListComponent implements OnInit {
 
   panelOpenState: boolean;
   userId:string;
+  email:string;
+  user:string;
 
   items: Observable<Project[]>
 
@@ -82,7 +84,8 @@ export class TaskListComponent implements OnInit {
         this.checkUser()
       }
       else{
-        this.firebaseService.changeUserId("2CThQyuj97facovRlrzWh2J8gMn1");
+        this.firebaseService.changeUserId("123SampleUserID564205");
+       //2CThQyuj97facovRlrzWh2J8gMn1
         this.checkUser();
       }
   })

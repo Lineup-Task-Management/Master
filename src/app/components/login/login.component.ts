@@ -23,6 +23,9 @@ export class LoginComponent implements OnInit {
 
   ui: firebaseui.auth.AuthUI;
   userId:string;
+  email:string;
+  user:string;
+
   public isLoggedIn: boolean = false;
 
 
@@ -70,7 +73,9 @@ export class LoginComponent implements OnInit {
 
     this.isLoggedIn = true;
     this.userId = firebase.auth().currentUser.uid;
-      alert("Logged in successfuly to ");
+    this.email = firebase.auth().currentUser.email;
+    this.user = firebase.auth().currentUser.displayName;
+      alert("Logged in successfuly to " + this.user + "'s Account.");
      this.db.collection('Users').doc(this.userId).snapshotChanges().subscribe(res =>{
        if (!res.payload.exists)
        {
