@@ -22,6 +22,7 @@ export class DialogBoxComponent implements OnInit {
     description: string;
       priority: number;
       duedate: Date;
+      countdownTimer: number;
 
   constructor(
     public submitService: SubmitNotifService,
@@ -33,6 +34,7 @@ export class DialogBoxComponent implements OnInit {
       this.description= data.description;
       this.priority = data.priority;
       this.duedate= data.duedate;
+      this.countdownTimer = data.countdownTimer;
   }
 
 
@@ -48,6 +50,7 @@ export class DialogBoxComponent implements OnInit {
       location: [this.title,[]],
       priority: [this.priority,[]],
       duedate:  [this.duedate,[]],
+      countdownTimer:  [this.countdownTimer,[]],
 
      });
      

@@ -1,5 +1,5 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-
+import {ViewChild, Component, EventEmitter, Input, OnInit, Output, Inject, LOCALE_ID} from '@angular/core';
+import { CountdownComponent, CountdownConfig, CountdownEvent } from 'ngx-countdown';
 
 
 import { Project} from "../../interfaces/Project";
@@ -39,6 +39,7 @@ import { title } from 'process';
   styleUrls: ['./task-list.component.scss']
 })
 export class TaskListComponent implements OnInit {
+  @ViewChild('countdown', { static: false }) private counter: CountdownComponent;
   project: Project[];
 
   panelOpenState: boolean;
@@ -65,7 +66,9 @@ export class TaskListComponent implements OnInit {
     public firebaseService: FirebaseService,
   private db: AngularFirestore,
   private dialog: MatDialog,
-  private afAuth: AngularFireAuth
+  private afAuth: AngularFireAuth,
+  @Inject(LOCALE_ID) private locale: string
+
   
  
   ){
@@ -128,6 +131,7 @@ this.getData();
 
 }
 
+/*
   addTaskItem(): void  {
 
     let title = ""
@@ -152,7 +156,7 @@ this.getData();
       /*location: '',
       level: 0,
       type: '',
-      duedate: 0 */
+      duedate: 0
 
 
       priority:Number(result2),
@@ -190,6 +194,7 @@ this.getData();
         title : result,
         id:id,
         priority: Number(priority),
+        countdownTimer: firebase.database.
       };
 
 
@@ -199,7 +204,7 @@ this.getData();
     }
   }
 
-
+*/
 deleteTask(task){
   this.firebaseService.deleteTask(this.project[this.indexForProj].id,task)
 }
@@ -248,6 +253,7 @@ drop(event: CdkDragDrop<string[]>) {
       completed:false,
       editing:false,
       priority:Number(data.priority),
+      countdownTimer: data.countdownTimer,
       
       
       };
@@ -293,6 +299,7 @@ drop(event: CdkDragDrop<string[]>) {
       completed:false,
       editing:false,
       priority:Number(data.priority),
+      countdownTimer:data.countdownTimer,
       
       
       });
@@ -379,6 +386,28 @@ drop(event: CdkDragDrop<string[]>) {
     });
   }
 
+/*
+  startTimer()
 
+  {
+    this.counter.begin()
+  }
+  
 
+  resetTimer() {
+    this.counter.restart();
+  }
+*/
+  handleEvent(e: CountdownEvent) {
+    console.log('Actions', e);
+  }
+/*
+  handleEvent2(e: CountdownEvent) {
+    this.notify = e.action.toUpperCase();
+    if (e.action === 'notify') {
+      this.notify += ` - ${e.left} ms`;
+    }
+    console.log('Notify', e);
+  }
+*/
 }

@@ -10,7 +10,8 @@ export interface Task {
   level: number,
   type: any,
   duedate: number*/
-  priority:number
+  priority:number,
+  countdownTimer:number,
 
 
 }

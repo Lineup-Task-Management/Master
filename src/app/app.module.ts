@@ -21,7 +21,7 @@ import {DueDateComponent} from "./components/dueDate/dueDate.component";
 import { SideNavComponent } from './components/side-nav/side-nav.component';
 
 
-
+import { CountdownModule, CountdownConfig } from 'ngx-countdown';
 
 
 
@@ -81,6 +81,7 @@ import {MatRadioModule} from "@angular/material/radio";
     ServiceWorkerModule.register('ngsw-worker.js', {enabled: environment.production}),
     MatChipsModule,
     MatRadioModule,
+    BrowserModule, CountdownModule,
 
   ],
 
