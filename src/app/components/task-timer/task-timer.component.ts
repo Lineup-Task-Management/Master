@@ -16,25 +16,29 @@ const timerView = document.querySelector('.timeRemaining');
 
 const timerStopTime = document.querySelector('.timerStopTime');
 
-function taskTimer(sec) {
+
+function taskTimer(sec: number) {
   clearInterval(countdownTimer);
   const currentTime = Date.now();
   const stopTime = currentTime + sec * 1000;
   showRemainder(sec);
-  countdownTimer = setInterval(() => {
+  showStopTime(stopTime);
+  console.log(currentTime, stopTime);
 
-    const remainderSec = Math.round((stopTime - (Date.now()) / 1000));
+  setInterval(taskTimer, 1000) {
 
-    if (remainderSec < 0){
-    clearInterval(countdownTimer);
-    return;
-  }
-    showRemainder(remainderSec);
-  }, 1000);
+      const remainderSec = Math.round((stopTime - (Date.now()) / 1000));
+
+      if (remainderSec < 0) {
+        clearInterval(countdownTimer);
+        return;
+      }
+      showRemainder(remainderSec);
+    }, 1000);
 
 }
 
-function showRemainder(sec){
+function showRemainder(sec: number){
   let min: number;
   min = Math.floor(sec / 60);
   const secLeft =  (sec % 60);
@@ -57,7 +61,7 @@ function showStopTime(timeRef: string | number | Date){
   const sec = parseInt(this.dataset.time);
   taskTimer(sec);
 }
-  document.formField.addEventListener('submit', function(x){
+  document.formField.addEventListener('submit', function(x: { preventDefault: () => void; }){
   x.preventDefault();
   const minute = this.min.num;
   taskTimer(min * 60);
