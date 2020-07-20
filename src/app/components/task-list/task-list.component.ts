@@ -212,13 +212,13 @@ completeTask(task){
 
 drop(event: CdkDragDrop<string[]>) {
     moveItemInArray(this.project[this.indexForProj].tasks, event.previousIndex, event.currentIndex);
-  }
+}
 
-  droptask(event: CdkDragDrop<string[]>) {
+droptask(event: CdkDragDrop<string[]>) {
     moveItemInArray(this.tasks, event.previousIndex, event.currentIndex);
-  }
+ }
 
-  onEdit(task){
+onEdit(task){
     const dialogConfig = new MatDialogConfig();
     dialogConfig.autoFocus = true;
     dialogConfig.width = "60%";
@@ -260,14 +260,9 @@ drop(event: CdkDragDrop<string[]>) {
       
     })
   
-  
-  
- 
-
-
   }
 
-  onCreate(){
+ onCreate(){
     const dialogConfig = new MatDialogConfig();
     dialogConfig.autoFocus = true;
     dialogConfig.width = "60%";
