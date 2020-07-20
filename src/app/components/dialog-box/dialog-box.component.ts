@@ -15,6 +15,17 @@ import { FirebaseService } from 'src/app/service/firebase.service';
   styleUrls: ['./dialog-box.component.css']
 })
 export class DialogBoxComponent implements OnInit {
+<<<<<<< HEAD
+=======
+ form: FormGroup;
+  firebaseService: any;
+  tasks: Task[];
+  title: string;
+    description: string;
+      priority: number;
+      duedate: Date;
+      countdownTimer: number;
+>>>>>>> 8e32ae813e2a828e35fdcc267327e14debac4956
 
   constructor(
     public submitService: SubmitNotifService,
@@ -25,7 +36,9 @@ export class DialogBoxComponent implements OnInit {
       this.title = data.title;
       this.description = data.description;
       this.priority = data.priority;
-      this.duedate = data.duedate;
+
+      this.countdownTimer = data.countdownTimer;
+
   }
  form: FormGroup;
   firebaseService: any;
@@ -39,13 +52,10 @@ export class DialogBoxComponent implements OnInit {
         2: 'medium',
         3: 'High',
       };
-  open: any;
-  types = [
-    {id: 1 , value: 'Task'},
-    {id: 2 , value: 'Event'}
 
 
-  ];
+
+
 
 
 
@@ -60,6 +70,10 @@ export class DialogBoxComponent implements OnInit {
       description: [this.description, []],
       priority: [this.priority, []],
       duedate:  [this.duedate, []],
+
+
+      countdownTimer:  [this.countdownTimer,[]]
+
 
      });
 

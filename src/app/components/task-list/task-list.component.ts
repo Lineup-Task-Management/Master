@@ -1,5 +1,5 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-
+import {ViewChild, Component, EventEmitter, Input, OnInit, Output, Inject, LOCALE_ID} from '@angular/core';
+import { CountdownComponent, CountdownConfig, CountdownEvent } from 'ngx-countdown';
 
 
 import { Project} from '../../interfaces/Project';
@@ -39,6 +39,7 @@ import { title } from 'process';
   styleUrls: ['./task-list.component.scss']
 })
 export class TaskListComponent implements OnInit {
+  @ViewChild('countdown', { static: false }) private counter: CountdownComponent;
   project: Project[];
 
   panelOpenState: boolean;
@@ -62,16 +63,20 @@ export class TaskListComponent implements OnInit {
 
 
   constructor(private tlService: TaskLineService,
+
               public firebaseService: FirebaseService,
               private db: AngularFirestore,
               private dialog: MatDialog,
-              private afAuth: AngularFireAuth
+              private afAuth: AngularFireAuth,
+              @Inject(LOCALE_ID) private locale: string
 
 
-  ){
 
 
-  }
+  ){  }
+
+
+
 
 
 
@@ -119,6 +124,7 @@ export class TaskListComponent implements OnInit {
   });
 
 }
+
 
 
 
@@ -198,7 +204,6 @@ export class TaskListComponent implements OnInit {
   //   }
   // }
 
-
 deleteTask(task){
   this.firebaseService.deleteTask(this.project[this.indexForProj].id, task);
 }
@@ -234,7 +239,7 @@ drop(event: CdkDragDrop<string[]>) {
     const dialogRef = this.dialog.open(DialogBoxComponent, dialogConfig);
 
     let tempTask: Task;
-    let tempId = task.id;
+    const tempId = task.id;
 
     dialogRef.afterClosed().subscribe(
       (data) => {
@@ -242,10 +247,13 @@ drop(event: CdkDragDrop<string[]>) {
       id: tempId,
       title: data.title,
       description: data.description,
+
+
+
       completed: false,
       editing: false,
       priority: Number(data.priority),
-
+      countdownTimer: data.countdownTimer,
 
       };
       console.log(tempTask);
@@ -282,12 +290,14 @@ drop(event: CdkDragDrop<string[]>) {
     dialogRef.afterClosed().subscribe(
       (data) => {
       this.project[this.indexForProj].tasks.push({
-      id:'' + date.getTime(),
+      id: '' + date.getTime(),
       title: data.title,
       description: data.description,
+
       completed: false,
       editing: false,
       priority: Number(data.priority),
+      countdownTimer: data.countdownTimer,
 
 
       });
@@ -371,6 +381,28 @@ drop(event: CdkDragDrop<string[]>) {
     });
   }
 
+/*
+  startTimer()
+
+  {
+    this.counter.begin()
+  }
 
 
+  resetTimer() {
+    this.counter.restart();
+  }
+*/
+  handleEvent(e: CountdownEvent) {
+    console.log('Actions', e);
+  }
+/*
+  handleEvent2(e: CountdownEvent) {
+    this.notify = e.action.toUpperCase();
+    if (e.action === 'notify') {
+      this.notify += ` - ${e.left} ms`;
+    }
+    console.log('Notify', e);
+  }
+*/
 }
