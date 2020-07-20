@@ -2,8 +2,8 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
 
 
-import { Project} from "../../interfaces/Project";
-import {CdkDragDrop, moveItemInArray} from "@angular/cdk/drag-drop";
+import { Project} from '../../interfaces/Project';
+import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 
 import { FirebaseService } from '../../service/firebase.service';
 
@@ -11,11 +11,11 @@ import { FirebaseService } from '../../service/firebase.service';
 
 
 
-import {map, takeWhile} from "rxjs/operators";
+import {map, takeWhile} from 'rxjs/operators';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 
-import {Observable} from "rxjs";
-import {MatDialog, MatDialogConfig, MAT_DIALOG_SCROLL_STRATEGY_FACTORY} from "@angular/material/dialog"
+import {Observable} from 'rxjs';
+import {MatDialog, MatDialogConfig, MAT_DIALOG_SCROLL_STRATEGY_FACTORY} from '@angular/material/dialog';
 import { DialogBoxComponent } from '../dialog-box/dialog-box.component';
 
 
@@ -25,10 +25,10 @@ import { DialogBoxComponent } from '../dialog-box/dialog-box.component';
 
 
 
-import {AngularFireAuth} from "@angular/fire/auth";
-import * as firebase from "firebase";
-import {Task} from "../../interfaces/task";
-import {async} from "@angular/core/testing";
+import {AngularFireAuth} from '@angular/fire/auth';
+import * as firebase from 'firebase';
+import {Task} from '../../interfaces/task';
+import {async} from '@angular/core/testing';
 import { TaskLineService } from 'src/app/service/task-line.service';
 import { title } from 'process';
 
@@ -42,38 +42,38 @@ export class TaskListComponent implements OnInit {
   project: Project[];
 
   panelOpenState: boolean;
-  userId:string;
+  userId: string;
 
-  items: Observable<Project[]>
+  items: Observable<Project[]>;
 
-  theme: boolean = false;
+  theme = false;
   // Project[];
   @Input() indexForProj: number;
 
   tempUid: string;
-  connect:boolean=true;
+  connect = true;
   tempProject: Project[];
 
-  task:any;
+  task: any;
   tasks: any[];
 
 
-  
+
 
 
   constructor(private tlService: TaskLineService,
-    public firebaseService: FirebaseService,
-  private db: AngularFirestore,
-  private dialog: MatDialog,
-  private afAuth: AngularFireAuth
-  
- 
+              public firebaseService: FirebaseService,
+              private db: AngularFirestore,
+              private dialog: MatDialog,
+              private afAuth: AngularFireAuth
+
+
   ){
 
 
   }
 
-  
+
 
 
 
@@ -92,120 +92,119 @@ export class TaskListComponent implements OnInit {
   }
 
 
-  //this.tasks = this.tasks.filter(tasks => tasks.id != id);
+  // this.tasks = this.tasks.filter(tasks => tasks.id != id);
 
   ngOnInit(): void {
 
 
-    this.firebaseService.currentUserId.subscribe(userId=> {
+    this.firebaseService.currentUserId.subscribe(userId => {
       this.userId = userId;
 
     });
     this.tempUid = this.userId;
     this.getData();
 
-    this.afAuth.authState.subscribe(user =>{
+    this.afAuth.authState.subscribe(user => {
 
 
-      if(user){
-        this.firebaseService.changeUserId(user.uid)
+      if (user){
+        this.firebaseService.changeUserId(user.uid);
         console.log(this.firebaseService.userId);
-        this.checkUser()
-      }
-      else{
-        this.firebaseService.changeUserId("2CThQyuj97facovRlrzWh2J8gMn1");
         this.checkUser();
       }
-  })
-
-}
-
-
-
-
-ngOnChanges(): void{
-this.getData();
-
-}
-
-  addTaskItem(): void  {
-
-    let title = ""
-    let description = ''
-    let priority=''
-    let result = prompt("Task Title", title);
-    if (result === null || result === "")
-      return;
-    let result1 = prompt("Task Description", description);
-    let result2 = prompt("Task Priority", priority);
-
-
-    if (result !== null && result !== "") {
-    let date: Date = new Date();
-
-    this.project[this.indexForProj].tasks.push({
-      id: ""+ date.getTime(),
-      title: result,
-      description: result1,
-      completed:false,
-      editing:false,
-      /*location: '',
-      level: 0,
-      type: '',
-      duedate: 0 */
-
-
-      priority:Number(result2),
-    })
-
-    this.firebaseService.addTask(this.project[this.indexForProj].tasks,this.project[this.indexForProj].id);
-
-
-
+      else{
+        this.firebaseService.changeUserId('2CThQyuj97facovRlrzWh2J8gMn1');
+        this.checkUser();
       }
+  });
 
-  }
-
-
-  edit(id:string, task) {
-
-    let title = '';
-    let description = '';
-    let priority='';
-    let result = prompt("Task Title", title);
-    if (result === null || result === "")
-      return;
-    let result1 = prompt("Task Description", description);
-    let result2 = prompt("Task Priority", priority);
-
-    if (result1 !== null  || result1 !== "") {
-
-      let  tempTask: Task = {
-        completed:  false,
-
-        editing: false,
-
-        description : result1,
-
-        title : result,
-        id:id,
-        priority: Number(priority),
-      };
+}
 
 
 
-      this.firebaseService.updateTasks(this.project[this.indexForProj].id,task,tempTask);
 
-    }
-  }
+
+
+  // addTaskItem(): void  {
+  //
+  //   const title = '';
+  //   const description = '';
+  //   const priority = '';
+  //   const result = prompt('Task Title', title);
+  //   if (result === null || result === '') {
+  //     return;
+  //   }
+  //   const result1 = prompt('Task Description', description);
+  //   const result2 = prompt('Task Priority', priority);
+  //
+  //
+  //   if (result !== null && result !== '') {
+  //   const date: Date = new Date();
+  //
+  //   this.project[this.indexForProj].tasks.push({
+  //     id: '' + date.getTime(),
+  //     title: result,
+  //     description: result1,
+  //     completed: false,
+  //     editing: false,
+  //     /*location: '',
+  //     level: 0,
+  //     type: '',
+  //     duedate: 0 */
+  //
+  //
+  //     priority: Number(result2),
+  //   });
+  //
+  //   this.firebaseService.addTask(this.project[this.indexForProj].tasks, this.project[this.indexForProj].id);
+  //
+  //
+  //
+  //     }
+  //
+  // }
+
+
+  // edit(id: string, task) {
+  //
+  //   const title = '';
+  //   const description = '';
+  //   const priority = '';
+  //   const result = prompt('Task Title', title);
+  //   if (result === null || result === '') {
+  //     return;
+  //   }
+  //   const result1 = prompt('Task Description', description);
+  //   const result2 = prompt('Task Priority', priority);
+  //
+  //   if (result1 !== null  || result1 !== '') {
+  //
+  //     const  tempTask: Task = {
+  //       completed:  false,
+  //
+  //       editing: false,
+  //
+  //       description : result1,
+  //
+  //       title : result,
+  //       id,
+  //       priority: Number(priority),
+  //     };
+  //
+  //
+  //
+  //     this.firebaseService.updateTasks(this.project[this.indexForProj].id, task, tempTask);
+  //
+  //   }
+  // }
 
 
 deleteTask(task){
-  this.firebaseService.deleteTask(this.project[this.indexForProj].id,task)
+  this.firebaseService.deleteTask(this.project[this.indexForProj].id, task);
 }
 
 completeTask(task){
-  this.firebaseService.completeTask(this.project[this.indexForProj].id,task);
+  this.firebaseService.completeTask(this.project[this.indexForProj].id, task);
 }
 
 
@@ -214,55 +213,51 @@ drop(event: CdkDragDrop<string[]>) {
     moveItemInArray(this.project[this.indexForProj].tasks, event.previousIndex, event.currentIndex);
   }
 
-  droptask(event: CdkDragDrop<string[]>) {
-    moveItemInArray(this.tasks, event.previousIndex, event.currentIndex);
-  }
 
   onEdit(task){
     const dialogConfig = new MatDialogConfig();
     dialogConfig.autoFocus = true;
-    dialogConfig.width = "60%";
+    dialogConfig.width = '60%';
 
-    dialogConfig.data= {
+
+    dialogConfig.data = {
       title: task.title ,
       description: task.description,
       priority: task.priority,
-      duedate: task.duedate
+
     };
-               
-   this.getData();
-    
-    this.dialog.open(DialogBoxComponent, dialogConfig);
+
+
+
+
 
     const dialogRef = this.dialog.open(DialogBoxComponent, dialogConfig);
-   
+
     let tempTask: Task;
-    
-    let date: Date = new Date();
+    let tempId = task.id;
+
     dialogRef.afterClosed().subscribe(
-      (data)=> {
-      tempTask={
-      id: ""+ date.getTime(),
+      (data) => {
+      tempTask = {
+      id: tempId,
       title: data.title,
       description: data.description,
-      completed:false,
-      editing:false,
-      priority:Number(data.priority),
-      
-      
+      completed: false,
+      editing: false,
+      priority: Number(data.priority),
+
+
       };
-      /*location: '',
-      level: 0,
-      type: '',
-      duedate: 0 */
-     
-     this.firebaseService.updateTasks(this.project[this.indexForProj].id,task,tempTask);
-      
-    })
-  
-  
-  
- 
+      console.log(tempTask);
+
+
+      this.firebaseService.updateTasks(this.project[this.indexForProj].id, task, tempTask);
+
+    });
+
+
+
+
 
 
   }
@@ -270,54 +265,51 @@ drop(event: CdkDragDrop<string[]>) {
   onCreate(){
     const dialogConfig = new MatDialogConfig();
     dialogConfig.autoFocus = true;
-    dialogConfig.width = "60%";
+    dialogConfig.width = '60%';
 
-    dialogConfig.data= {
+
+    dialogConfig.data = {
       title: '',
       description: '',
       priority: '',
       duedate: ''
     };
 
-    this.getData();
-    this.dialog.open(DialogBoxComponent, dialogConfig);
+
 
     const dialogRef = this.dialog.open(DialogBoxComponent, dialogConfig);
-    let date: Date = new Date();
+    const date: Date = new Date();
     dialogRef.afterClosed().subscribe(
-      (data)=> {
+      (data) => {
       this.project[this.indexForProj].tasks.push({
-      id: ""+ date.getTime(),
+      id:'' + date.getTime(),
       title: data.title,
       description: data.description,
-      completed:false,
-      editing:false,
-      priority:Number(data.priority),
-      
-      
-      });
-      /*location: '',
-      level: 0,
-      type: '',
-      duedate: 0 */
-      this.firebaseService.addTask(this.project[this.indexForProj].tasks,this.project[this.indexForProj].id);
+      completed: false,
+      editing: false,
+      priority: Number(data.priority),
 
-      
-    })
-      
-      
-    
+
+      });
+
+      this.firebaseService.addTask(this.project[this.indexForProj].tasks, this.project[this.indexForProj].id);
+
+
+    });
+
+
+
   }
 
 
   checkUser(){
 
-    console.log("checking user", this.userId,this.tempUid);
-    if(this.userId !== this.tempUid){
+    console.log('checking user', this.userId, this.tempUid);
+    if (this.userId !== this.tempUid){
       this.tempUid = this.userId;
       this.connect = true;
       this.getData();
-      console.log("checking user", this.userId,this.tempUid);
+      console.log('checking user', this.userId, this.tempUid);
     }
   }
 
@@ -327,7 +319,7 @@ drop(event: CdkDragDrop<string[]>) {
 
 
 
-    this.project[this.indexForProj].tasks.sort((n1,n2) => {
+    this.project[this.indexForProj].tasks.sort((n1, n2) => {
       if (n1.priority > n2.priority) {
         return 1;
       }
@@ -346,10 +338,10 @@ drop(event: CdkDragDrop<string[]>) {
 
     this.tempProject = this.project;
     this.project[this.indexForProj].tasks = this.tempProject[this.indexForProj].tasks.filter(tasks => tasks.completed != true);
-    console.log(this.tempProject,this.project);
+    console.log(this.tempProject, this.project);
   }
   queueByNew(){
-    this.project[this.indexForProj].tasks.sort((n1,n2) => {
+    this.project[this.indexForProj].tasks.sort((n1, n2) => {
       if (n1.id > n2.id) {
         return 1;
       }
@@ -366,7 +358,7 @@ drop(event: CdkDragDrop<string[]>) {
   }
 
   queueByOld(){
-    this.project[this.indexForProj].tasks.sort((n1,n2) => {
+    this.project[this.indexForProj].tasks.sort((n1, n2) => {
       if (n1.id < n2.id) {
         return 1;
       }

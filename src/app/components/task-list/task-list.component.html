@@ -50,7 +50,7 @@
   <div cdkDropList class = "Tasks" (cdkDropListDropped) = "drop($event)">
 
     <div *ngFor="let task of project[this.indexForProj].tasks let idx =index" cdkDrag>
-      
+
       <mat-card>
 
         <mat-accordion>
@@ -71,9 +71,6 @@
           <h1>
             {{task.description}}
           </h1>
-
-
-
 
 
             </div>
@@ -108,7 +105,7 @@
 
       </mat-card>
     </div>
-    
+
   </div>
   <div align="center" class="marg">
   <mat-button-toggle-group appearance="legacy" name="fontStyle" aria-label="Font Style">

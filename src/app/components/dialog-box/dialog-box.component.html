@@ -1,6 +1,6 @@
-<p>dialog-box works!</p>
-<h2 mat-dialog-title>{{tasks}} </h2>
-<form [formGroup]="form" class= "normal-form" (ngSubmit)="onSubmit()">      
+
+<h2>{{tasks}} </h2>
+<form [formGroup]="form" class= "normal-form" (ngSubmit)="onSubmit()">
     <mat-grid-list cols ="2" rowHeight = "300px">
     <mat-grid-tile>
         <div class="controles-container">
@@ -12,44 +12,31 @@
             <mat-form-field>
                 <input  formControlName= "description" matInput placeholder="Description">
             </mat-form-field>
-            <mat-form-field>
-                <input formControlName= "location" matInput placeholder="Location">
-            </mat-form-field>
+
         </div>
     </mat-grid-tile>
     <mat-grid-tile>
         <div class="controles-container">
             <div class="add-bottom-padding">
-                <mat-radio-group  formControlName="level">
+                <mat-radio-group  formControlName="priority">
                     <mat-radio-button value="1"> High </mat-radio-button>
                     <mat-radio-button value="2"> Medium </mat-radio-button>
                     <mat-radio-button value="3"> Low </mat-radio-button>
                 </mat-radio-group>
             </div>
-            <mat-form-field >
-                <mat-select formControlName=" type" placeholder="Type">
-                    <mat-option> None </mat-option>
-                    <ng-container *ngFor="let type of types"> 
-                    <mat-option value=" {{type.id}}">{{type.value}}</mat-option>
-                    </ng-container>
-                </mat-select>
-            </mat-form-field>
-            <mat-form-field >
-                <input formControlName="duedate" matInput [matDatepicker]="picker" placeholder="Due date">
-                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                <mat-datepicker #picker></mat-datepicker>
-            </mat-form-field>
+
+
             <div class="button-row">
                 <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid" >Submit</button>
                 <button mat-raised-button color="warn" (click)= "onClear()" >Cancel</button>
             </div>
- 
+
         </div>
     </mat-grid-tile>
     </mat-grid-list>
-    
- 
+
+
 </form>
- 
- 
+
+
 
