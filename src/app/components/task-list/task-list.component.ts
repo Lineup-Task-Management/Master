@@ -44,8 +44,8 @@ export class TaskListComponent implements OnInit {
 
   panelOpenState: boolean;
   userId: string;
-  email:string;
-  user:string;
+  email: string;
+  user: string;
 
   items: Observable<Project[]>;
 
@@ -131,82 +131,6 @@ export class TaskListComponent implements OnInit {
 
 
 
-
-
-
-  // addTaskItem(): void  {
-  //
-  //   const title = '';
-  //   const description = '';
-  //   const priority = '';
-  //   const result = prompt('Task Title', title);
-  //   if (result === null || result === '') {
-  //     return;
-  //   }
-  //   const result1 = prompt('Task Description', description);
-  //   const result2 = prompt('Task Priority', priority);
-  //
-  //
-  //   if (result !== null && result !== '') {
-  //   const date: Date = new Date();
-  //
-  //   this.project[this.indexForProj].tasks.push({
-  //     id: '' + date.getTime(),
-  //     title: result,
-  //     description: result1,
-  //     completed: false,
-  //     editing: false,
-  //     /*location: '',
-  //     level: 0,
-  //     type: '',
-  //     duedate: 0 */
-  //
-  //
-  //     priority: Number(result2),
-  //   });
-  //
-  //   this.firebaseService.addTask(this.project[this.indexForProj].tasks, this.project[this.indexForProj].id);
-  //
-  //
-  //
-  //     }
-  //
-  // }
-
-
-  // edit(id: string, task) {
-  //
-  //   const title = '';
-  //   const description = '';
-  //   const priority = '';
-  //   const result = prompt('Task Title', title);
-  //   if (result === null || result === '') {
-  //     return;
-  //   }
-  //   const result1 = prompt('Task Description', description);
-  //   const result2 = prompt('Task Priority', priority);
-  //
-  //   if (result1 !== null  || result1 !== '') {
-  //
-  //     const  tempTask: Task = {
-  //       completed:  false,
-  //
-  //       editing: false,
-  //
-  //       description : result1,
-  //
-  //       title : result,
-  //       id,
-  //       priority: Number(priority),
-  //     };
-  //
-  //
-  //
-  //     this.firebaseService.updateTasks(this.project[this.indexForProj].id, task, tempTask);
-  //
-  //   }
-  // }
-
 deleteTask(task){
   this.firebaseService.deleteTask(this.project[this.indexForProj].id, task);
 }
@@ -246,22 +170,23 @@ drop(event: CdkDragDrop<string[]>) {
 
     dialogRef.afterClosed().subscribe(
       (data) => {
-      tempTask = {
-      id: tempId,
-      title: data.title,
-      description: data.description,
 
-
-
-      completed: false,
-      editing: false,
-      priority: Number(data.priority),
-      countdownTimer: data.countdownTimer,
+        const hours = Number(data.countdownTimerHours) * 3600;
+        const minutes = Number(data.countdownTimerMinutes) * 60;
+        const seconds = Number(data.countdownTimerSeconds);
+        tempTask = {
+          id: tempId,
+          title: data.title,
+          description: data.description,
+          completed: false,
+          editing: false,
+          priority: Number(data.priority),
+          countdownTimer: hours + minutes + seconds,
 
       };
-      console.log(tempTask);
+        console.log(tempTask);
 
-      if(tempTask.title === '' && tempTask.description ==='' ) {
+        if (tempTask.title !== '' && tempTask.description !== '' ) {
       this.firebaseService.updateTasks(this.project[this.indexForProj].id, task, tempTask);
       }
 
@@ -284,7 +209,7 @@ drop(event: CdkDragDrop<string[]>) {
       title: '',
       description: '',
       priority: '',
-      duedate: ''
+
     };
 
 
@@ -293,18 +218,20 @@ drop(event: CdkDragDrop<string[]>) {
     const date: Date = new Date();
     dialogRef.afterClosed().subscribe(
       (data) => {
-      this.project[this.indexForProj].tasks.push({
-      id: '' + date.getTime(),
-      title: data.title,
-      description: data.description,
+              const hours = Number(data.countdownTimerHours) * 3600;
+              const minutes = Number(data.countdownTimerMinutes) * 60;
+              const seconds = Number(data.countdownTimerSeconds);
 
-      completed: false,
-      editing: false,
-      priority: Number(data.priority),
-      countdownTimer: data.countdownTimer,
+              this.project[this.indexForProj].tasks.push({
+                id: '' + date.getTime(),
+                title: data.title,
+                description: data.description,
+                completed: false,
+                editing: false,
+                priority: Number(data.priority),
+                countdownTimer: hours + minutes + seconds,
 
-
-      });
+              });
 
       this.firebaseService.addTask(this.project[this.indexForProj].tasks, this.project[this.indexForProj].id);
 
@@ -385,21 +312,10 @@ drop(event: CdkDragDrop<string[]>) {
     });
   }
 
-/*
-  startTimer()
 
-  {
-    this.counter.begin()
-  }
-
-
-  resetTimer() {
-    this.counter.restart();
-  }
-*/
   handleEvent(e: CountdownEvent) {
 
-    if (e.action == "done"){
+    if (e.action === 'done'){
       this.msg.sendPostRequest();
     }
 

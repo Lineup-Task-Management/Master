@@ -4,9 +4,27 @@
 
 <div>
   <div *ngIf="isLoggedIn">
-  <button mat-raised-button (click)="signOut()">
-    logout
-  </button>
+    <div align="center" style="padding: 3px;padding-top: 10px">
+      {{this.user}}
+      <div align="center">
+        <mat-icon>account_circle</mat-icon>
+      </div>
+    </div>
+  <mat-selection-list [multiple]="false">
+    <mat-list-option (click)="signOut()">
+      <div style="display:flex; justify-content:space-between;align-items:center">
+
+          Logout <mat-icon>login</mat-icon>
+
+
+      </div>
+
+
+
+    </mat-list-option>
+
+
+  </mat-selection-list>
   </div>
 </div>
 

@@ -69,43 +69,45 @@
               </mat-panel-description>
 
             </mat-expansion-panel-header>
-            <div class="div-wrapper">
+            <div style="display: flex; justify-content: space-evenly" >
               <h1>
                 {{task.description}}
               </h1>
-              <div align="right">
 
-              </div>
               <mat-chip-list align="end">
                 <mat-chip color="primary" selected>Priority: {{task.priority}}</mat-chip>
               </mat-chip-list>
+
             </div>
 
 
 
 
 
-            <mat-card-actions class="mat-action-row" align="left">
+            <mat-card-actions class="mat-action-row" style="display: flex; justify-content: space-between; height: 50px; padding: 5px">
               <div class = "upCounter" >
                 <app-stopwatch></app-stopwatch>
               </div>
-
-
-              <button mat-fab color="primary" (click)="onEdit(task)" matTooltip="Edit Task"><mat-icon>edit</mat-icon></button>
-              <button mat-fab color="primary" (click)="completeTask(task)"  matTooltip="Complete Task"><mat-icon>check</mat-icon></button>
-              <button mat-fab color="primary" (click)="deleteTask(task)" matTooltip="Delete Task"><mat-icon>delete</mat-icon></button>
-
-            </mat-card-actions>
-            <mat-card-actions>
               <div class="countdowntimer" align="left">
 
                 <countdown #cd1 [config]="{leftTime: (task.countdownTimer), demand: true}" (event)="handleEvent($event)"></countdown>
                 <button (click)="cd1.begin()" class="btn btn-link btn-sm">Start</button>
                 <button (click)="cd1.restart()" class="btn btn-link btn-sm">Restart</button>
               </div>
-              <div class="poop" align="center">
+              <div  align="center">
                 <app-dueDate ></app-dueDate>
               </div>
+
+
+            </mat-card-actions>
+            <mat-card-actions>
+              <div style="display: flex; justify-content: space-evenly  ; height: 50px; padding-top: 3px">
+                <button mat-fab color="primary" (click)="onEdit(task)" matTooltip="Edit Task"><mat-icon>edit</mat-icon></button>
+                <button mat-fab color="primary" (click)="completeTask(task)"  matTooltip="Complete Task"><mat-icon>check</mat-icon></button>
+                <button mat-fab color="primary" (click)="deleteTask(task)" matTooltip="Delete Task"><mat-icon>delete</mat-icon></button>
+              </div>
+
+
 
             </mat-card-actions>
 
@@ -126,9 +128,9 @@
   <mat-button-toggle-group appearance="legacy" name="fontStyle" aria-label="Font Style">
 
 
-    <mat-button-toggle value="italic"  (click)="queueByCompleted()">Completed</mat-button-toggle>
+    <mat-button-toggle value="italic"  (click)="queueByCompleted()">Current Tasks</mat-button-toggle>
 
-    <mat-button-toggle value="underline" (click)="queueByAll()">All</mat-button-toggle>
+    <mat-button-toggle value="underline" (click)="queueByAll()">All Tasks</mat-button-toggle>
   </mat-button-toggle-group>
 </div>
 

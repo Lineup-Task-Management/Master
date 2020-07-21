@@ -6,11 +6,11 @@
         <div class="controles-container">
             <input type="hidden" formControlName="$key">
             <mat-form-field>
-                <input  formControlName= "title" matInput placeholder="Title*">
+                <input  formControlName= "title" matInput placeholder="Title*" required >
                 <mat-error>A Title is required.</mat-error>
             </mat-form-field>
             <mat-form-field>
-                <input  formControlName= "description" matInput placeholder="Description">
+                <input  formControlName= "description" matInput placeholder="Description" required >
             </mat-form-field>
 
         </div>
@@ -18,7 +18,7 @@
     <mat-grid-tile>
         <div class="controles-container">
             <div class="add-bottom-padding">
-                <mat-radio-group  formControlName="priority">
+                <mat-radio-group  formControlName="priority" required >
                     <mat-radio-button value="1"> High </mat-radio-button>
                     <mat-radio-button value="2"> Medium </mat-radio-button>
                     <mat-radio-button value="3"> Low </mat-radio-button>
@@ -26,7 +26,13 @@
             </div>
 
             <mat-form-field >
-                <input  formControlName= "countdownTimer" type ="number" matInput placeholder="30">
+              <input  formControlName= "countdownTimerHours" type ="number" required min="0" matInput placeholder="Timer Length: Hours">
+            </mat-form-field>
+              <mat-form-field >
+              <input  formControlName= "countdownTimerMinutes" type ="number" required min="0" matInput placeholder="Timer Length: Minutes">
+              </mat-form-field>
+                <mat-form-field >
+              <input  formControlName= "countdownTimerSeconds" type ="number" required min="0" matInput placeholder="Timer Length: Seconds">
             </mat-form-field>
 
 

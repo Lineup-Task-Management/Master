@@ -22,7 +22,10 @@ export class DialogBoxComponent implements OnInit {
   title: string;
   description: string;
   priority: number;
-  duedate: Date;
+  countdownTimerHours:number;
+  countdownTimerMinutes:number;
+
+  countdownTimerSeconds:number;
 
   countdownTimer: number;
 
@@ -58,10 +61,11 @@ export class DialogBoxComponent implements OnInit {
       title: [this.title, []],
       description: [this.description, []],
       priority: [this.priority, []],
-      duedate:  [this.duedate, []],
+       countdownTimerHours:[this.countdownTimerHours,[]],
+       countdownTimerMinutes:[this.countdownTimerMinutes,[]],
+       countdownTimerSeconds:[this.countdownTimerSeconds,[]],
 
 
-      countdownTimer:  [this.countdownTimer,[]]
 
 
      });
