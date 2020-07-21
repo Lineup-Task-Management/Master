@@ -44,8 +44,7 @@ export class TaskListComponent implements OnInit {
 
   panelOpenState: boolean;
   userId: string;
-  email: string;
-  user: string;
+  started: false;
 
   items: Observable<Project[]>;
 
@@ -283,11 +282,11 @@ drop(event: CdkDragDrop<string[]>) {
   }
   queueByNew(){
     this.project[this.indexForProj].tasks.sort((n1, n2) => {
-      if (n1.id > n2.id) {
+      if (n1.id < n2.id) {
         return 1;
       }
 
-      if (n1.id < n2.id) {
+      if (n1.id > n2.id) {
         return -1;
       }
 
@@ -300,11 +299,11 @@ drop(event: CdkDragDrop<string[]>) {
 
   queueByOld(){
     this.project[this.indexForProj].tasks.sort((n1, n2) => {
-      if (n1.id < n2.id) {
+      if (n1.id > n2.id) {
         return 1;
       }
 
-      if (n1.id > n2.id) {
+      if (n1.id < n2.id) {
         return -1;
       }
 
@@ -321,14 +320,12 @@ drop(event: CdkDragDrop<string[]>) {
 
     console.log('Actions', e);
   }
-}
-/*
-  handleEvent2(e: CountdownEvent) {
-    this.notify = e.action.toUpperCase();
-    if (e.action === 'notify') {
-      this.notify += ` - ${e.left} ms`;
-    }
-    console.log('Notify', e);
+
+  onClick(){
+
+
   }
-*/
+
+}
+
 

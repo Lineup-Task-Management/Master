@@ -63,9 +63,11 @@
 
 
               </mat-panel-title>
-              <mat-panel-description align="right">
+              <mat-panel-description style="display: flex;justify-content: space-between">
                 Click to see description
-
+                <mat-chip-list style="padding: 4px">
+                  <mat-chip color="primary" selected>Priority: {{task.priority}}</mat-chip>
+                </mat-chip-list>
               </mat-panel-description>
 
             </mat-expansion-panel-header>
@@ -73,10 +75,13 @@
               <h1>
                 {{task.description}}
               </h1>
+            </div>
+              <div style="display: flex; justify-content: space-evenly ; height: 50px; padding-top: 3px">
+                <button mat-mini-fab color="primary" (click)="onEdit(task)" matTooltip="Edit Task"><mat-icon>edit</mat-icon></button>
+                <button mat-mini-fab color="primary" (click)="completeTask(task)"  matTooltip="Complete Task"><mat-icon>check</mat-icon></button>
+                <button mat-mini-fab color="primary" (click)="deleteTask(task)" matTooltip="Delete Task"><mat-icon>delete</mat-icon></button>
 
-              <mat-chip-list align="end">
-                <mat-chip color="primary" selected>Priority: {{task.priority}}</mat-chip>
-              </mat-chip-list>
+
 
             </div>
 
@@ -89,10 +94,13 @@
                 <app-stopwatch></app-stopwatch>
               </div>
               <div class="countdowntimer" align="left">
+                <button mat-raised-button color="primary" (click)=" cd1.begin()"
+                        (dblclick)="cd1.restart()"  class="btn btn-link btn-sm" style="padding: 6px; width: 35px">
+                  <countdown #cd1 [config]="{leftTime: (task.countdownTimer), demand: true}" (event)="handleEvent($event)"></countdown>
+                </button>
 
-                <countdown #cd1 [config]="{leftTime: (task.countdownTimer), demand: true}" (event)="handleEvent($event)"></countdown>
-                <button (click)="cd1.begin()" class="btn btn-link btn-sm">Start</button>
-                <button (click)="cd1.restart()" class="btn btn-link btn-sm">Restart</button>
+
+
               </div>
               <div  align="center">
                 <app-dueDate ></app-dueDate>
@@ -101,11 +109,7 @@
 
             </mat-card-actions>
             <mat-card-actions>
-              <div style="display: flex; justify-content: space-evenly  ; height: 50px; padding-top: 3px">
-                <button mat-fab color="primary" (click)="onEdit(task)" matTooltip="Edit Task"><mat-icon>edit</mat-icon></button>
-                <button mat-fab color="primary" (click)="completeTask(task)"  matTooltip="Complete Task"><mat-icon>check</mat-icon></button>
-                <button mat-fab color="primary" (click)="deleteTask(task)" matTooltip="Delete Task"><mat-icon>delete</mat-icon></button>
-              </div>
+
 
 
 
