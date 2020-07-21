@@ -4,9 +4,9 @@ import {AngularFireAuth} from "@angular/fire/auth";
 import * as firebaseui from "firebaseui";
 
 import {AngularFirestore} from "@angular/fire/firestore";
-import {BehaviorSubject, merge} from "rxjs";
+
 import {FirebaseService} from "../../service/firebase.service";
-import {take, tap} from "rxjs/operators";
+
 
 
 
@@ -17,9 +17,7 @@ import {take, tap} from "rxjs/operators";
 })
 export class LoginComponent implements OnInit {
 
-  // userChange:boolean = false;
-  // private userChangeSource = new BehaviorSubject<boolean>(this.userChange);
-  // currentUserChange = this.userChangeSource.asObservable();
+
 
   ui: firebaseui.auth.AuthUI;
   userId:string;
@@ -75,7 +73,8 @@ export class LoginComponent implements OnInit {
        if (!res.payload.exists)
        {
          this.db.collection('Users').doc(this.userId).set({
-           uid: this.userId
+           uid: this.userId,
+           email: firebase.auth().currentUser.email
          },{merge: true})
 
          this.db.doc('Users/'+this.userId+'/projects/project1').set({
