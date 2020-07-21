@@ -6,6 +6,8 @@ import {FirebaseService} from "../../service/firebase.service";
 import {takeWhile} from "rxjs/operators";
 import {Observable} from "rxjs";
 import {AngularFireAuth} from "@angular/fire/auth";
+import * as firebase from 'firebase';
+import {loggedIn} from '@angular/fire/auth-guard';
 
 
 @Component({
@@ -16,13 +18,14 @@ import {AngularFireAuth} from "@angular/fire/auth";
 export class TaskOperationsComponent implements OnInit {
 
 
-  projects: Project[]
+  projects: Project[];
 
   indexForProj:number =0;
 
   userId: string;
   tempUid: string;
   items: Observable<Project[]>;
+  email: string;
 
   constructor(private afAuth: AngularFireAuth,
               public firebaseService: FirebaseService) { }
@@ -49,6 +52,7 @@ export class TaskOperationsComponent implements OnInit {
         this.checkUser();
       }
     })
+
 
   }
 
@@ -89,7 +93,15 @@ updateIndex(index: number){
 
 }
 
-  deleteProject = task => this.firebaseService.deleteProject(task);
+  deleteProject = task => {
+  this.firebaseService.deleteProject(task);
+  if(this.indexForProj === 0){
+    this.updateIndex(this.indexForProj++);
+  }
+  else {
+    this.updateIndex(this.indexForProj--);
+  }
+  }
 
   checkUser(){
     console.log("checking user", this.userId,this.tempUid);
