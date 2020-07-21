@@ -40,6 +40,7 @@ import { ReactiveFormsModule} from '@angular/forms';
 
 import {MatChipsModule} from "@angular/material/chips";
 import {MatRadioModule} from "@angular/material/radio";
+import { StopwatchComponent } from './components/stopwatch/stopwatch.component';
 //import {AngularFireAuth} from '@angular/fire/auth';
 
 
@@ -59,7 +60,8 @@ import {MatRadioModule} from "@angular/material/radio";
     SideNavComponent,
     LoginComponent,
     DialogBoxComponent,
-    
+    StopwatchComponent,
+
 
   ],
   imports: [
@@ -75,7 +77,7 @@ import {MatRadioModule} from "@angular/material/radio";
     AngularFireDatabaseModule,
     AngularFireAuthModule,
     AngularFireMessagingModule,
-    AngularFireModule.initializeApp(environment.firebase), 
+    AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     //AngularFireAuth,
     ServiceWorkerModule.register('ngsw-worker.js', {enabled: environment.production}),

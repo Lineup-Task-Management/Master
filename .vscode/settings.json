@@ -1,0 +1,18 @@
+{
+    "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/CVS": true,
+        "**/.DS_Store": true,
+        "**/.classpath": true,
+        "**/.project": true,
+        "**/.settings": true,
+        "**/.factorypath": true,
+        ".history": true
+    },
+    "explorerExclude.backup": null,
+    "files.trimTrailingWhitespace": true,
+    "editor.suggest.statusBar.visible": true,
+    "files.eol": "\n"
+}

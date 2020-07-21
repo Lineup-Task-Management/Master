@@ -100,6 +100,13 @@
             </mat-card-actions>
 
             <mat-card-actions>
+            <div class = "upCounter" >
+              <app-stopwatch></app-stopwatch>
+            </div>
+
+          </mat-card-actions>
+
+            <mat-card-actions>
               <div class="countdowntimer" align="left">
               <countdown #cd1 [config]="{leftTime: (task.countdownTimer), demand: true}" (event)="handleEvent($event)"></countdown>
               <button (click)="cd1.begin()" class="btn btn-link btn-sm">Start</button>

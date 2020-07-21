@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="eng">
+
+<div class = "w3-container">
+  <section class = "stopwatch-duration">
+    <div *ngIf = "secondsOn;
+    else elseBlock"> {{secondsOn}}</div>
+    <ng-template #elseBlock>
+      Click Start! </ng-template>
+  </section>
+
+  <section class = "stopwatch-btn-container">
+
+    <button mat-button class = "stopwatch-btn" (click) = "startStopwatch()">
+      {{startButton}}
+    </button>
+
+    <button mat-button class = "stopwatch-btn" (click) = "resetStopwatch()"> Reset
+    </button>
+  </section>
+</div>
