@@ -51,7 +51,7 @@
 
     <div *ngFor="let task of project[this.indexForProj].tasks let idx =index" cdkDrag>
 
-      <mat-card>
+      <mat-card [class.strike]="task.completed">
 
         <mat-accordion>
 
@@ -95,7 +95,9 @@
               </div>
               <div class="countdowntimer" align="left">
                 <button mat-raised-button color="primary" (click)=" cd1.begin()"
-                        (dblclick)="cd1.restart()"  class="btn btn-link btn-sm" style="padding: 6px; width: 35px">
+                        (dblclick)="cd1.restart()"  class="btn btn-link btn-sm" style="padding: 6px; width: 35px"
+                matTooltip="Click to start task timer. Notification will pop up when complete">
+                  <mat-icon>alarm</mat-icon>
                   <countdown #cd1 [config]="{leftTime: (task.countdownTimer), demand: true}" (event)="handleEvent($event)"></countdown>
                 </button>
 

@@ -53,3 +53,13 @@ span {
 .cdk-drag-animating {
     transition: transform 200ms cubic bezier(0, 0, 0.1, 1);
 }
+.strike {
+  color: darkgrey;
+  box-decoration: line-through;
+  text-decoration: line-through;
+  background-color: darkgrey;
+  border: black;
+  mat-card{
+    background: darkgrey;
+  }
+}

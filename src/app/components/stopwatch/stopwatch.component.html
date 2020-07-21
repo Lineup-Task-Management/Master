@@ -2,14 +2,15 @@
 <html lang="eng">
 
 <div class = "w3-container" >
-  <button mat-raised-button color="primary" (click)="startStopwatch()" (dblclick)="resetStopwatch()" matTooltip="Click to Start/Pause; Double click to reset" >
+  <button mat-raised-button color="primary" (click)="startStopwatch()" (dblclick)="resetStopwatch()"
+          matTooltip="Click to Start/Pause; Double click to reset"  >
   <section class = "stopwatch-duration">
 
     <div >
 
-      Task Stopwatch:
+      <mat-icon style="padding: 5px">watch_later</mat-icon>
 
-      {{secondsOn}}
+      {{showSeconds}}
     </div>
 
 

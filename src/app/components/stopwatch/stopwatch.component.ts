@@ -11,21 +11,24 @@ constructor() {}
 stopwatch: number;
 isOn = false;
 secondsOn = 0;
+showSeconds: string;
 startButton = 'Start';
 
 startStopwatch() {
   this.isOn =  ! this.isOn;
   if (this.isOn){
     this.startButton = 'Stop';
-    const timeStarted = Date.now() - (this.secondsOn || 0);
+
 
     this.stopwatch = setInterval(() => {
       this.secondsOn ++;
+      this.showSeconds = new Date(this.secondsOn * 1000).toISOString().substr(11, 8);
       }, 1000);
     } else {
       this.startButton = 'Continue';
       clearInterval(this.stopwatch);
       }
+
     }
 
   resetStopwatch(){
