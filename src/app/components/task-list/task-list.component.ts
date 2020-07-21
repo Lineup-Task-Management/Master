@@ -258,8 +258,9 @@ drop(event: CdkDragDrop<string[]>) {
       };
       console.log(tempTask);
 
-
+      if(tempTask.title === '' && tempTask.description ==='' ) {
       this.firebaseService.updateTasks(this.project[this.indexForProj].id, task, tempTask);
+      }
 
     });
 
