@@ -10,6 +10,13 @@
     border: none;
     outline: none;
 }
+.div-wrapper{
+
+    display: flex;
+    flex-flow: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
 
 span {
     display: inline-block;

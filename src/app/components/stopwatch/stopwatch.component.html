@@ -1,21 +1,23 @@
 <!DOCTYPE html>
 <html lang="eng">
 
-<div class = "w3-container">
+<div class = "w3-container" >
+  <button mat-raised-button color="primary" (click)="startStopwatch()" (dblclick)="resetStopwatch()" matTooltip="Click to Start/Pause; Double click to reset" >
   <section class = "stopwatch-duration">
-    <div *ngIf = "secondsOn;
-    else elseBlock"> {{secondsOn}}</div>
-    <ng-template #elseBlock>
-      Click Start! </ng-template>
+
+    <div >
+
+      Task Stopwatch:
+
+      {{secondsOn}}
+    </div>
+
+
+
+
+
   </section>
 
-  <section class = "stopwatch-btn-container">
 
-    <button mat-button class = "stopwatch-btn" (click) = "startStopwatch()">
-      {{startButton}}
-    </button>
-
-    <button mat-button class = "stopwatch-btn" (click) = "resetStopwatch()"> Reset
-    </button>
-  </section>
+  </button>
 </div>

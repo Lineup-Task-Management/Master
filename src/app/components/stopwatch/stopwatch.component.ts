@@ -10,7 +10,7 @@ constructor() {}
 
 stopwatch: number;
 isOn = false;
-secondsOn: number;
+secondsOn = 0;
 startButton = 'Start';
 
 startStopwatch() {
@@ -20,7 +20,7 @@ startStopwatch() {
     const timeStarted = Date.now() - (this.secondsOn || 0);
 
     this.stopwatch = setInterval(() => {
-      this.secondsOn = Date.now() - timeStarted;
+      this.secondsOn ++;
       }, 1000);
     } else {
       this.startButton = 'Continue';
@@ -31,7 +31,7 @@ startStopwatch() {
   resetStopwatch(){
     this.isOn = false;
     this.startButton = 'Start';
-    this.secondsOn = null;
+    this.secondsOn = 0;
     clearInterval(this.stopwatch);
 
     }
