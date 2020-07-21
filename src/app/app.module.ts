@@ -10,7 +10,7 @@ import {LightDarkComponent} from 'src/app/components/light-dark/light-dark.compo
 import { TaskOperationsComponent } from './components/projects/task-operations.component';
 
 import {MaterialModule} from "./material/material.module";
-
+import {SendMessage} from "./service/send-message.service";
 
 
 import {TaskLineService} from "./service/task-line.service";
@@ -23,7 +23,7 @@ import { SideNavComponent } from './components/side-nav/side-nav.component';
 
 import { CountdownModule, CountdownConfig } from 'ngx-countdown';
 
-
+import { HttpClientModule } from '@angular/common/http';
 
 import { AsyncPipe } from '../../node_modules/@angular/common';
 import { MessagingService } from './service/messaging.service';
@@ -73,7 +73,7 @@ import { StopwatchComponent } from './components/stopwatch/stopwatch.component';
     DragDropModule,
     DragDropModule,
     ReactiveFormsModule,
-
+    HttpClientModule,
     AngularFireDatabaseModule,
     AngularFireAuthModule,
     AngularFireMessagingModule,
@@ -87,7 +87,7 @@ import { StopwatchComponent } from './components/stopwatch/stopwatch.component';
 
   ],
 
-  providers: [TaskLineService,MessagingService,AsyncPipe, DialogBoxService],
+  providers: [TaskLineService,MessagingService,AsyncPipe, DialogBoxService,  SendMessage],
 
   bootstrap: [AppComponent],
 

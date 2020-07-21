@@ -8,7 +8,7 @@ import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 import { FirebaseService } from '../../service/firebase.service';
 
 
-
+import { HttpClient } from '@angular/common/http';
 
 
 import {map, takeWhile} from 'rxjs/operators';
@@ -19,7 +19,7 @@ import {MatDialog, MatDialogConfig, MAT_DIALOG_SCROLL_STRATEGY_FACTORY} from '@a
 import { DialogBoxComponent } from '../dialog-box/dialog-box.component';
 
 
-
+import {SendMessage} from '../../service/send-message.service';
 
 
 
@@ -68,7 +68,8 @@ export class TaskListComponent implements OnInit {
               private db: AngularFirestore,
               private dialog: MatDialog,
               private afAuth: AngularFireAuth,
-              @Inject(LOCALE_ID) private locale: string
+              @Inject(LOCALE_ID) private locale: string,
+              private msg: SendMessage,
 
 
 
@@ -395,8 +396,14 @@ drop(event: CdkDragDrop<string[]>) {
   }
 */
   handleEvent(e: CountdownEvent) {
+
+    if (e.action == "done"){
+      this.msg.sendPostRequest();
+    }
+    
     console.log('Actions', e);
   }
+}
 /*
   handleEvent2(e: CountdownEvent) {
     this.notify = e.action.toUpperCase();
@@ -406,4 +413,4 @@ drop(event: CdkDragDrop<string[]>) {
     console.log('Notify', e);
   }
 */
-}
+
