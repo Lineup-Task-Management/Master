@@ -44,6 +44,8 @@ export class TaskListComponent implements OnInit {
 
   panelOpenState: boolean;
   userId: string;
+  email:string;
+  user:string;
 
   items: Observable<Project[]>;
 
@@ -400,7 +402,7 @@ drop(event: CdkDragDrop<string[]>) {
     if (e.action == "done"){
       this.msg.sendPostRequest();
     }
-    
+
     console.log('Actions', e);
   }
 }
