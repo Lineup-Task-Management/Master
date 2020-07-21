@@ -15,17 +15,17 @@ import { FirebaseService } from 'src/app/service/firebase.service';
   styleUrls: ['./dialog-box.component.css']
 })
 export class DialogBoxComponent implements OnInit {
-<<<<<<< HEAD
-=======
- form: FormGroup;
+
+  form: FormGroup;
   firebaseService: any;
   tasks: Task[];
   title: string;
-    description: string;
-      priority: number;
-      duedate: Date;
-      countdownTimer: number;
->>>>>>> 8e32ae813e2a828e35fdcc267327e14debac4956
+  description: string;
+  priority: number;
+  duedate: Date;
+
+  countdownTimer: number;
+
 
   constructor(
     public submitService: SubmitNotifService,
@@ -40,18 +40,7 @@ export class DialogBoxComponent implements OnInit {
       this.countdownTimer = data.countdownTimer;
 
   }
- form: FormGroup;
-  firebaseService: any;
-  tasks: Task[];
-  title: string;
-    description: string;
-      priority: number;
-      duedate: Date;
-      priorities = {
-        1: 'low',
-        2: 'medium',
-        3: 'High',
-      };
+
 
 
 
