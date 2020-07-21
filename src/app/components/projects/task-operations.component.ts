@@ -1,5 +1,6 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 
+
 import {Project} from '../../interfaces/Project';
 
 import {FirebaseService} from '../../service/firebase.service';
@@ -19,6 +20,7 @@ export class TaskOperationsComponent implements OnInit {
               public firebaseService: FirebaseService) { }
 
 
+
   projects: Project[];
 
   indexForProj = 0;
@@ -26,6 +28,7 @@ export class TaskOperationsComponent implements OnInit {
   userId: string;
   tempUid: string;
   items: Observable<Project[]>;
+  email: string;
 
   @Output() updateProjIndex: EventEmitter<number> = new EventEmitter<number>();
 
@@ -51,6 +54,7 @@ export class TaskOperationsComponent implements OnInit {
         this.checkUser();
       }
     });
+
 
   }
 
@@ -90,7 +94,15 @@ updateIndex(index: number){
 
 }
 
-  deleteProject = task => this.firebaseService.deleteProject(task);
+  deleteProject = task => {
+  this.firebaseService.deleteProject(task);
+  if(this.indexForProj === 0){
+    this.updateIndex(this.indexForProj++);
+  }
+  else {
+    this.updateIndex(this.indexForProj--);
+  }
+  }
 
   checkUser(){
     console.log('checking user', this.userId, this.tempUid);

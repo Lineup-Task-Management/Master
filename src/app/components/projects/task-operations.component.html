@@ -1,5 +1,5 @@
 
-<div align="center"> <!--[(ngModel)]="projects" *ngFor="let project of projects;"> -->
+<div align="center">
   <mat-selection-list [multiple]="false">
     <mat-list-option  [(ngModel)]="projects" *ngFor="let project of projects; let i = index;" (click)="updateIndex(i)">
       <div style="display:flex; justify-content:space-between;align-items:center">
@@ -25,4 +25,6 @@
 
 
 </div>
+
 <app-login ></app-login>
+
