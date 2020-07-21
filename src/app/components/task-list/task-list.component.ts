@@ -322,6 +322,10 @@ drop(event: CdkDragDrop<string[]>) {
   handleEvent(e: CountdownEvent) {
 
     if (e.action === 'done'){
+      let audio = new Audio();
+      audio.src = "../../assets/audio/bell.wav";
+      audio.load();
+      audio.play();
       this.msg.sendPostRequest();
     }
 
