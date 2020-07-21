@@ -97,7 +97,7 @@ export class LoginComponent implements OnInit {
                  completed: false,
                  editing: false,
                  priority: 1,
-                 countdownTimer: 0,
+                 countdownTimer: 10,
                })
              }, {merge: true});
 
