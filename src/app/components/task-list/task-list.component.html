@@ -51,15 +51,20 @@
 
     <div *ngFor="let task of project[this.indexForProj].tasks let idx =index" cdkDrag>
 
-      <mat-card [class.strike]="task.completed">
+      <mat-card >
 
-        <mat-accordion>
+        <mat-accordion >
 
-          <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+          <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false" [class.fade]="task.completed">
             <mat-expansion-panel-header>
-              <mat-panel-title align="center">
+              <mat-panel-title align="center" >
+                <div [class.strike]="task.completed">
+                  <h1>  {{task.title}} </h1>
+                </div>
+                <div *ngIf="task.completed" style="padding: 5px;">
+                  <mat-icon>check_circle</mat-icon>
+                </div>
 
-                <h1>  {{task.title}} </h1>
 
 
               </mat-panel-title>

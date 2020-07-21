@@ -54,12 +54,19 @@ span {
     transition: transform 200ms cubic bezier(0, 0, 0.1, 1);
 }
 .strike {
-  color: darkgrey;
+  color: black;
   box-decoration: line-through;
   text-decoration: line-through;
   background-color: darkgrey;
   border: black;
-  mat-card{
-    background: darkgrey;
+  .mat-accordion{
+    background-color: darkgrey;
   }
+
+}
+.fade{
+  background-color: darkgrey;
+  border: dimgrey;
+  border-style: groove;
+
 }
