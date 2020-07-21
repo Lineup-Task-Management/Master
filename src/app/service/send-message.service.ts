@@ -8,10 +8,10 @@ export class SendMessage{
 
     constructor (private http: HttpClient, private message: MessagingService ) { }
 
-    
-    
-    
-    
+
+
+
+
     sendPostRequest() {
 
         console.log('Did this call?');
@@ -23,12 +23,14 @@ export class SendMessage{
                 "notification": {
                     "title": "Lineup Task Manager",
                     "body": "Timer has expired!",
+                    "icon": "assets/icons/tasks.png",
+
                 },
                 "to": this.message.tokenId
          }
-    
+
          this.http.post(this.url, body, { headers: headers }).subscribe();
          console.log(this.message.tokenId);
-        }   
+        }
 }
 
