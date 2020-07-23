@@ -63,10 +63,13 @@ export class TaskListComponent implements OnInit {
 
 
 
-  constructor(private tlService: TaskLineService,
+  constructor(public firebaseService: FirebaseService,
+              private db: AngularFirestore,
+              private dialog: MatDialog,
+              private afAuth: AngularFireAuth,
+              @Inject(LOCALE_ID) private locale: string,
+              private msg: SendMessage,
 
-              public firebaseService: FirebaseService,
-<<<<<<< HEAD
               ){
 
 
@@ -77,27 +80,6 @@ export class TaskListComponent implements OnInit {
    * mapped to a project data type. it then sets a local projects array equal to the data in the observable
    * from firebase.
    */
-
-=======
-              private db: AngularFirestore,
-              private dialog: MatDialog,
-              private afAuth: AngularFireAuth,
-              @Inject(LOCALE_ID) private locale: string,
-              private msg: SendMessage,
-
-
-
-
-  ){  }
-
-
-
-
-
-
-
-
->>>>>>> master
   getData(){
 
     this.items = this.firebaseService.getProjects();
@@ -113,11 +95,6 @@ export class TaskListComponent implements OnInit {
   }
 
 
-<<<<<<< HEAD
-
-=======
-  // this.tasks = this.tasks.filter(tasks => tasks.id != id);
->>>>>>> master
 
   ngOnInit(): void {
 
@@ -147,19 +124,13 @@ export class TaskListComponent implements OnInit {
 
 
 
-<<<<<<< HEAD
-  /**
-   * @name addTaskItem
-   * Add task item will take input from the user, make a new task object and push it into the local data
-   * after its in the local data we use the firebase service method addTask to add it to the data base.
-   *
-   */
-=======
+
+
 
 deleteTask(task){
   this.firebaseService.deleteTask(this.project[this.indexForProj].id, task);
 }
->>>>>>> master
+
 
 completeTask(task){
   this.firebaseService.completeTask(this.project[this.indexForProj].id, task);
@@ -171,6 +142,12 @@ drop(event: CdkDragDrop<string[]>) {
     moveItemInArray(this.project[this.indexForProj].tasks, event.previousIndex, event.currentIndex);
   }
 
+  /**
+   * @name onEdit
+   * onEdit task item will take input from the user, make a new task object and push it into the local data
+   * after its in the local data we use the firebase service method updateTask to add it to the data base and remove its previous version.
+   *
+   */
 
   onEdit(task){
     const dialogConfig = new MatDialogConfig();
@@ -184,20 +161,6 @@ drop(event: CdkDragDrop<string[]>) {
       priority: task.priority,
 
     };
-
-<<<<<<< HEAD
-  }
-  /**
-   * @name edit
-   * Edit task item will take input from the user, make a new task object and push it into the local data
-   * after its in the local data we use the firebase service method updateTask to add it to the data base and remove its previous version.
-   *
-   */
-=======
-
->>>>>>> master
-
-
 
     const dialogRef = this.dialog.open(DialogBoxComponent, dialogConfig);
 
@@ -219,12 +182,6 @@ drop(event: CdkDragDrop<string[]>) {
           priority: Number(data.priority),
           countdownTimer: hours + minutes + seconds,
 
-<<<<<<< HEAD
-        title : result,
-        id:id,
-        priority: Number(result2),
-=======
->>>>>>> master
       };
         console.log(tempTask);
 
@@ -243,6 +200,12 @@ drop(event: CdkDragDrop<string[]>) {
 
 
   }
+/**
+ * @name onCreate
+ * onCreate will take input from the user, make a new task object and push it into the local data
+ * after its in the local data we use the firebase service method addTask to add it to the data base.
+ *
+ */
 
   onCreate(){
     const dialogConfig = new MatDialogConfig();
