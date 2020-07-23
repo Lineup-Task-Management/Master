@@ -17,6 +17,7 @@ export class AppComponent {
   title = 'task-management-angular';
   isLoggedIn: boolean = false;
   theme: boolean = false;
+  changeTheme1: { emit: (arg0: boolean) => void; }
   indexForProj: number =0;
   opened = false;
 

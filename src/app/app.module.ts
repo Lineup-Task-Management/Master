@@ -10,7 +10,7 @@ import {LightDarkComponent} from 'src/app/components/light-dark/light-dark.compo
 import { TaskOperationsComponent } from './components/projects/task-operations.component';
 
 import {MaterialModule} from "./material/material.module";
-
+import {SendMessage} from "./service/send-message.service";
 
 
 import {TaskLineService} from "./service/task-line.service";
@@ -21,9 +21,9 @@ import {DueDateComponent} from "./components/dueDate/dueDate.component";
 import { SideNavComponent } from './components/side-nav/side-nav.component';
 
 
+import { CountdownModule, CountdownConfig } from 'ngx-countdown';
 
-
-
+import { HttpClientModule } from '@angular/common/http';
 
 import { AsyncPipe } from '../../node_modules/@angular/common';
 import { MessagingService } from './service/messaging.service';
@@ -34,9 +34,15 @@ import { AngularFireModule } from '@angular/fire';
 import { environment } from '../environments/environment';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { DialogBoxComponent } from './components/dialog-box/dialog-box.component';
+import { DialogBoxService } from './service/dialog-box.service';
+import { ReactiveFormsModule} from '@angular/forms';
+
 import {MatChipsModule} from "@angular/material/chips";
 import {MatRadioModule} from "@angular/material/radio";
+import { StopwatchComponent } from './components/stopwatch/stopwatch.component';
 //import {AngularFireAuth} from '@angular/fire/auth';
+
 
 
 
@@ -52,7 +58,10 @@ import {MatRadioModule} from "@angular/material/radio";
     TaskOperationsComponent,
     DueDateComponent,
     SideNavComponent,
-    LoginComponent
+    LoginComponent,
+    DialogBoxComponent,
+    StopwatchComponent,
+
 
   ],
   imports: [
@@ -61,8 +70,10 @@ import {MatRadioModule} from "@angular/material/radio";
     BrowserAnimationsModule,
     MaterialModule,
     FormsModule,
-
     DragDropModule,
+    DragDropModule,
+    ReactiveFormsModule,
+    HttpClientModule,
     AngularFireDatabaseModule,
     AngularFireAuthModule,
     AngularFireMessagingModule,
@@ -71,11 +82,15 @@ import {MatRadioModule} from "@angular/material/radio";
     ServiceWorkerModule.register('ngsw-worker.js', {enabled: environment.production}),
     MatChipsModule,
     MatRadioModule,
+    BrowserModule, CountdownModule,
 
   ],
 
-  providers: [TaskLineService,MessagingService,AsyncPipe],
+  providers: [TaskLineService,MessagingService,AsyncPipe, DialogBoxService,  SendMessage],
 
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+
+  entryComponents:[DialogBoxComponent]
+
 })
 export class AppModule { }

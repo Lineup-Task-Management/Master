@@ -10,6 +10,13 @@
     border: none;
     outline: none;
 }
+.div-wrapper{
+
+    display: flex;
+    flex-flow: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
 
 span {
     display: inline-block;
@@ -45,4 +52,21 @@ span {
 
 .cdk-drag-animating {
     transition: transform 200ms cubic bezier(0, 0, 0.1, 1);
+}
+.strike {
+  color: black;
+  box-decoration: line-through;
+  text-decoration: line-through;
+  background-color: darkgrey;
+  border: black;
+  .mat-accordion{
+    background-color: darkgrey;
+  }
+
+}
+.fade{
+  background-color: darkgrey;
+  border: dimgrey;
+  border-style: groove;
+
 }

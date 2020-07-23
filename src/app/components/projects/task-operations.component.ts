@@ -1,11 +1,12 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {TaskLineService} from "../../service/task-line.service";
-import {Project} from "../../interfaces/Project";
-import {Task} from "../../interfaces/task";
-import {FirebaseService} from "../../service/firebase.service";
-import {takeWhile} from "rxjs/operators";
-import {Observable} from "rxjs";
-import {AngularFireAuth} from "@angular/fire/auth";
+
+
+import {Project} from '../../interfaces/Project';
+
+import {FirebaseService} from '../../service/firebase.service';
+import {takeWhile} from 'rxjs/operators';
+import {Observable} from 'rxjs';
+import {AngularFireAuth} from '@angular/fire/auth';
 
 
 @Component({
@@ -15,21 +16,25 @@ import {AngularFireAuth} from "@angular/fire/auth";
 })
 export class TaskOperationsComponent implements OnInit {
 
+  constructor(private afAuth: AngularFireAuth,
+              public firebaseService: FirebaseService) { }
 
-  projects: Project[]
 
-  indexForProj:number =0;
+
+  projects: Project[];
+
+  indexForProj = 0;
 
   userId: string;
   tempUid: string;
   items: Observable<Project[]>;
+  email: string;
 
-  constructor(private afAuth: AngularFireAuth,
-              public firebaseService: FirebaseService) { }
+  @Output() updateProjIndex: EventEmitter<number> = new EventEmitter<number>();
 
   ngOnInit() {
 
-    this.firebaseService.currentUserId.subscribe(userId=> {
+    this.firebaseService.currentUserId.subscribe(userId => {
       this.userId = userId;
     });
 
@@ -37,18 +42,19 @@ export class TaskOperationsComponent implements OnInit {
 
     this.getProjects();
 
-    this.afAuth.authState.subscribe(user =>{
+    this.afAuth.authState.subscribe(user => {
 
-      if(user){
-        this.firebaseService.changeUserId(user.uid)
+      if (user){
+        this.firebaseService.changeUserId(user.uid);
         console.log(this.firebaseService.userId);
-        this.checkUser()
-      }
-      else{
-        this.firebaseService.changeUserId("2CThQyuj97facovRlrzWh2J8gMn1");
         this.checkUser();
       }
-    })
+      else{
+        this.firebaseService.changeUserId('2CThQyuj97facovRlrzWh2J8gMn1');
+        this.checkUser();
+      }
+    });
+
 
   }
 
@@ -69,18 +75,17 @@ export class TaskOperationsComponent implements OnInit {
 
 addProject(){
 
-  let title = ""
-  let result = prompt("Project Title", title);
+  const title = '';
+  const result = prompt('Project Title', title);
 
-  if(result === null || result === "")
+  if (result === null || result === '') {
     return;
+  }
   this.firebaseService.addProject(result);
 
 
 
 }
-
-  @Output() updateProjIndex: EventEmitter<number> = new EventEmitter<number>();
 
 updateIndex(index: number){
     this.indexForProj = index;
@@ -89,14 +94,22 @@ updateIndex(index: number){
 
 }
 
-  deleteProject = task => this.firebaseService.deleteProject(task);
+  deleteProject = task => {
+  this.firebaseService.deleteProject(task);
+  if(this.indexForProj === 0){
+    this.updateIndex(this.indexForProj++);
+  }
+  else {
+    this.updateIndex(this.indexForProj--);
+  }
+  }
 
   checkUser(){
-    console.log("checking user", this.userId,this.tempUid);
-    if(this.userId !== this.tempUid){
+    console.log('checking user', this.userId, this.tempUid);
+    if (this.userId !== this.tempUid){
       this.tempUid = this.userId;
       this.getProjects();
-      console.log("checking user", this.userId,this.tempUid);
+      console.log('checking user', this.userId, this.tempUid);
     }
 
 
