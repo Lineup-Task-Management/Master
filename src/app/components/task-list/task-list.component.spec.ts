@@ -2,16 +2,35 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TaskListComponent } from './task-list.component';
 import {Project} from "../../interfaces/Project";
-import {Task} from "../../interfaces/task";
+import {MatDialog} from '@angular/material/dialog'
 import {FirebaseService} from "../../service/firebase.service";
-import {AngularFireAuth, AngularFireAuthModule} from "@angular/fire/auth";
-import {AngularFireModule} from "@angular/fire";
+import {AngularFireAuth,} from "@angular/fire/auth";
+import { AngularFirestore, AngularFirestoreModule} from '@angular/fire/firestore';
+import {of} from 'rxjs';
+import {SendMessage} from '../../service/send-message.service';
+import { HttpClient, HttpHandler } from '@angular/common/http';
+import {MessagingService} from '../../service/messaging.service';
+import { AngularFireMessaging } from '@angular/fire/messaging';
+
+
+
+export class MatDialogMock {
+  open() {
+    return {
+      afterClosed: () => of({ name: 'some object' })
+    };
+  }
+}
 
 describe('TodoListComponent', () => {
   let component: TaskListComponent;
   let fixture: ComponentFixture<TaskListComponent>;
-  let fbServiceMock: FirebaseService;
-  let afAuthMock: AngularFireAuthModule;
+  let afMock: any;
+  let fbMock: any;
+  let fsMock: any;
+  let fireMessagingMock: any;
+  let messageMock:any;
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
      // fbServiceMock = jasmine.createSpyObj('FirebaseService',['addTask','getProjects']);
@@ -22,12 +41,19 @@ describe('TodoListComponent', () => {
 
       ],
       providers: [
-        FirebaseService,
+        { provide: FirebaseService, useValue: fbMock },
+        { provide: AngularFireAuth, useValue: afMock },
+        { provide: AngularFirestore, useValue: fsMock },
+        {provide: MatDialog, useClass: MatDialogMock},
+        //{provide: SendMessage, useClass: messageMock},
+        SendMessage,
+        HttpClient,
+        HttpHandler,
+        MessagingService,
+        {provide: AngularFireMessaging, useClass: fireMessagingMock},
+        AngularFirestoreModule
 
-        AngularFireAuthModule,
 
-       // {provide: FirebaseService, useValue: fbServiceMock}
-        //{provide: AngularFireAuth, useValue: afAuthMock}
       ]
     })
     .compileComponents();
@@ -35,11 +61,28 @@ describe('TodoListComponent', () => {
 
   beforeEach(() => {
     fixture = TestBed.createComponent(TaskListComponent);
-    afAuthMock = TestBed.get(AngularFireAuth);
-    fbServiceMock = TestBed.get(FirebaseService);
+    afMock = TestBed.get(AngularFireAuth);
+    fbMock = TestBed.get(FirebaseService);
     component = fixture.componentInstance;
+    afMock = {
+
+    };
+    fbMock = {
+      getProjects: () => of(Project[2]),
+
+      changeUserId: () => {},
+
+    };
+    fsMock = {
+
+    };
+    messageMock={};
+    fireMessagingMock={};
+
+
     fixture.detectChanges();
   });
+
 
   it('should create', () => {
     expect(component).toBeTruthy();
@@ -47,11 +90,11 @@ describe('TodoListComponent', () => {
 
   it('should receive a observable',()=>{
 
-    component.addTaskItem();
+
     fixture.detectChanges();
 
     expect(component.project).toBeInstanceOf(Project);
-    })
+    });
 
 
 

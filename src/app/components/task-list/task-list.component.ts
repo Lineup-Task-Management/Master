@@ -26,11 +26,8 @@ import {SendMessage} from '../../service/send-message.service';
 
 
 import {AngularFireAuth} from '@angular/fire/auth';
-import * as firebase from 'firebase';
+
 import {Task} from '../../interfaces/task';
-import {async} from '@angular/core/testing';
-import { TaskLineService } from 'src/app/service/task-line.service';
-import { title } from 'process';
 
 
 @Component({

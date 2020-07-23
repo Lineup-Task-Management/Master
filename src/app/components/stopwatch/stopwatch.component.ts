@@ -20,7 +20,7 @@ startStopwatch() {
     this.startButton = 'Stop';
 
 
-    this.stopwatch = setInterval(() => {
+    setInterval(() => {
       this.secondsOn ++;
       this.showSeconds = new Date(this.secondsOn * 1000).toISOString().substr(11, 8);
       }, 1000);

@@ -96,7 +96,7 @@ updateIndex(index: number){
 
   deleteProject = task => {
   this.firebaseService.deleteProject(task);
-  if(this.indexForProj === 0){
+  if (this.indexForProj === 0){
     this.updateIndex(this.indexForProj++);
   }
   else {
