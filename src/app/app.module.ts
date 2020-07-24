@@ -10,7 +10,7 @@ import {LightDarkComponent} from 'src/app/components/light-dark/light-dark.compo
 import { TaskOperationsComponent } from './components/projects/task-operations.component';
 
 import {MaterialModule} from "./material/material.module";
-
+import {SendMessage} from "./service/send-message.service";
 
 
 import {TaskLineService} from "./service/task-line.service";
@@ -21,9 +21,9 @@ import {DueDateComponent} from "./components/dueDate/dueDate.component";
 import { SideNavComponent } from './components/side-nav/side-nav.component';
 
 
+import { CountdownModule, CountdownConfig } from 'ngx-countdown';
 
-
-
+import { HttpClientModule } from '@angular/common/http';
 
 import { AsyncPipe } from '../../node_modules/@angular/common';
 import { MessagingService } from './service/messaging.service';
@@ -40,6 +40,7 @@ import { ReactiveFormsModule} from '@angular/forms';
 
 import {MatChipsModule} from "@angular/material/chips";
 import {MatRadioModule} from "@angular/material/radio";
+import { StopwatchComponent } from './components/stopwatch/stopwatch.component';
 //import {AngularFireAuth} from '@angular/fire/auth';
 
 
@@ -59,7 +60,8 @@ import {MatRadioModule} from "@angular/material/radio";
     SideNavComponent,
     LoginComponent,
     DialogBoxComponent,
-    
+    StopwatchComponent,
+
 
   ],
   imports: [
@@ -71,20 +73,21 @@ import {MatRadioModule} from "@angular/material/radio";
     DragDropModule,
     DragDropModule,
     ReactiveFormsModule,
-
+    HttpClientModule,
     AngularFireDatabaseModule,
     AngularFireAuthModule,
     AngularFireMessagingModule,
-    AngularFireModule.initializeApp(environment.firebase), 
+    AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     //AngularFireAuth,
     ServiceWorkerModule.register('ngsw-worker.js', {enabled: environment.production}),
     MatChipsModule,
     MatRadioModule,
+    BrowserModule, CountdownModule,
 
   ],
 
-  providers: [TaskLineService,MessagingService,AsyncPipe, DialogBoxService],
+  providers: [TaskLineService,MessagingService,AsyncPipe, DialogBoxService,  SendMessage],
 
   bootstrap: [AppComponent],
 

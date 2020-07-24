@@ -1,42 +1,52 @@
-<p>dialog-box works!</p>
-<h2 mat-dialog-title>{{tasks}} </h2>
-<form [formGroup]="form" class= "normal-form" (ngSubmit)="onSubmit()">      
+
+<h2>{{tasks}} </h2>
+<form [formGroup]="form" class= "normal-form" (ngSubmit)="onSubmit()">
     <mat-grid-list cols ="2" rowHeight = "300px">
     <mat-grid-tile>
         <div class="controles-container">
             <input type="hidden" formControlName="$key">
             <mat-form-field>
-                <input  formControlName= "title" matInput placeholder="Title*">
+                <input  formControlName= "title" matInput placeholder="Title*" required >
                 <mat-error>A Title is required.</mat-error>
             </mat-form-field>
             <mat-form-field>
-                <input  formControlName= "description" matInput placeholder="Description">
+                <input  formControlName= "description" matInput placeholder="Description" required >
             </mat-form-field>
-           
+
         </div>
     </mat-grid-tile>
     <mat-grid-tile>
         <div class="controles-container">
+            <div class="add-bottom-padding">
+                <mat-radio-group  formControlName="priority" required >
+                    <mat-radio-button value="1"> High </mat-radio-button>
+                    <mat-radio-button value="2"> Medium </mat-radio-button>
+                    <mat-radio-button value="3"> Low </mat-radio-button>
+                </mat-radio-group>
+            </div>
+
             <mat-form-field >
-                <mat-select formControlName=" priority" placeholder="Priority">
-                    <mat-option> None </mat-option>
-                    <ng-container *ngFor="let priority of priorities"> 
-                    <mat-option value=" {{priority.id}}">{{priority.value}}</mat-option>
-                    </ng-container>
-                </mat-select>
+              <input  formControlName= "countdownTimerHours" type ="number" required min="0" matInput placeholder="Timer Length: Hours">
             </mat-form-field>
+              <mat-form-field >
+              <input  formControlName= "countdownTimerMinutes" type ="number" required min="0" matInput placeholder="Timer Length: Minutes">
+              </mat-form-field>
+                <mat-form-field >
+              <input  formControlName= "countdownTimerSeconds" type ="number" required min="0" matInput placeholder="Timer Length: Seconds">
+            </mat-form-field>
+
 
             <div class="button-row">
                 <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid" >Submit</button>
                 <button mat-raised-button color="warn" (click)= "onClear()" >Cancel</button>
             </div>
- 
+
         </div>
     </mat-grid-tile>
     </mat-grid-list>
-    
- 
+
+
 </form>
- 
- 
+
+
 

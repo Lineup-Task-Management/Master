@@ -18,7 +18,7 @@ export class DialogBoxService {
  
   form: FormGroup;
   tasks: Observable<Task[]>;
-  //taskList: AngularFireList<any>;
+  taskList: AngularFireList<any>;
   taskCollection: AngularFirestoreCollection<Task>;
   projectCollection: AngularFirestoreCollection<Project>
   userId: string;
@@ -42,10 +42,10 @@ export class DialogBoxService {
  
 
 
-   /*initializeFormGroup(){
+   initializeFormGroup(){
     this.form.setValue({
       $key: null,
-      title: '',              // This is not needed, initialized at declaration in dialog-box.component
+      title: '',
       description: '',
       location: '',
       level: '1',
@@ -54,7 +54,7 @@ export class DialogBoxService {
 
     })
 
-  }*/
+  }
 
   getTasks(){
     return this.tasks;
@@ -95,7 +95,7 @@ export class DialogBoxService {
   
   
   
-  //These functions are not needed. They are used for Firebase real-time database
+  
   
   /*insertTask(task){
     this.taskList.push({

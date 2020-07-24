@@ -1,12 +1,12 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import * as firebase from "firebase";
-import {AngularFireAuth} from "@angular/fire/auth";
-import * as firebaseui from "firebaseui";
+import * as firebase from 'firebase';
+import {AngularFireAuth} from '@angular/fire/auth';
+import * as firebaseui from 'firebaseui';
 
-import {AngularFirestore} from "@angular/fire/firestore";
-import {BehaviorSubject, merge} from "rxjs";
-import {FirebaseService} from "../../service/firebase.service";
-import {take, tap} from "rxjs/operators";
+import {AngularFirestore} from '@angular/fire/firestore';
+
+import {FirebaseService} from '../../service/firebase.service';
+
 
 
 
@@ -17,39 +17,34 @@ import {take, tap} from "rxjs/operators";
 })
 export class LoginComponent implements OnInit {
 
-  // userChange:boolean = false;
-  // private userChangeSource = new BehaviorSubject<boolean>(this.userChange);
-  // currentUserChange = this.userChangeSource.asObservable();
+
 
   ui: firebaseui.auth.AuthUI;
-  userId:string;
-  public isLoggedIn: boolean = false;
+  userId: string;
+  email: string;
+  user: string;
+  public isLoggedIn = false;
 
 
 
   constructor(public afAuth: AngularFireAuth,
               private db: AngularFirestore,
               private fbService: FirebaseService) {
- this.afAuth.authState.subscribe(user =>{
-   if(user) this.userId = user.uid
- })
+
 }
 
   ngOnInit(): void {
 
 
+    const uiConfig = {
 
-
-
-    const uiConfig ={
-
-      signInOptions:[
+      signInOptions: [
         firebase.auth.GoogleAuthProvider.PROVIDER_ID,
 
 
       ],
-      callbacks:{
-        signInSuccessWithAuthResult:  this.onLoginSuccessful
+      callbacks: {
+        signInSuccessWithAuthResult: this.onLoginSuccessful
           .bind(this)
 
       }
@@ -57,9 +52,21 @@ export class LoginComponent implements OnInit {
     };
 
 
-
     this.ui = new firebaseui.auth.AuthUI(this.afAuth.auth);
-  this.ui.start('#firebaseui-auth-container', uiConfig);
+    this.ui.start('#firebaseui-auth-container', uiConfig);
+
+    firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {
+
+        // Show user signed in screen. Reset if user just signed in. (Single page app)
+        this.ui.reset();
+      } else {
+
+        // No user signed in, render sign-in UI.
+        this.ui.start('#firebaseui-auth-container', uiConfig);
+      }
+    });
+
 
   }
 
@@ -70,41 +77,45 @@ export class LoginComponent implements OnInit {
 
     this.isLoggedIn = true;
     this.userId = firebase.auth().currentUser.uid;
+    this.email = firebase.auth().currentUser.email;
+    this.user = firebase.auth().currentUser.displayName;
 
-     this.db.collection('Users').doc(this.userId).snapshotChanges().subscribe(res =>{
+    this.db.collection('Users').doc(this.userId).snapshotChanges().subscribe(res => {
        if (!res.payload.exists)
        {
          this.db.collection('Users').doc(this.userId).set({
-           uid: this.userId
-         },{merge: true})
+           uid: this.userId,
+           email: firebase.auth().currentUser.email
+         }, {merge: true});
 
-         this.db.doc('Users/'+this.userId+'/projects/project1').set({
-              id:"1",
-               title:"First Project",
-               tasks:Array<any>({
-                 title:"Whats your first task?",
-                 description:"click the add the new task button",
+         this.db.doc('Users/' + this.userId + '/projects/project1').set({
+              id: '1',
+               title: 'First Project',
+               tasks: Array<any>({
+                 title: 'Whats your first task?',
+                 description: 'click the add the new task button',
                  completed: false,
                  editing: false,
                  priority: 1,
+                 countdownTimer: 10,
                })
-             },{merge: true});
+             }, {merge: true});
 
 
        }
        else{
          this.fbService.changeUserId(this.userId);
-         console.log("already Exists");
+         console.log('already Exists');
 
          console.log(this.fbService.userId);
        }
 
        }
-       )
+       );
 
 
 
-        //this.fbService.getProjects();
+        // this.fbService.getProjects();
 
       }
 
@@ -123,7 +134,7 @@ export class LoginComponent implements OnInit {
 
     this.isLoggedIn = false;
 
-    this.fbService.changeUserId("2CThQyuj97facovRlrzWh2J8gMn1");
+    this.fbService.changeUserId('2CThQyuj97facovRlrzWh2J8gMn1');
 
   }
 
