@@ -85,11 +85,31 @@ describe("FirebaseService", () => {
 
   });
 
-  it ('should be defined ', () => {
+  it ('Firebase Service should be defined ', () => {
     expect(service).toBeDefined();
+
 
   });
 
+  it ('database collection is initialized ', () => {
+    expect(service.db).toBeDefined();
+
+  });
+
+  it ('database userID created ', () => {
+    expect(service.currentUserId).toBeDefined()
+
+  });
+
+  it ('initialize a stub project to use with unit test', () => {
+    expect(serviceStub).toBeDefined();
+
+  });
+
+  it ('Angular Firestore Object should be defined ', () => {
+    expect(aFS).toBeDefined();
+
+  });
   /*
   it ('deletes an item to Firebase', ()=>{
     spyOn(service.addProject('Test'),).and.callThrough
