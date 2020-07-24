@@ -51,7 +51,7 @@ describe('TaskOperationsComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should change index', () => {
+  it('should create an', () => {
     expect(component.indexForProj).toBe(0);
     component.updateIndex(2);
     expect(component.indexForProj).toBe(2);
