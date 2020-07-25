@@ -4,7 +4,7 @@ import { TaskListComponent } from './task-list.component';
 import {Project} from "../../interfaces/Project";
 import {MatDialog} from '@angular/material/dialog'
 import {FirebaseService} from "../../service/firebase.service";
-import {AngularFireAuth,} from "@angular/fire/auth";
+import {AngularFireAuth} from "@angular/fire/auth";
 import { AngularFirestore, AngularFirestoreModule} from '@angular/fire/firestore';
 import {of} from 'rxjs';
 import {SendMessage} from '../../service/send-message.service';
@@ -29,7 +29,7 @@ describe('TodoListComponent', () => {
   let fbMock: any;
   let fsMock: any;
   let fireMessagingMock: any;
-  let messageMock:any;
+  let messageMock: any;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -45,7 +45,7 @@ describe('TodoListComponent', () => {
         { provide: AngularFireAuth, useValue: afMock },
         { provide: AngularFirestore, useValue: fsMock },
         {provide: MatDialog, useClass: MatDialogMock},
-        //{provide: SendMessage, useClass: messageMock},
+        // {provide: SendMessage, useClass: messageMock},
         SendMessage,
         HttpClient,
         HttpHandler,
@@ -76,8 +76,8 @@ describe('TodoListComponent', () => {
     fsMock = {
 
     };
-    messageMock={};
-    fireMessagingMock={};
+    messageMock = {};
+    fireMessagingMock = {};
 
 
     fixture.detectChanges();
@@ -88,7 +88,7 @@ describe('TodoListComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should receive a observable',()=>{
+  it('should receive a observable', () => {
 
 
     fixture.detectChanges();

@@ -257,6 +257,7 @@ drop(event: CdkDragDrop<string[]>) {
    * if they are not equal then it will update tempuid and get a new observable from the database.
    * This checks if the observable we were working with has closed and will get a new one.
    */
+
   checkUser(){
 
     console.log('checking user', this.userId, this.tempUid);
@@ -297,7 +298,6 @@ drop(event: CdkDragDrop<string[]>) {
    *
    */
 
-
   queueByCompleted(){
 
 
@@ -309,8 +309,9 @@ drop(event: CdkDragDrop<string[]>) {
   /**
    * @name queueByNew
    * queueByNew sort the array by the id of the task.
-   * the id is equal to the numerical format of the date in miliseconds of when the task was created.
+   * the id is equal to the numerical format of the date in milliseconds of when the task was created.
    */
+
   queueByNew(){
     this.project[this.indexForProj].tasks.sort((n1, n2) => {
       if (n1.id < n2.id) {
@@ -330,13 +331,16 @@ drop(event: CdkDragDrop<string[]>) {
    * @name queueByAll
    * queueByAll will refresh the observable to bring the filtered out completed tasks back into view.
    */
+
   queueByAll(){
     this.getData();
   }
   /**
+   *
    * @name queueByOld
-   * queueByOld sorts array by olds tasks first by using id.
+   * queueByOld sorts array by old tasks first by using id.
    */
+
   queueByOld(){
     this.project[this.indexForProj].tasks.sort((n1, n2) => {
       if (n1.id > n2.id) {
