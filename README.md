@@ -2,6 +2,18 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.7.
 
+## Purpose
+
+This project looks to make the organization of one's tasks for everyday projects an easy and managable process. This application will provide users the capability to make projects that contain many tasks. These tasks have helpful features like a timer or stopwatch so that you can optimize how you spend your time. Our focus with this application was to make it as fast, simple, and seemless as possible.
+
+## Functionality 
+
+Users can log in with their google account to sync to our firebase database. They will be able to save their specific projects and tasks to use on a later date.
+
+
+
+
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
