@@ -95,6 +95,14 @@ describe('TodoListComponent', () => {
 
     expect(component.project).toBeInstanceOf(Project);
     });
+  it('should receive a observable',()=>{
+
+    component.queueByOld();
+    fixture.detectChanges();
+    expect(component.project[0].id).toBe("1");
+    expect(component.project).toBeInstanceOf(Project);
+  });
+
 
 
 

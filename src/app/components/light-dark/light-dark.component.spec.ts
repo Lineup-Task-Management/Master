@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { LightDarkComponent } from './light-dark.component';
 
-xdescribe('LightDarkComponent', () => {
+describe('LightDarkComponent', () => {
   let component: LightDarkComponent;
   let fixture: ComponentFixture<LightDarkComponent>;
 
@@ -21,5 +21,13 @@ xdescribe('LightDarkComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should change boolean', () => {
+      expect(component.theme).toBeFalsy();
+      component.themeChange();
+      fixture.detectChanges();
+      expect(component.theme).toBeTruthy();
+
   });
 });

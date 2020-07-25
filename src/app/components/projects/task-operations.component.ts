@@ -28,10 +28,16 @@ export class TaskOperationsComponent implements OnInit {
   userId: string;
   tempUid: string;
   items: Observable<Project[]>;
-  email: string;
+
 
   @Output() updateProjIndex: EventEmitter<number> = new EventEmitter<number>();
 
+  /**
+   * OnInit
+   * Grabs data from the database and saves it to this component as an observable.
+   * When the user changes the component will detect that and change accordingly.
+   *
+   */
   ngOnInit() {
 
     this.firebaseService.currentUserId.subscribe(userId => {
@@ -54,11 +60,13 @@ export class TaskOperationsComponent implements OnInit {
         this.checkUser();
       }
     });
-
-
   }
 
-
+  /**
+   * @name getProjects
+   * gets data from the database and saves
+   *
+   */
   getProjects() {
     this.items = this.firebaseService.getProjects();
     this.items
@@ -71,8 +79,6 @@ export class TaskOperationsComponent implements OnInit {
       }));
   }
 
-
-
 addProject(){
 
   const title = '';
@@ -82,8 +88,6 @@ addProject(){
     return;
   }
   this.firebaseService.addProject(result);
-
-
 
 }
 
@@ -111,9 +115,5 @@ updateIndex(index: number){
       this.getProjects();
       console.log('checking user', this.userId, this.tempUid);
     }
-
-
   }
-
-
 }

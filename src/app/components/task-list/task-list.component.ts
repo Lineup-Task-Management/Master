@@ -46,7 +46,6 @@ export class TaskListComponent implements OnInit {
   items: Observable<Project[]>;
 
   theme = false;
-  // Project[];
   @Input() indexForProj: number;
 
   tempUid: string;
@@ -68,8 +67,6 @@ export class TaskListComponent implements OnInit {
               private msg: SendMessage,
 
               ){
-
-
   }
   /**
    * @name getData
@@ -90,8 +87,6 @@ export class TaskListComponent implements OnInit {
       }));
 
   }
-
-
 
   ngOnInit(): void {
 
@@ -119,11 +114,6 @@ export class TaskListComponent implements OnInit {
 
 }
 
-
-
-
-
-
 deleteTask(task){
   this.firebaseService.deleteTask(this.project[this.indexForProj].id, task);
 }
@@ -132,8 +122,6 @@ deleteTask(task){
 completeTask(task){
   this.firebaseService.completeTask(this.project[this.indexForProj].id, task);
 }
-
-
 
 drop(event: CdkDragDrop<string[]>) {
     moveItemInArray(this.project[this.indexForProj].tasks, event.previousIndex, event.currentIndex);
@@ -186,15 +174,8 @@ drop(event: CdkDragDrop<string[]>) {
           if (tempTask.title !== null || tempTask.description!== null || tempTask.priority === 0){
             this.firebaseService.updateTasks(this.project[this.indexForProj].id, task, tempTask);
           }
-
       }
-
     });
-
-
-
-
-
 
   }
 /**
@@ -275,8 +256,6 @@ drop(event: CdkDragDrop<string[]>) {
    */
 
   queueByPriority(){
-
-
 
     this.project[this.indexForProj].tasks.sort((n1, n2) => {
       if (n1.priority > n2.priority) {
@@ -363,11 +342,6 @@ drop(event: CdkDragDrop<string[]>) {
     }
 
     console.log('Actions', e);
-  }
-
-  onClick(){
-
-
   }
 
 }
