@@ -59,7 +59,7 @@ export class TaskOperationsComponent implements OnInit {
   }
 
 
-  getProjects() {
+getProjects() {
     this.items = this.firebaseService.getProjects();
     this.items
       .pipe(takeWhile(value => this.userId === this.tempUid))
@@ -68,8 +68,8 @@ export class TaskOperationsComponent implements OnInit {
         console.log(result);
         console.log(this.projects);
 
-      }));
-  }
+    }));
+}
 
 
 
@@ -94,7 +94,7 @@ updateIndex(index: number){
 
 }
 
-  deleteProject = task => {
+deleteProject = task => {
   this.firebaseService.deleteProject(task);
   if (this.indexForProj === 0){
     this.updateIndex(this.indexForProj++);
@@ -102,15 +102,15 @@ updateIndex(index: number){
   else {
     this.updateIndex(this.indexForProj--);
   }
-  }
+}
 
-  checkUser(){
+checkUser(){
+  console.log('checking user', this.userId, this.tempUid);
+  if (this.userId !== this.tempUid){
+    this.tempUid = this.userId;
+    this.getProjects();
     console.log('checking user', this.userId, this.tempUid);
-    if (this.userId !== this.tempUid){
-      this.tempUid = this.userId;
-      this.getProjects();
-      console.log('checking user', this.userId, this.tempUid);
-    }
+  }
 
 
   }

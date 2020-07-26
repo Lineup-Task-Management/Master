@@ -37,7 +37,7 @@ describe('AppComponent', () => {
     expect(app.title).toEqual('task-management-angular');
   });
 
-  it('Should change theme boolean from false to true',() =>{
+  it('Should change theme boolean from false to true', () => {
     const fixture = TestBed.createComponent(AppComponent);
 
     const app = fixture.componentInstance;
@@ -47,7 +47,7 @@ describe('AppComponent', () => {
     expect(app.theme).toBeTruthy();
 
   });
-  it('Should change opened boolean from false to true',() =>{
+  it('Should change opened boolean from false to true', () => {
     const fixture = TestBed.createComponent(AppComponent);
 
     const app = fixture.componentInstance;
@@ -57,7 +57,7 @@ describe('AppComponent', () => {
     expect(app.opened).toBeTruthy();
 
   });
-  it('Should expect index to start at 0 and change project index from 0 to 3',() =>{
+  it('Should expect index to start at 0 and change project index from 0 to 3', () => {
     const fixture = TestBed.createComponent(AppComponent);
 
     const app = fixture.componentInstance;

@@ -1,4 +1,4 @@
-import { FirebaseService} from './firebase.service'
+import { FirebaseService} from './firebase.service';
 import {AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument} from '@angular/fire/firestore';
 import {Task} from '../interfaces/task';
 
@@ -44,6 +44,7 @@ describe('FirebaseService', () => {
   let aFCMock: any;
   let fakeDoc: any;
   let task: any;
+  let project: any;
 
 
   beforeEach(async(() => {
@@ -111,11 +112,6 @@ describe('FirebaseService', () => {
 
   });
 
-  it ('a new task should be created  ', () => {
-    expect(service.db).toBeDefined();
-
-  });
-
   /*
   it ('deletes an item to Firebase', ()=>{
     spyOn(service.addProject('Test'),).and.callThrough
@@ -123,5 +119,20 @@ describe('FirebaseService', () => {
     expect(service.db.doc('').set).toHaveBeenCalled();
   });
 */
+
+ /*Testing a new task can be initialized/created */
+  it ('a new task should be created  ', () => {
+    expect(service.db).toBeDefined(task);
+  });
+
+ /*Checking whether a new project can be initialized and created */
+  it ('a new project should be created  ', () => {
+    expect(service.db).toBeDefined(project);
+  });
+
+   /*Checking whether user is using an Anonymous ID */
+  it ('should have a unique id ', () => {
+    expect(input.id).not.toEqual('2CThQyuj97facovRlrzWh2J8gMn1');
+  });
 
 });

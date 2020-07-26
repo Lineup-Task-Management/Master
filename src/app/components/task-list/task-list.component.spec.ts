@@ -22,7 +22,7 @@ export class MatDialogMock {
   }
 }
 
-describe('TodoListComponent', () => {
+xdescribe('TodoListComponent', () => {
   let component: TaskListComponent;
   let fixture: ComponentFixture<TaskListComponent>;
   let afMock: any;

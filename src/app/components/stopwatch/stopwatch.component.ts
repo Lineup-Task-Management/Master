@@ -18,8 +18,6 @@ startStopwatch() {
   this.isOn =  ! this.isOn;
   if (this.isOn){
     this.startButton = 'Stop';
-
-
     setInterval(() => {
       this.secondsOn ++;
       this.showSeconds = new Date(this.secondsOn * 1000).toISOString().substr(11, 8);
@@ -30,14 +28,13 @@ startStopwatch() {
       }
 
     }
-
-  resetStopwatch(){
+resetStopwatch(){
     this.isOn = false;
     this.startButton = 'Start';
     this.secondsOn = 0;
     clearInterval(this.stopwatch);
 
-    }
+  }
   ngOnDestroy() {
     clearInterval(this.stopwatch);
     }
