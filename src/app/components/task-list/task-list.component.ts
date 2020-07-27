@@ -26,11 +26,8 @@ import {SendMessage} from '../../service/send-message.service';
 
 
 import {AngularFireAuth} from '@angular/fire/auth';
-import * as firebase from 'firebase';
+
 import {Task} from '../../interfaces/task';
-import {async} from '@angular/core/testing';
-import { TaskLineService } from 'src/app/service/task-line.service';
-import { title } from 'process';
 
 
 @Component({
@@ -49,7 +46,6 @@ export class TaskListComponent implements OnInit {
   items: Observable<Project[]>;
 
   theme = false;
-  // Project[];
   @Input() indexForProj: number;
 
   tempUid: string;
@@ -63,27 +59,21 @@ export class TaskListComponent implements OnInit {
 
 
 
-  constructor(private tlService: TaskLineService,
-
-              public firebaseService: FirebaseService,
+  constructor(public firebaseService: FirebaseService,
               private db: AngularFirestore,
               private dialog: MatDialog,
               private afAuth: AngularFireAuth,
               @Inject(LOCALE_ID) private locale: string,
               private msg: SendMessage,
 
-
-
-
-  ){  }
-
-
-
-
-
-
-
-
+              ){
+  }
+  /**
+   * @name getData
+   * getData will get the get an Projects[] observable from the firebase service. Which had a database collection
+   * mapped to a project data type. it then sets a local projects array equal to the data in the observable
+   * from firebase.
+   */
   getData(){
 
     this.items = this.firebaseService.getProjects();
@@ -97,9 +87,6 @@ export class TaskListComponent implements OnInit {
       }));
 
   }
-
-
-  // this.tasks = this.tasks.filter(tasks => tasks.id != id);
 
   ngOnInit(): void {
 
@@ -127,23 +114,25 @@ export class TaskListComponent implements OnInit {
 
 }
 
-
-
-
 deleteTask(task){
   this.firebaseService.deleteTask(this.project[this.indexForProj].id, task);
 }
+
 
 completeTask(task){
   this.firebaseService.completeTask(this.project[this.indexForProj].id, task);
 }
 
-
-
 drop(event: CdkDragDrop<string[]>) {
     moveItemInArray(this.project[this.indexForProj].tasks, event.previousIndex, event.currentIndex);
   }
 
+  /**
+   * @name onEdit
+   * onEdit task item will take input from the user, make a new task object and push it into the local data
+   * after its in the local data we use the firebase service method updateTask to add it to the data base and remove its previous version.
+   *
+   */
 
   onEdit(task){
     const dialogConfig = new MatDialogConfig();
@@ -157,10 +146,6 @@ drop(event: CdkDragDrop<string[]>) {
       priority: task.priority,
 
     };
-
-
-
-
 
     const dialogRef = this.dialog.open(DialogBoxComponent, dialogConfig);
 
@@ -189,17 +174,16 @@ drop(event: CdkDragDrop<string[]>) {
           if (tempTask.title !== null || tempTask.description!== null || tempTask.priority === 0){
             this.firebaseService.updateTasks(this.project[this.indexForProj].id, task, tempTask);
           }
-
       }
-
     });
 
-
-
-
-
-
   }
+/**
+ * @name onCreate
+ * onCreate will take input from the user, make a new task object and push it into the local data
+ * after its in the local data we use the firebase service method addTask to add it to the data base.
+ *
+ */
 
   onCreate(){
     const dialogConfig = new MatDialogConfig();
@@ -248,7 +232,12 @@ drop(event: CdkDragDrop<string[]>) {
 
   }
 
-
+  /**
+   * @name checkUser
+   * checkUser will see if the value for userId has changed by comparing it to the local tempUid.
+   * if they are not equal then it will update tempuid and get a new observable from the database.
+   * This checks if the observable we were working with has closed and will get a new one.
+   */
   checkUser(){
 
     console.log('checking user', this.userId, this.tempUid);
@@ -260,11 +249,13 @@ drop(event: CdkDragDrop<string[]>) {
     }
   }
 
-
+  /**
+   * @name queueByPriority
+   * queueByPriority will sort the local data by priority
+   *
+   */
 
   queueByPriority(){
-
-
 
     this.project[this.indexForProj].tasks.sort((n1, n2) => {
       if (n1.priority > n2.priority) {
@@ -279,6 +270,12 @@ drop(event: CdkDragDrop<string[]>) {
     });
 
   }
+  /**
+   * @name queueByCompleted
+   * queueByCompleted will filter out all completed tasks
+   *
+   */
+
 
   queueByCompleted(){
 
@@ -287,6 +284,12 @@ drop(event: CdkDragDrop<string[]>) {
     this.project[this.indexForProj].tasks = this.tempProject[this.indexForProj].tasks.filter(tasks => tasks.completed != true);
     console.log(this.tempProject, this.project);
   }
+
+  /**
+   * @name queueByNew
+   * queueByNew sort the array by the id of the task.
+   * the id is equal to the numerical format of the date in miliseconds of when the task was created.
+   */
   queueByNew(){
     this.project[this.indexForProj].tasks.sort((n1, n2) => {
       if (n1.id < n2.id) {
@@ -300,10 +303,19 @@ drop(event: CdkDragDrop<string[]>) {
       return 0;
     });
   }
+
+
+  /**
+   * @name queueByAll
+   * queueByAll will refresh the observable to bring the filtered out completed tasks back into view.
+   */
   queueByAll(){
     this.getData();
   }
-
+  /**
+   * @name queueByOld
+   * queueByOld sorts array by olds tasks first by using id.
+   */
   queueByOld(){
     this.project[this.indexForProj].tasks.sort((n1, n2) => {
       if (n1.id > n2.id) {
@@ -330,11 +342,6 @@ drop(event: CdkDragDrop<string[]>) {
     }
 
     console.log('Actions', e);
-  }
-
-  onClick(){
-
-
   }
 
 }

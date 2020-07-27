@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 
 import { DialogBoxService } from './dialog-box.service';
 
-describe('DialogBoxService', () => {
+xdescribe('DialogBoxService', () => {
   let service: DialogBoxService;
 
   beforeEach(() => {

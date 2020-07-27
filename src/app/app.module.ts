@@ -79,7 +79,6 @@ import { StopwatchComponent } from './components/stopwatch/stopwatch.component';
     AngularFireMessagingModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
-    //AngularFireAuth,
     ServiceWorkerModule.register('ngsw-worker.js', {enabled: environment.production}),
     MatChipsModule,
     MatRadioModule,
