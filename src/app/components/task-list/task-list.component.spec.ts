@@ -19,7 +19,28 @@ describe('TodoListComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+ 
+
+  it('onCreate should pop up form'), () => {
+    expect(component.onCreate()).toBeTrue()
+  }
+
+  it('onEdit should should pop up dialogue '), () => {
+    
+    expect(component.onEdit(new Object)).toBeTrue()
+  }
+
+  it('drop should move item', () => {
+    
+    expect(component.drop( Object[0])).toBeTrue()
   });
+
+  it('click function should log string', () => {
+    
+    expect(component.onClick()).toEqual('Clicked')
+  });
+
+
+
+
 });

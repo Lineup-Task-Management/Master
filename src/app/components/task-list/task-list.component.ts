@@ -334,6 +334,8 @@ drop(event: CdkDragDrop<string[]>) {
 
   onClick(){
 
+    console.log('clicked');
+
 
   }
 
