@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { LoginComponent } from './login.component';
 
-xdescribe('LoginComponent', () => {
+describe('LoginComponent', () => {
   let component: LoginComponent;
   let fixture: ComponentFixture<LoginComponent>;
 
@@ -19,7 +19,25 @@ xdescribe('LoginComponent', () => {
     fixture.detectChanges();
   });
 
+
+  it('should signOut', () => {
+    expect(component.isLoggedIn).toBeTrue();
+    component.signOut();
+    expect(component).toBeFalsy();
+  } );
+
   it('should create', () => {
-    expect(component).toBeTruthy();
+    expect(component).toBeFalsy();
   });
+
+  it('should refresh', () => {
+    expect(component).toBeFalsy();
+    component.refresh();
+    expect(component).toBeTruthy();
+  } );
+
+
+
+
+
 });

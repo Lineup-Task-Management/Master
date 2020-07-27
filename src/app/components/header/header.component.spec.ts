@@ -1,8 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { HeaderComponent } from './header.component';
+import { Component } from '@angular/core';
 
-xdescribe('HeaderComponent', () => {
+describe('HeaderComponent', () => {
   let component: HeaderComponent;
   let fixture: ComponentFixture<HeaderComponent>;
 
@@ -22,4 +23,13 @@ xdescribe('HeaderComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+
+it('should change boolean', () => {
+
+  expect(component).toBeFalsy();
+  component.onThemeChange;
+  fixture.detectChanges();
+  expect(component.theme).toBeTruthy();
+});
 });
