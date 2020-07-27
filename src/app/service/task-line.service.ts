@@ -21,7 +21,7 @@ export class TaskLineService {
   constructor() { }
 
   changeProjects(projects: Project[]){
-    this.projectsSource.next(projects)
+    this.projectsSource.next(projects);
   }
 
 

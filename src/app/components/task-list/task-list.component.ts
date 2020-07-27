@@ -141,7 +141,7 @@ drop(event: CdkDragDrop<string[]>) {
 
 
     dialogConfig.data = {
-      title: task.title ,
+      title: task.title,
       description: task.description,
       priority: task.priority,
 
@@ -171,7 +171,7 @@ drop(event: CdkDragDrop<string[]>) {
         console.log(tempTask);
 
         if (tempTask.title !== '' && tempTask.description !== '' ) {
-          if (tempTask.title !== null || tempTask.description!== null || tempTask.priority === 0){
+          if (tempTask.title !== null || tempTask.description !== null || tempTask.priority === 0){
             this.firebaseService.updateTasks(this.project[this.indexForProj].id, task, tempTask);
           }
       }
@@ -207,21 +207,21 @@ drop(event: CdkDragDrop<string[]>) {
               const hours = Number(data.countdownTimerHours) * 3600;
               const minutes = Number(data.countdownTimerMinutes) * 60;
               const seconds = Number(data.countdownTimerSeconds);
-        if (data.title !== '' && data.description !== '' ) {
-          if (data.title !== null || data.description !== null || data.priority === 0) {
-            this.project[this.indexForProj].tasks.push({
-              id: '' + date.getTime(),
-              title: data.title,
-              description: data.description,
-              completed: false,
-              editing: false,
-              priority: Number(data.priority),
-              countdownTimer: hours + minutes + seconds,
+              if (data.title !== '' && data.description !== '' ) {
+                if (data.title !== null || data.description !== null || data.priority === 0) {
+                  this.project[this.indexForProj].tasks.push({
+                    id: '' + date.getTime(),
+                    title: data.title,
+                    description: data.description,
+                    completed: false,
+                    editing: false,
+                    priority: Number(data.priority),
+                    countdownTimer: hours + minutes + seconds,
 
-            });
-          }
-        }
-        if (data.title !== '' && data.description !== '' ) {
+                  });
+                }
+              }
+              if (data.title !== '' && data.description !== '' ) {
           if (data.title !== null || data.description !== null || data.priority === 0) {
             this.firebaseService.addTask(this.project[this.indexForProj].tasks, this.project[this.indexForProj].id);
           }}
@@ -238,6 +238,7 @@ drop(event: CdkDragDrop<string[]>) {
    * if they are not equal then it will update tempuid and get a new observable from the database.
    * This checks if the observable we were working with has closed and will get a new one.
    */
+
   checkUser(){
 
     console.log('checking user', this.userId, this.tempUid);
@@ -276,7 +277,6 @@ drop(event: CdkDragDrop<string[]>) {
    *
    */
 
-
   queueByCompleted(){
 
 
@@ -288,8 +288,9 @@ drop(event: CdkDragDrop<string[]>) {
   /**
    * @name queueByNew
    * queueByNew sort the array by the id of the task.
-   * the id is equal to the numerical format of the date in miliseconds of when the task was created.
+   * the id is equal to the numerical format of the date in milliseconds of when the task was created.
    */
+
   queueByNew(){
     this.project[this.indexForProj].tasks.sort((n1, n2) => {
       if (n1.id < n2.id) {
@@ -309,13 +310,17 @@ drop(event: CdkDragDrop<string[]>) {
    * @name queueByAll
    * queueByAll will refresh the observable to bring the filtered out completed tasks back into view.
    */
+
   queueByAll(){
     this.getData();
   }
+
   /**
+   *
    * @name queueByOld
-   * queueByOld sorts array by olds tasks first by using id.
+   * queueByOld sorts array by old tasks first by using id.
    */
+
   queueByOld(){
     this.project[this.indexForProj].tasks.sort((n1, n2) => {
       if (n1.id > n2.id) {

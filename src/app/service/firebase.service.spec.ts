@@ -1,4 +1,4 @@
-import { FirebaseService} from "./firebase.service"
+import { FirebaseService} from './firebase.service';
 import {AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument} from '@angular/fire/firestore';
 import {Task} from '../interfaces/task';
 
@@ -10,7 +10,7 @@ import { TaskOperationsComponent } from '../components/projects/task-operations.
 import { TaskListComponent } from '../components/task-list/task-list.component';
 
 
-const input ={
+const input = {
   id: 'Test',
   title: 'Test',
   tasks: {
@@ -24,17 +24,17 @@ const input ={
 
   }
 
-const data = Observable.create(input)
+const data = Observable.create(input);
 
 const collectionStub = {
   valueChanges: jasmine.createSpy('valueChanges').and.returnValue(data)
-}
+};
 
-const angularFiresotreStub = {
+const angularFirestoreStub = {
   collection: jasmine.createSpy('collection').and.returnValue(collectionStub)
-}
+};
 
-describe("FirebaseService", () => {
+describe('FirebaseService', () => {
 
   let service: FirebaseService;
   let aFS: AngularFirestore;
@@ -44,6 +44,7 @@ describe("FirebaseService", () => {
   let aFCMock: any;
   let fakeDoc: any;
   let task: any;
+  let project: any;
 
 
   beforeEach(async(() => {
@@ -75,7 +76,7 @@ describe("FirebaseService", () => {
   beforeEach(() => {
     service = TestBed.get(FirebaseService);
     aFS = TestBed.get(AngularFirestore)
-    //fakeDoc= TestBed.inject(AngularFirestoreDocument);
+    // fakeDoc= TestBed.inject(AngularFirestoreDocument);
 
   });
 
@@ -97,7 +98,7 @@ describe("FirebaseService", () => {
   });
 
   it ('database userID created ', () => {
-    expect(service.currentUserId).toBeDefined()
+    expect(service.currentUserId).toBeDefined();
 
   });
 
@@ -110,13 +111,28 @@ describe("FirebaseService", () => {
     expect(aFS).toBeDefined();
 
   });
+
   /*
   it ('deletes an item to Firebase', ()=>{
     spyOn(service.addProject('Test'),).and.callThrough
     service.addProject('Test');
     expect(service.db.doc('').set).toHaveBeenCalled();
-
   });
 */
+
+ /*Testing a new task can be initialized/created */
+  it ('a new task should be created  ', () => {
+    expect(service.db).toBeDefined(task);
+  });
+
+ /*Checking whether a new project can be initialized and created */
+  it ('a new project should be created  ', () => {
+    expect(service.db).toBeDefined(project);
+  });
+
+   /*Checking whether user is using an Anonymous ID */
+  it ('should have a unique id ', () => {
+    expect(input.id).not.toEqual('2CThQyuj97facovRlrzWh2J8gMn1');
+  });
 
 });

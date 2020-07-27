@@ -15,7 +15,7 @@ import { Project } from '../interfaces/Project';
   providedIn: 'root'
 })
 export class DialogBoxService {
- 
+
   form: FormGroup;
   tasks: Observable<Task[]>;
   taskList: AngularFireList<any>;
@@ -25,13 +25,13 @@ export class DialogBoxService {
 
   constructor(
               private firestore: AngularFirestore,
-              
+
               ) { this.projectCollection = this.firestore.collection('items');
                 //this.tasks=this.firestore.collection('Users/'+this.userId+'/projects').valueChanges();
                /* this.tasks = this.projectCollection.snapshotChanges().pipe(map(changes => {
                   return changes.map(a => {
                     const data = a.payload.doc.data()as Task;
-            
+
                     data.id = a.payload.doc.id;
                     console.log(data);
                     return data;
@@ -39,7 +39,6 @@ export class DialogBoxService {
                 })); */
   }
 
- 
 
 
    initializeFormGroup(){
@@ -58,9 +57,8 @@ export class DialogBoxService {
 
   getTasks(){
     return this.tasks;
-    
-    //this.taskList = this.firebase.list('tasklist')
-    //return this.taskList.snapshotChanges();
+    // this.taskList = this.firebase.list('tasklist')
+    // return this.taskList.snapshotChanges();
 
   }
 
@@ -68,35 +66,36 @@ export class DialogBoxService {
 
     this.firestore.collection('Users/'+this.userId+'/projects').doc(id).set({
       tasks: task,
-    },{merge:true});
+    },
+    {merge: true});
 
   }
 
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   /*insertTask(task){
     this.taskList.push({
       title: task.title,
@@ -124,4 +123,4 @@ export class DialogBoxService {
      this.taskList.remove($key);
    }*/
 
-} 
+}

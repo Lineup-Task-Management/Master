@@ -18,7 +18,7 @@ export class AppComponent {
   isLoggedIn: boolean = false;
   theme: boolean = false;
   changeTheme1: { emit: (arg0: boolean) => void; }
-  indexForProj: number =0;
+  indexForProj: number = 0;
   opened = false;
 
 
@@ -29,16 +29,15 @@ export class AppComponent {
 
     ) {
 
-
-     }
+    }
   ngOnInit() {
-    this.messagingService.requestPermission()
-    this.messagingService.receiveMessage()
+    this.messagingService.requestPermission();
+    this.messagingService.receiveMessage();
     this.message = this.messagingService.currentMessage;
 
   }
 
-  onThemeChange(value :boolean) {
+  onThemeChange(value: boolean) {
     this.theme = value;
 
 
@@ -50,7 +49,7 @@ export class AppComponent {
 
 
   }
-  onIndexChange(value :number) {
+  onIndexChange(value: number) {
     this.indexForProj = value;
   }
 
