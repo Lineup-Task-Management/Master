@@ -1,8 +1,10 @@
-# \[!\[Build Status\](https://travis-ci.com/Lineup-Task-Management/Master.svg?branch=master)\](https://travis-ci.com/Lineup-Task-Management/Master)
 
 # Lineup Task Management Application (Task Management Angular)
+[![Build Status](https://travis-ci.com/Lineup-Task-Management/Master.svg?branch=master)](https://travis-ci.com/Lineup-Task-Management/Master)
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.7.
+
+
 
 ## Purpose
 
