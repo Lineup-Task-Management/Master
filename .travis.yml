@@ -3,7 +3,7 @@ sudo: true
 
 language: node_js
 node_js:
-  - "10"
+  - "14.4.0"
 
 addons:
   chrome: stable
@@ -13,10 +13,13 @@ branches:
     - master
 cache:
   directories:
-     - ./node_modules
+    - ./node_modules
 
 install:
   - npm install
+
+before_script:
+  - npm run build || true
 
 script:
   - npm run test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
