@@ -20,5 +20,5 @@ install:
 
 script:
   - ng test --watch false --browsers ChromeHeadless
-  - ng e2e --protractor-config='e2e/protractor.conf.js'
+  - ng e2e
   - ng build
