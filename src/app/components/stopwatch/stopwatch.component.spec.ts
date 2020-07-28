@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { StopwatchComponent } from './stopwatch.component';
+import { of, Observable } from 'rxjs';
 
 describe('StopwatchComponent', () => {
   let component: StopwatchComponent;
@@ -13,13 +13,13 @@ describe('StopwatchComponent', () => {
     .compileComponents();
   }));
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(StopwatchComponent);
-    component = fixture.componentInstance;
+  it('should create the stopwatch component', () => {
+    let fixture = TestBed.createComponent(StopwatchComponent);
+    let component = fixture.componentInstance;
     fixture.detectChanges();
-  });
-
-  it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+
 });
+

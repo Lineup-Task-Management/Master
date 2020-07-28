@@ -33,6 +33,12 @@ export class LoginComponent implements OnInit {
 
 }
 
+  /**
+   * Start with a firebaseUi google provided login.
+   * On log in call back login sucessful.
+   */
+
+
   ngOnInit(): void {
 
 
@@ -66,20 +72,24 @@ export class LoginComponent implements OnInit {
         this.ui.start('#firebaseui-auth-container', uiConfig);
       }
     });
-
-
   }
 
 
-
+  /**
+   * @name onLoginSuccessful
+   * when a user logs in this function will take the uid from the authetication provider and set the local variable to it.
+   * it will check if a user with that Uid exists in the data base, if not then it will create one and make
+   * a first project with a starting task, if there is one then it will change the local uid to the newly logged in account.
+   */
 
   onLoginSuccessful(){
 
     this.isLoggedIn = true;
     this.userId = firebase.auth().currentUser.uid;
+
     this.email = firebase.auth().currentUser.email;
     this.user = firebase.auth().currentUser.displayName;
-
+    const date = new Date();
     this.db.collection('Users').doc(this.userId).snapshotChanges().subscribe(res => {
        if (!res.payload.exists)
        {
@@ -89,11 +99,12 @@ export class LoginComponent implements OnInit {
          }, {merge: true});
 
          this.db.doc('Users/' + this.userId + '/projects/project1').set({
-              id: '1',
+           id: date.getTime().toString(),
                title: 'First Project',
                tasks: Array<any>({
                  title: 'Whats your first task?',
                  description: 'click the add the new task button',
+
                  completed: false,
                  editing: false,
                  priority: 1,
@@ -109,20 +120,8 @@ export class LoginComponent implements OnInit {
 
          console.log(this.fbService.userId);
        }
-
-       }
-       );
-
-
-
-        // this.fbService.getProjects();
-
+       });
       }
-
-
-
-
-
 
 
 

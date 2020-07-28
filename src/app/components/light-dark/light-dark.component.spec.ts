@@ -22,4 +22,12 @@ describe('LightDarkComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should change boolean', () => {
+      expect(component.theme).toBeFalsy();
+      component.themeChange();
+      fixture.detectChanges();
+      expect(component.theme).toBeTruthy();
+
+  });
 });
