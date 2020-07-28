@@ -1,6 +1,8 @@
 
 # Lineup Task Management Application (Task Management Angular)
 [![Build Status](https://travis-ci.com/Lineup-Task-Management/Master.svg?branch=master)](https://travis-ci.com/Lineup-Task-Management/Master)
+[![made-with-StrapDown.js](https://img.shields.io/badge/Made%20with-Angular-1f425f.svg)](https://github.com/Lineup-Task-Management/Master/graphs/contributors/)
+
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.7.
 
