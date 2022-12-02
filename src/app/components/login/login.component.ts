@@ -99,7 +99,7 @@ export class LoginComponent implements OnInit {
                  completed: false,
                  editing: false,
                  priority: 1,
-                 countdownTimer: 10,
+                 countdownTimer: 1000 * 3600,
                })
              }, {merge: true});
 
