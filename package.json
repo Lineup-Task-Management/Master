@@ -29,7 +29,7 @@
     "firebaseui": "^4.5.1",
     "moment": "^2.27.0",
     "ngx-countdown": "^10.0.0",
-    "node-sass": "^4.14.1",
+    "node-sass": "^7.0.0",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",
     "ver": "^6.0.2",
