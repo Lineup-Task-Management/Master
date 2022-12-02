@@ -204,7 +204,7 @@ drop(event: CdkDragDrop<string[]>) {
     const date: Date = new Date();
     dialogRef.afterClosed().subscribe(
       (data) => {
-              const hours = Number(data.countdownTimerHours) * 3600;
+              const hours = data.countdownTimerHours && data.countdownTimeHours > 0 ? Number(data.countdownTimerHours) * 3600 : 1000 * 3600;
               const minutes = Number(data.countdownTimerMinutes) * 60;
               const seconds = Number(data.countdownTimerSeconds);
               if (data.title !== '' && data.description !== '' ) {
@@ -339,8 +339,9 @@ drop(event: CdkDragDrop<string[]>) {
   handleEvent(e: CountdownEvent) {
 
     if (e.action === 'done'){
+      console.log(e.action,'mason action')
       let audio = new Audio();
-      audio.src = "../../assets/audio/bell.wav";
+
       audio.load();
       audio.play();
       this.msg.sendPostRequest();

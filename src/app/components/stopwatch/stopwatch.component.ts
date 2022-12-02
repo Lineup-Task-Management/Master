@@ -10,12 +10,12 @@ constructor() {}
 
 stopwatch: number;
 isOn = false;
-secondsOn = 0;
+secondsOn = 30000;
 showSeconds: string;
-startButton = 'Start';
+startButton = 'Stop';
 
 startStopwatch() {
-  this.isOn =  ! this.isOn;
+  this.isOn = this.isOn;
   if (this.isOn){
     this.startButton = 'Stop';
     setInterval(() => {
@@ -36,6 +36,6 @@ resetStopwatch(){
 
   }
   ngOnDestroy() {
-    clearInterval(this.stopwatch);
+
     }
 }
