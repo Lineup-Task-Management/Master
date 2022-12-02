@@ -1,6 +1,16 @@
 {
-  "functions": {
-    
- 
+  "hosting": {
+    "public": "dist/task-management-angular",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
   }
 }
